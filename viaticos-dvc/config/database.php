@@ -77,7 +77,7 @@ return [
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
-            'host' => env('DB_HOST', 'ALPHARD\LOCALDB'),
+            'host' => env('DB_HOST', 'forge'),
             'database' => env('DB_DATABASE', 'forge'),
         ],
 
