@@ -5,7 +5,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Ver solicitud (aqui se muestra el historico de cada solicitud)
+    Listado de Solicitudes (vista del director)
     <small>Layout with collapsed sidebar on load</small>
   </h1>
   <ol class="breadcrumb">

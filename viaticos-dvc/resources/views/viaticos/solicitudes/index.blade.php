@@ -5,7 +5,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Solicitudes
+    Solicitudes (listado del solicitante)
     <small>Layout with collapsed sidebar on load</small>
   </h1>
   <ol class="breadcrumb">
