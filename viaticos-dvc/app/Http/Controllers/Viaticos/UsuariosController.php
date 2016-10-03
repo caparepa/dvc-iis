@@ -41,7 +41,52 @@ class UsuariosController extends Controller
      */
     public function postCreate(Request $request)
     {
-        
+        dd($request->cedula);
+        /*
+        $this->validate($request, [
+            'email' => 'required|email|max:64|unique:users'
+        ]);
+
+        // avatar
+        $avatar = Usuario::DEFAULT_AVATAR;
+        if( $request->hasFile('photo') && $request->file('photo')->isValid() ) {
+            $file = $request->file('photo');
+            $path = public_path('photos/usuarios');
+            $filename = sha1($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
+            $request->file('photo')->move($path, $filename);
+            $avatar = '/photos/usuarios/' . $filename;
+        }
+        $usuario = Usuario::create([
+            'email'    => $request->input('email'),
+            'nombre'   => $request->input('nombre'),
+            'apellido' => $request->input('apellido'),
+            'cedula' => $request->inpu('cedula')
+            'rol'      => lcfirst($request->input('rol')),
+            'avatar'   => $avatar,
+            'status'   => Usuario::STATUS_PENDING
+        ]);
+
+        if( $usuario ) {
+            // dispatch event envio email
+            $event = new EventUsuarioRegistrado($usuario, EventUsuarioRegistrado::REGISTRO_INVITACION);
+            Event::fire($event);
+
+            if( $usuario->isOperador() ) {
+                $redirectUrl = url('admin/usuarios/concesionarios/'.$usuario->id);
+            } else if( $usuario->isAdmin() ) {
+                $redirectUrl = url('admin/usuarios');
+            } else if( $usuario->isAdminConcesionario()){
+                $redirectUrl = url('admin/usuarios/concesionarios/'.$usuario->id);
+            }
+
+            return redirect( $redirectUrl )
+                ->with('success', 'Invitación enviada.');
+        }
+        else {
+            return back()
+                ->withInput()
+                ->with('error', 'Ha ocurrido un error.');
+        }*/
     }
 
     /**
@@ -53,7 +98,7 @@ class UsuariosController extends Controller
     public function getView($id)
     {
         //
-        return view('viaticos.usuarios.view');
+        return view('viaticos.usuarios.view', ['usuario' => $usuario]);
 
     }
 
@@ -66,7 +111,8 @@ class UsuariosController extends Controller
     public function getEdit($id)
     {
         //
-        return view('viaticos.usuarios.edit');
+        $usuario = User::find($id);
+        return view('viaticos.usuarios.edit', ['usuario' => $usuario]);
 
     }
 
@@ -80,6 +126,8 @@ class UsuariosController extends Controller
     public function postEdit(Request $request, $id)
     {
         //
+        $usuario = User::find($id);
+        dd($request);
     }
 
     /**

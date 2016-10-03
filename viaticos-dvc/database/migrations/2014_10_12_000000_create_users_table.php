@@ -37,6 +37,9 @@ class CreateUsersTable extends Migration
             $table->string('email')
                 ->unique();
             $table->string('password', 60);
+            $table->string('avatar', 255)
+                ->nullable();
+
             $table->string('rol');
             $table->string('status');
             $table->integer('id_area')
