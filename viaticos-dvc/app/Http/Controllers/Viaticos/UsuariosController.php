@@ -41,7 +41,7 @@ class UsuariosController extends Controller
      */
     public function postCreate(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -91,5 +91,13 @@ class UsuariosController extends Controller
     public function getDelete($id)
     {
         //
+        $usuario = User::find($id);
+        $usuario->status = User::STATUS_DELETED;
+        $usuario->update();
+        $usuario->delete();
+
+        //armar el flash de los mensajes
+        return redirect( url('viaticos/usuarios') )
+                ->with('error', 'Usuario eliminado.');
     }
 }
