@@ -1,22 +1,26 @@
 <!-- general form elements -->
 <div class="box box-primary">
 	<div class="box-header with-border">
-		<h3 class="box-title">Quick Exampleaaa</h3>
+		<h3 class="box-title">Solicitud</h3>
 	</div>
 <!-- /.box-header -->
 <!-- form start -->
-	<form id="form-usuario" method="post" role="form">
+    <form id="form-usuario" method="post" role="form">
 		<div class="box-body">
 			
 			<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
 			<div class="form-group">
-				<label for="nombre">Nombre</label>
-				<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Enter email">
+				<label for="nombre">Asunto</label>
+				<input type="text" class="form-control" id="asunto" name="asunto" placeholder="Enter email">
 			</div>
 			<div class="form-group">
-				<label for="apellido">Apellido</label>
-				<input type="text" class="form-control" id="apellido" name="apellido" placeholder="Enter email">
+				<label for="area">Area (esta viene cargada del area del solicitante...)</label>
+				<input type="text" class="form-control" id="area" name="area" placeholder="Enter email">
+			</div>
+			<div class="form-group">
+				<label for="beneficiario">Beneficiario (apra quien o para donde va el viatico)</label>
+				<input type="text" class="form-control" id="beneficiario" name="beneficiario" placeholder="Enter email">
 			</div>
 			<div class="form-group">
 				<label for="cedula">C&eacute;dula</label>
@@ -27,43 +31,28 @@
 				<input type="text" class="form-control" id="rif" name="rif" placeholder="Enter email">
 			</div>
 			<div class="form-group">
-				<label for="telefono_hab">Tel&eacute;fono hab.</label>
-				<input type="text" class="form-control" id="telefono_hab" name="telefono_hab" placeholder="Enter email">
+				<label for="fecha_solicitud">Fecha solicitud para cuando es el viatico (DATEPICKER)</label>
+				<input type="text" class="form-control" id="fecha_solicitud" name="fecha_solicitud" placeholder="Enter email">
 			</div>
 			<div class="form-group">
-				<label for="telefono_cell">Tel&eacute;fono cel.</label>
-				<input type="text" class="form-control" id="telefono_cell" name="telefono_cell" placeholder="Enter email">
+				<label for="descripcion">Descripci&oacute;n</label>
+				<input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Enter email">
 			</div>
 			<div class="form-group">
-				<label for="email">Email address</label>
-				<input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+				<label for="monto">Monto</label>
+				<input type="text" class="form-control" id="monto" name="monto" placeholder="Enter email">
 			</div>
 			<div class="form-group">
-				<label for="password">Password</label>
-				<input type="password" class="form-control" id="password" name="password" placeholder="Password">
-			</div>
-			<div class="form-group">
-				<label>Rol</label>
-				<select class="form-control">
-					<option>option 1</option>
-					<option>option 2</option>
-					<option>option 3</option>
-					<option>option 4</option>
-					<option>option 5</option>
+				<label>Cuenta</label>
+				<select class="form-control" id="cuenta" name="cuenta" >
+					<option value="1">option 1</option>
+					<option value="2">option 2</option>
+					<option value="3">option 3</option>
+					<option value="4">option 4</option>
+					<option value="5">option 5</option>
 				</select>
 			</div>
-			<div class="form-group ">
-				<label for="exampleInputFile">File input</label>
-				<input type="file" id="exampleInputFile">
-
-				<p class="help-block">Example block-level help text here.</p>
-			</div>
-			<div class="checkbox">
-				<label>
-				  <input type="checkbox"> Check me out
-				</label>
-			</div>
-
+			
 		</div>
 		<!-- /.box-body -->
 

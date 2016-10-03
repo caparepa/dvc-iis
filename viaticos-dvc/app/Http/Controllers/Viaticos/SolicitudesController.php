@@ -42,6 +42,7 @@ class SolicitudesController extends Controller
     public function postCreate(Request $request)
     {
         //
+        dd($request);
 
     }
 

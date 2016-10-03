@@ -5,7 +5,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Crear usuario (usar esta pagina de ejemplo!!!)
+    Crear solicitud (usar esta pagina de ejemplo!!!)
     <small>Layout with collapsed sidebar on load</small>
   </h1>
   <ol class="breadcrumb">
