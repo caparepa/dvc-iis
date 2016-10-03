@@ -39,7 +39,8 @@ class CreateUsersTable extends Migration
             $table->string('password', 60);
             $table->string('rol');
             $table->string('status');
-            $table->integer('id_area');
+            $table->integer('id_area')
+                    ->unsigned();
             $table->rememberToken();
             
             $table->timestamps();
@@ -47,7 +48,8 @@ class CreateUsersTable extends Migration
 
             $table->foreign('id_area')
                     ->references('id')
-                    ->on('areas');
+                    ->on('areas')
+                    ->onDelete('cascade');
         });
 
     }
@@ -59,8 +61,8 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('areas');
         Schema::dropIfExists('users');
+        Schema::dropIfExists('areas');
     }
 }
       
