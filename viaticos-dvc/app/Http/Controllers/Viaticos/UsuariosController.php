@@ -9,6 +9,16 @@ use App\Http\Controllers\Controller;
 
 class UsuariosController extends Controller
 {
+
+    /**
+     * [__construct description]
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        view()->share('section', 'usuarios');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +27,11 @@ class UsuariosController extends Controller
     public function getIndex()
     {
         //
-        return view('viaticos.usuarios.index');
+        $usuarios = User::whereIn('status', [User::STATUS_ACTIVE, User::STATUS_INACTIVE])
+                        ->orderBy('rol', 'ASC')
+                        ->get();
+
+        return view('viaticos.usuarios.index', ['usuarios' => $usuarios]);
 
     }
 
