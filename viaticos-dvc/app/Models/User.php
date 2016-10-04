@@ -20,6 +20,7 @@ class User extends Model implements AuthenticatableContract,
 {
     use Authenticatable, Authorizable, CanResetPassword;
 
+    const DEFAULT_AVATAR = 'no-photo.png';
     /**
      * Administrador del sistema (superadmin)
      */

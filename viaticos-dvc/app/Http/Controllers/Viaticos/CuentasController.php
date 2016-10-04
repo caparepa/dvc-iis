@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Viaticos;
 
 use Illuminate\Http\Request;
 
+use App\Models\Cuenta;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -28,7 +30,9 @@ class CuentasController extends Controller
     public function getCreate()
     {
         //
-        return view('viaticos.cuentas.create');
+        $cuenta = new Cuenta();
+
+        return view('viaticos.cuentas.create', ['cuenta' => $cuenta]);
     }
 
     /**
@@ -40,6 +44,22 @@ class CuentasController extends Controller
     public function postCreate(Request $request)
     {
         //
+        dd($request);
+
+        $data = [
+            'nombre' => $request->nombre,
+            'codigo' => $request->codigo
+        ];
+
+        $cuenta = Cuenta::create($data);
+
+        if($cuenta){
+            return redirect( 'viaticos/cuentas' )
+                ->with('success', 'Cuenta creada.');
+        }else{
+            return redirect( 'viaticos/cuentas' )
+                ->with('error', 'Error al crear cuenta.');
+        }
     }
 
     /**
@@ -51,7 +71,9 @@ class CuentasController extends Controller
     public function getView($id)
     {
         //
-        return view('viaticos.cuentas.view');
+        $cuenta = Cuenta::find($id);
+
+        return view('viaticos.cuentas.view', ['cuenta' => $cuenta]);
 
     }
 
@@ -64,7 +86,9 @@ class CuentasController extends Controller
     public function getEdit($id)
     {
         //
-        return view('viaticos.cuentas.edit');
+        $cuenta = Cuenta::find($id);
+
+        return view('viaticos.cuentas.edit', ['cuenta' => $cuenta]);
 
     }
 
@@ -78,6 +102,14 @@ class CuentasController extends Controller
     public function postEdit(Request $request, $id)
     {
         //
+        $cuenta = Cuenta::find($id);
+
+        $cuenta->nombre = $request->nombre;
+        $cuenta->codigo = $request->codigo;
+
+        $cuenta->update();
+
+        //yay!
     }
 
     /**

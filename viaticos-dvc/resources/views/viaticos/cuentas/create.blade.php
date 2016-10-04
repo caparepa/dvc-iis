@@ -5,7 +5,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Crear cuentas (usar esta pagina de ejemplo!!!)
+    Crear cuenta (usar esta pagina de ejemplo!!!)
     <small>Layout with collapsed sidebar on load</small>
   </h1>
   <ol class="breadcrumb">
@@ -17,7 +17,7 @@
 
 <!-- Main content -->
 <section class="content">
-@include('viaticos.cuentas.form', ['action' => 'create'])
+@include('viaticos.cuentas.form', ['action' => 'create', 'mock' => $cuenta])
 </section>
 <!-- /.content -->
 
