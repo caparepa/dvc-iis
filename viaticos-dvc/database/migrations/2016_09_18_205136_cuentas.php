@@ -12,6 +12,8 @@ class Cuentas extends Migration
      */
     public function up()
     {
+        
+
         //
         Schema::create('cuentas', function (Blueprint $table) {
             $table->increments('id');
@@ -21,6 +23,9 @@ class Cuentas extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        
+
     }
 
     /**
@@ -30,6 +35,9 @@ class Cuentas extends Migration
      */
     public function down()
     {
+        
         Schema::dropIfExists('cuentas');
+        
+
     }
 }

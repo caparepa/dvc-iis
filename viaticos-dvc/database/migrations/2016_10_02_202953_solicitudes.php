@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -12,9 +12,12 @@ class Solicitudes extends Migration
      */
     public function up()
     {
-          //
+        
+        
+
         Schema::create('solicitudes', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')
+                    ->unsigned();
             $table->string('asunto');
             $table->string('area');
             $table->string('beneficiario');
@@ -28,8 +31,6 @@ class Solicitudes extends Migration
                     ->nullable();
             $table->integer('id_usuario')
                     ->unsigned();
-            $table->integer('id_area')
-                    ->unsigned();
             $table->integer('id_cuenta')
                     ->unsigned();
             
@@ -39,11 +40,6 @@ class Solicitudes extends Migration
             $table->foreign('id_usuario')
                     ->references('id')
                     ->on('users')
-                    ->onDelete('cascade');
-
-            $table->foreign('id_area')
-                    ->references('id')
-                    ->on('areas')
                     ->onDelete('cascade');
 
             $table->foreign('id_cuenta')
@@ -64,14 +60,15 @@ class Solicitudes extends Migration
 
             $table->foreign('id_solicitud')
                     ->references('id')
-                    ->on('solicitudes')
-                    ->onDelete('cascade');
+                    ->on('solicitudes');
 
             $table->foreign('id_revisor')
                     ->references('id')
-                    ->on('users')
-                    ->onDelete('cascade');
+                    ->on('users');
         });
+
+        
+
 
     }
 
@@ -82,7 +79,13 @@ class Solicitudes extends Migration
      */
     public function down()
     {
+
+        
+
         Schema::dropIfExists('historico_solicitudes');
         Schema::dropIfExists('solicitudes');
+
+        
+
     }
 }

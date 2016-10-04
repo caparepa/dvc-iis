@@ -12,9 +12,11 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+        
 
         Schema::create('areas', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')
+                ->unsigned();
             $table->string('nombre');
             $table->string('descripcion');
             
@@ -23,7 +25,8 @@ class CreateUsersTable extends Migration
         });
 
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')
+                ->unsigned();
             $table->string('nombre');
             $table->string('apellido');
             $table->string('cedula')
@@ -55,6 +58,10 @@ class CreateUsersTable extends Migration
                     ->onDelete('cascade');
         });
 
+
+        
+
+
     }
 
     /**
@@ -64,8 +71,11 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        
         Schema::dropIfExists('users');
         Schema::dropIfExists('areas');
+        
+
     }
 }
       
