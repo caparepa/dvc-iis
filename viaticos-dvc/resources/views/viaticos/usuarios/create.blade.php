@@ -17,7 +17,7 @@
 
 <!-- Main content -->
 <section class="content">
-@include('viaticos.usuarios.form', ['action' => 'create'])
+@include('viaticos.usuarios.form', ['action' => 'create', 'roles' => $roles, 'mock' => $usuario])
 </section>
 <!-- /.content -->
 

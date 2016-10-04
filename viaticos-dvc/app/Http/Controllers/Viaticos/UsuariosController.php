@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Viaticos;
 
 use Illuminate\Http\Request;
 
+use App\Models\User;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -43,7 +45,10 @@ class UsuariosController extends Controller
     public function getCreate()
     {
         //
-        return view('viaticos.usuarios.create');
+        $usuario = new User();
+        $roles = User::getRolesArray();
+
+        return view('viaticos.usuarios.create', ['roles' => $roles, 'usuario' => $usuario]);
 
     }
 

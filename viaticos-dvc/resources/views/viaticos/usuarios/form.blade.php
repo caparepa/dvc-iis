@@ -12,44 +12,42 @@
 
 			<div class="form-group">
 				<label for="nombre">Nombre</label>
-				<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Enter email">
+				<input type="text" class="form-control" id="nombre" name="nombre" value="{{$mock->nombre}}" placeholder="Nombre">
 			</div>
 			<div class="form-group">
 				<label for="apellido">Apellido</label>
-				<input type="text" class="form-control" id="apellido" name="apellido" placeholder="Enter email">
+				<input type="text" class="form-control" id="apellido" name="apellido" value="{{$mock->apellido}}" placeholder="Apellido">
 			</div>
 			<div class="form-group">
 				<label for="cedula">C&eacute;dula</label>
-				<input type="text" class="form-control" id="cedula" name="cedula" placeholder="Enter email">
+				<input type="text" class="form-control" id="cedula" name="cedula" value="{{$mock->cedula}}" placeholder="Cédula">
 			</div>
 			<div class="form-group">
 				<label for="rif">RIF</label>
-				<input type="text" class="form-control" id="rif" name="rif" placeholder="Enter email">
+				<input type="text" class="form-control" id="rif" name="rif" value="{{$mock->rif}}" placeholder="RIF">
 			</div>
 			<div class="form-group">
 				<label for="telefono_hab">Tel&eacute;fono hab.</label>
-				<input type="text" class="form-control" id="telefono_hab" name="telefono_hab" placeholder="Enter email">
+				<input type="text" class="form-control" id="telefono_hab" name="telefono_hab" value="{{$mock->telefono_hab}}" placeholder="Teléfono hab.">
 			</div>
 			<div class="form-group">
 				<label for="telefono_cell">Tel&eacute;fono cel.</label>
-				<input type="text" class="form-control" id="telefono_cell" name="telefono_cell" placeholder="Enter email">
+				<input type="text" class="form-control" id="telefono_cell" name="telefono_cell" value="{{$mock->telefono_cell}}" placeholder="Teléfono cel.">
 			</div>
 			<div class="form-group">
 				<label for="email">Email address</label>
-				<input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+				<input type="email" class="form-control" id="email" name="email" value="{{$mock->email}}" placeholder="Email">
 			</div>
 			<div class="form-group">
 				<label for="password">Password</label>
-				<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+				<input type="password" class="form-control" id="password" name="password" value="{{$mock->password}}" placeholder="Password">
 			</div>
 			<div class="form-group">
 				<label>Rol</label>
 				<select class="form-control">
-					<option>option 1</option>
-					<option>option 2</option>
-					<option>option 3</option>
-					<option>option 4</option>
-					<option>option 5</option>
+					@foreach($roles as $key => $value)
+					<option value="{{$key}}">{{$value}}</option>
+					@endforeach
 				</select>
 			</div>
 			<div class="form-group ">
@@ -58,12 +56,7 @@
 
 				<p class="help-block">Example block-level help text here.</p>
 			</div>
-			<div class="checkbox">
-				<label>
-				  <input type="checkbox"> Check me out
-				</label>
-			</div>
-
+			
 		</div>
 		<!-- /.box-body -->
 

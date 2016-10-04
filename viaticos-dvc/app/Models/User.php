@@ -29,7 +29,7 @@ class User extends Model implements AuthenticatableContract,
      * Roles de usuarios
      */
     const ROL_DIRECCION = 'direccion';
-    const ROL_ADMINISTRACION = 'administracion'
+    const ROL_ADMINISTRACION = 'administracion';
     const ROL_GERENCIA = 'gerente';
     const ROL_CAPTACION = 'captacion';
     const ROL_COMUNICACIONES = 'comunicaciones';
@@ -38,7 +38,7 @@ class User extends Model implements AuthenticatableContract,
     /**
      * Posibles status de usuario
      */
-    const STATUS_ACTIVE = 'active',
+    const STATUS_ACTIVE = 'active';
     const STATUS_INACTIVE = 'inactive';
     const STATUS_BLOCKED = 'blocked';
     const STATUS_SUSPENDED = 'suspended';
@@ -185,5 +185,26 @@ class User extends Model implements AuthenticatableContract,
     public function isPending()
     {
         return $this->status === self::STATUS_PENDING;
+    }
+
+    /**
+     * Funciones miscelaneas
+     */
+    
+    /**
+     * Devuelve un array de roles para los dropdowns de formularios
+     * @return [type] [description]
+     */
+    public static function getRolesArray(){
+        $roles = [
+            self::ROL_DIRECCION => 'Director',
+            self::ROL_ADMINISTRACION => 'Gerente Administración',
+            self::ROL_GERENCIA => 'Gerente',
+            self::ROL_CAPTACION => 'Gerente de Captación',
+            self::ROL_COMUNICACIONES => 'Gerente de Comunicaciones',
+            self::ROL_USUARIO => 'Usuario'
+        ];
+
+        return $roles;
     }
 }
