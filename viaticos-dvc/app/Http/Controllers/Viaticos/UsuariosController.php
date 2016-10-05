@@ -60,14 +60,28 @@ class UsuariosController extends Controller
      */
     public function postCreate(Request $request)
     {
-        dd($request->cedula);
+        $data = [
+            'nombre' => $request->nombre,
+            'apellido' => $request->apellido,
+            'cedula' => $request->cedula,
+            'rif' => $request->rif,
+            'telefono_hab' => $request->telefono_hab,
+            'telefono_cell' => $request->telefono_cell,
+            'email' => $request->email,
+            'password' => $request->password,
+            'rol' => $request->rol,
+            'avatar' => $request->avatar
+        ];
+
+        dd($data);
+
         /*
         $this->validate($request, [
             'email' => 'required|email|max:64|unique:users'
         ]);
 
         // avatar
-        $avatar = Usuario::DEFAULT_AVATAR;
+        $avatar = User::DEFAULT_AVATAR;
         if( $request->hasFile('photo') && $request->file('photo')->isValid() ) {
             $file = $request->file('photo');
             $path = public_path('photos/usuarios');
@@ -75,14 +89,14 @@ class UsuariosController extends Controller
             $request->file('photo')->move($path, $filename);
             $avatar = '/photos/usuarios/' . $filename;
         }
-        $usuario = Usuario::create([
+        $usuario = User::create([
             'email'    => $request->input('email'),
             'nombre'   => $request->input('nombre'),
             'apellido' => $request->input('apellido'),
             'cedula' => $request->inpu('cedula')
             'rol'      => lcfirst($request->input('rol')),
             'avatar'   => $avatar,
-            'status'   => Usuario::STATUS_PENDING
+            'status'   => User::STATUS_PENDING
         ]);
 
         if( $usuario ) {
@@ -166,5 +180,42 @@ class UsuariosController extends Controller
         //armar el flash de los mensajes
         return redirect( url('viaticos/usuarios') )
                 ->with('error', 'Usuario eliminado.');
+    }
+
+    public function getValidateEmail(Request $request)
+    {
+        $available = true;
+        $message = 'valido!';
+        $id = $request->id;
+        $email = $request->email;
+
+        $usuario = User::withTrashed()->where('email', $request->email)->first();
+
+        if($usuario && $usuario->deleted_at == null){
+            $available = false;
+            $message = 'Este correo electrónico está actualmente en uso.';
+        }else if($usuario && $usuario->deleted_at != null){
+            $available = false;
+            $message = 'Este correo electrónico no puede ser utilizado.';
+        }
+
+        //Si hay un valor de id, se esta editando el usuario actual
+        if(isset($id) && !empty($id)){
+
+            //Usuario que se está editando actualmente
+            $usuario_edit = User::find($id);
+
+            //Si el correo introducido es igual al actual, se sobreescribe el valor de $available
+            //Se puede utilizar el correo actual en el usuario que se esta editando
+            if($email == $usuario_edit->email){
+                $available = true;
+                $message = 'Correo de usuario a editar.';
+            }
+        }
+
+        return response()->json([
+            'valid' => $available,
+            'message' => $message
+        ]); 
     }
 }

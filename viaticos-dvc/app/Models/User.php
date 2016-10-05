@@ -19,6 +19,7 @@ class User extends Model implements AuthenticatableContract,
                                     CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword;
+    use SoftDeletes;
 
     const DEFAULT_AVATAR = 'no-photo.png';
     /**

@@ -44,15 +44,15 @@
 			</div>
 			<div class="form-group">
 				<label>Rol</label>
-				<select class="form-control">
+				<select class="form-control" id="rol" name="rol">
 					@foreach($roles as $key => $value)
 					<option value="{{$key}}">{{$value}}</option>
 					@endforeach
 				</select>
 			</div>
 			<div class="form-group ">
-				<label for="exampleInputFile">File input</label>
-				<input type="file" id="exampleInputFile">
+				<label for="avatar">File input</label>
+				<input type="file" id="avatar" name="avatar">
 
 				<p class="help-block">Example block-level help text here.</p>
 			</div>
@@ -66,3 +66,71 @@
 	</form>
 </div>
 <!-- /.box -->
+@section('scripts')
+<script type="text/javascript">
+    $('#form-usuario').bootstrapValidator({
+      fields: {
+        nombre: {
+            validators: {
+                notEmpty: {
+                    message: 'Por favor, introduzca un nombre'
+                }
+            }
+      	},
+      	apellido: {
+            validators: {
+                notEmpty: {
+                    message: 'Por favor, introduzca un apellido'
+                }
+            }
+      	},
+      	cedula: {
+            validators: {
+                regexp: {
+                	regexp: /^([VvEe][-]\d{7,8})$/ ,
+                    message: 'Por favor, introduzca una cédula en formáto válido. E.g. V19204856'
+                }
+            }
+      	},
+      	rif: {
+            validators: {
+                regexp: {
+                	regexp: /^([VvEeJjGg][-]\d{8}[-][0-9])$/ ,
+                    message: 'Por favor, introduzca un rif en formato válido. E.g. J-12345678-9'
+                }
+            }
+      	},
+      	telefono_hab: {
+            validators: {
+                numeric: {
+                    message: 'Por favor, introduzca un valor numérico.'
+                }
+            }
+      	},
+      	telefono_cell: {
+            validators: {
+                numeric: {
+                    message: 'Por favor, introduzca un valor numérico.'
+                }
+            }
+      	},
+        email: {
+            validators: {
+                notEmpty: {
+                    message: 'Por favor, introduzca un código.'
+                },
+                remote: {
+                  url: '/viaticos/usuarios/validate-email/',
+                  data: function(validator) {
+                        return {
+                            id: validator.getFieldElements('id').val()
+                        };
+                    },
+                }
+            }
+        }
+      },
+
+    });
+</script>
+@endsection
