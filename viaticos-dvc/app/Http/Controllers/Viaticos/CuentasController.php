@@ -19,7 +19,8 @@ class CuentasController extends Controller
     public function getIndex()
     {
         //
-        return view('viaticos.cuentas.index');
+        $cuentas = Cuenta::get();
+        return view('viaticos.cuentas.index', ['cuentas' => $cuentas]);
     }
 
     /**
