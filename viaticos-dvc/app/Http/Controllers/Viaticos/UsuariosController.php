@@ -60,25 +60,29 @@ class UsuariosController extends Controller
      */
     public function postCreate(Request $request)
     {
-        $data = [
-            'nombre' => $request->nombre,
-            'apellido' => $request->apellido,
-            'cedula' => $request->cedula,
-            'rif' => $request->rif,
-            'telefono_hab' => $request->telefono_hab,
-            'telefono_cell' => $request->telefono_cell,
-            'email' => $request->email,
-            'password' => $request->password,
-            'rol' => $request->rol,
-            'avatar' => $request->avatar
-        ];
 
-        dd($data);
-
-        /*
         $this->validate($request, [
             'email' => 'required|email|max:64|unique:users'
         ]);
+
+
+        $data = [
+            'nombre' => $request->input('nombre'),
+            'apellido' => $request->input('apellido'),
+            'cedula' => $request->input('cedula'),
+            'rif' => $request->input('rif'),
+            'telefono_hab' => $request->input('telefono_hab'),
+            'telefono_cell' => $request->input('telefono_cell'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+            'rol' => $request->input('rol'),
+            'avatar' => $request->input('avatar')
+        ];        
+
+        if($request->input('password')){
+                $password_hash = \Hash::make($request->input('password'));
+                $data['password'] = $password_hash;
+        }
 
         // avatar
         $avatar = User::DEFAULT_AVATAR;
@@ -89,37 +93,20 @@ class UsuariosController extends Controller
             $request->file('photo')->move($path, $filename);
             $avatar = '/photos/usuarios/' . $filename;
         }
-        $usuario = User::create([
-            'email'    => $request->input('email'),
-            'nombre'   => $request->input('nombre'),
-            'apellido' => $request->input('apellido'),
-            'cedula' => $request->inpu('cedula')
-            'rol'      => lcfirst($request->input('rol')),
-            'avatar'   => $avatar,
-            'status'   => User::STATUS_PENDING
-        ]);
+        
+        $usuario = User::create($data);
+
+        dd($usuario);
 
         if( $usuario ) {
-            // dispatch event envio email
-            $event = new EventUsuarioRegistrado($usuario, EventUsuarioRegistrado::REGISTRO_INVITACION);
-            Event::fire($event);
-
-            if( $usuario->isOperador() ) {
-                $redirectUrl = url('admin/usuarios/concesionarios/'.$usuario->id);
-            } else if( $usuario->isAdmin() ) {
-                $redirectUrl = url('admin/usuarios');
-            } else if( $usuario->isAdminConcesionario()){
-                $redirectUrl = url('admin/usuarios/concesionarios/'.$usuario->id);
-            }
-
-            return redirect( $redirectUrl )
-                ->with('success', 'Invitación enviada.');
+            return redirect( 'viaticos/usuarios' )
+                ->with('success', 'Usuario creado.');
         }
         else {
             return back()
                 ->withInput()
-                ->with('error', 'Ha ocurrido un error.');
-        }*/
+                ->with( 'viaticos/usuarios' );
+        }
     }
 
     /**

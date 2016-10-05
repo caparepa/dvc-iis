@@ -21,7 +21,7 @@ class User extends Model implements AuthenticatableContract,
     use Authenticatable, Authorizable, CanResetPassword;
     use SoftDeletes;
 
-    const DEFAULT_AVATAR = 'no-photo.png';
+    const DEFAULT_AVATAR = '/images/avatar.png';
     /**
      * Administrador del sistema (superadmin)
      */

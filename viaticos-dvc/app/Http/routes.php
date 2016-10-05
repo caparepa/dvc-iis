@@ -75,4 +75,9 @@ Route::group(['namespace' => 'Viaticos', 'prefix' => 'viaticos'], function(){
    */
   Route::controller('solicitudes', 'SolicitudesController');
 
+  /**
+   * Areas
+   */
+  Route::controller('areas', 'AreasController');
+
 });
