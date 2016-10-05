@@ -1,7 +1,7 @@
 <!-- general form elements -->
 <div class="box box-primary">
   <div class="box-header with-border">
-    <h3 class="box-title">Cuenta</h3>
+    <h3 class="box-title">Crear cuenta</h3>
   </div>
 <!-- /.box-header -->
 <!-- form start -->
@@ -19,7 +19,7 @@
         <input type="text" class="form-control" id="codigo" name="codigo" value="{{$mock->codigo}}" placeholder="Código">
       </div>
       
-      <p class="help-block">Example block-level help text here.</p>
+      <!--<p class="help-block">Example block-level help text here.</p>-->
     </div>
       
     </div>
