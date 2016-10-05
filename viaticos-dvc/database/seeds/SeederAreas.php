@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Area;
 use Illuminate\Database\Seeder;
 
 class SeederAreas extends Seeder

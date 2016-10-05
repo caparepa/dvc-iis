@@ -13,8 +13,21 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-
-        // $this->call(UserTableSeeder::class);
+        
+        $this->call(SeederAreas::class);
+        $this->call(SeederCuentas::class);
+        
+        /*if( App::environment('local') ) {
+            $this->call(SeederUsuarios::class);
+            $this->call(SeederCitas::class);
+            $this->call(SeederUsuariosConcesionarios::class);
+            $this->call(SeederCitasTecnologias::class);
+        }
+        
+        if( App::environment('prod') ) {
+            //
+            $this->call(SeederUsuariosProduccion::class);
+        }*/
 
         Model::reguard();
     }

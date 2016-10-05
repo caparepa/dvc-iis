@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Viaticos;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use App\Models\Area;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -47,8 +48,9 @@ class UsuariosController extends Controller
         //
         $usuario = new User();
         $roles = User::getRolesArray();
+        $areas = Area::get();
 
-        return view('viaticos.usuarios.create', ['roles' => $roles, 'usuario' => $usuario]);
+        return view('viaticos.usuarios.create', ['roles' => $roles, 'usuario' => $usuario, 'areas' => $areas]);
 
     }
 
@@ -76,6 +78,7 @@ class UsuariosController extends Controller
             'email' => $request->input('email'),
             'password' => $request->input('password'),
             'rol' => $request->input('rol'),
+            'id_area' => $request->input('area'),
             'avatar' => $request->input('avatar')
         ];        
 

@@ -50,6 +50,14 @@
 					@endforeach
 				</select>
 			</div>
+      <div class="form-group">
+        <label>&Aacute;rea</label>
+        <select class="form-control" id="area" name="area">
+          @foreach($areas as $area)
+          <option value="{{$area->id}}">{{$area->nombre}}</option>
+          @endforeach
+        </select>
+      </div>
 			<div class="form-group ">
 				<label for="avatar">File input</label>
 				<input type="file" id="avatar" name="avatar">
