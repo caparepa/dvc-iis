@@ -45,8 +45,6 @@ class CuentasController extends Controller
     public function postCreate(Request $request)
     {
         //
-        dd($request);
-
         $data = [
             'nombre' => $request->nombre,
             'codigo' => $request->codigo
@@ -108,7 +106,13 @@ class CuentasController extends Controller
         $cuenta->nombre = $request->nombre;
         $cuenta->codigo = $request->codigo;
 
-        $cuenta->update();
+        if($cuenta->update()){
+            return redirect( 'viaticos/cuentas' )
+                ->with('success', 'Cuenta creada.');
+        }else{
+            return redirect( 'viaticos/cuentas' )
+                ->with('error', 'Error al crear cuenta.');
+        }
 
         //yay!
     }
@@ -122,5 +126,38 @@ class CuentasController extends Controller
     public function getDelete($id)
     {
         //
+        $cuenta = Cuenta::find($id);
+
+        if($cuenta->delete($id)){
+            return redirect( 'viaticos/cuentas' )
+                ->with('success', 'Cuenta eliminada.');
+        }else{
+            return redirect( 'viaticos/cuentas' )
+                ->with('error', 'Error al eliminar cuenta.');
+        }
+    }
+
+    public function getValidateCodigo(Request $request)
+    {
+
+        $available = true;
+        $message = 'valido!';
+        $codigo = $request->codigo;
+
+        $cuenta = Cuenta::where('codigo', $codigo)->first();
+
+        if($cuenta){
+            $available = false;
+            $message = 'Este código está actualmente en uso.';
+        }else{
+            $available = true;
+            $message = 'Código disponible.';
+        }
+
+        return response()->json([
+            'valid' => $available,
+            'message' => $message
+        ]);
+        
     }
 }

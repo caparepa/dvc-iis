@@ -31,3 +31,29 @@
   </form>
 </div>
 <!-- /.box -->
+@section('scripts')
+<script type="text/javascript">
+    $('#form-cuenta').bootstrapValidator({
+      fields: {
+        nombre: {
+            validators: {
+                notEmpty: {
+                    message: 'Por favor, introduzca un nombre'
+                }
+            }
+              },
+        codigo: {
+            validators: {
+                notEmpty: {
+                    message: 'Por favor, introduzca un código.'
+                },
+                remote: {
+                  url: '/viaticos/cuentas/validate-codigo/'
+                }
+            }
+        }
+      },
+
+    });
+</script>
+@endsection

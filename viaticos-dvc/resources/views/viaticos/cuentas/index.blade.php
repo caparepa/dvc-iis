@@ -48,7 +48,7 @@
           <tr>
             <td>{{$cuenta->codigo}}</td>
             <td>{{$cuenta->nombre}}</td>
-            <td class="text right">
+            <td>
                     <a href="{{ url('viaticos/cuentas/edit/'.$cuenta->id) }}" class="btn btn-flat btn-sm"
                       title="Editar {{$cuenta->nombre}}">
                       <i class="fa fa-edit"></i>
@@ -56,7 +56,7 @@
                     <a href="{{ url('viaticos/cuentas/delete/'.$cuenta->id) }}"
                       class="btn btn-flat btn-sm"
                       title="Eliminar {{$cuenta->nombre}}"
-                      data-confirm="¿Est&aacute; seguro que desea eliminar esta sala?">
+                      data-confirm="¿Est&aacute; seguro que desea eliminar esta cuenta?">
                       <i class="fa fa-trash-o"></i>
                     </a>
                   </td>
@@ -99,5 +99,6 @@
       "autoWidth": false
     });
   });
+
 </script>
 @endsection

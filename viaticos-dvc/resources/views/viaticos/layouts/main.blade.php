@@ -20,6 +20,8 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="/bower_components/AdminLTE/dist/css/skins/_all-skins.min.css">
 
+  <!-- -->
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -63,9 +65,11 @@
   <script src="/bower_components/AdminLTE/dist/js/demo.js"></script>
   <!-- Data tables -->
   <script src="/bower_components/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
-  
   <script src="/bower_components/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>
-  
+  <!-- Bootstrap Validator -->
+  <script src="/bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
+
+
   @yield('scripts')
   @yield('templates')
 </body>
