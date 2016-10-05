@@ -61,6 +61,11 @@
   <script src="/bower_components/AdminLTE/dist/js/app.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="/bower_components/AdminLTE/dist/js/demo.js"></script>
+  <!-- Data tables -->
+  <script src="/bower_components/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+  
+  <script src="/bower_components/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>
+  
   @yield('scripts')
   @yield('templates')
 </body>
