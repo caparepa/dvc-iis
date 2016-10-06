@@ -63,7 +63,30 @@ class SolicitudesController extends Controller
     public function postCreate(Request $request)
     {
         //
-        dd($request);
+
+        $data = [
+            "asunto" => $request->asunto,
+            "area" => $request->area,
+            "beneficiario" => $request->beneficiario,
+            "cedula" => $request->cedula,
+            "rif" => $request->rif,
+            "fecha_solicitud" => $request->fecha_solicitud,
+            "descripcion" => $request->descripcion,
+            "monto" => $request->monto,
+            "id_cuenta" => $request->id_cuenta,
+            "id_area" => $request->id_area
+        ];
+
+        $solicitud = Solicitud::create($data);
+
+        if( $solicitud ) {
+            return redirect( 'viaticos/solicitudes' )
+                ->with('success', 'Solicitud creada.');
+        }
+        else {
+            return redirect( 'viaticos/solicitudes' )
+                ->with('Error', 'Ha ocurrido un error.');
+        }
 
     }
 

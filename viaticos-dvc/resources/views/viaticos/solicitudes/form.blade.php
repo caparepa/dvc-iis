@@ -5,7 +5,7 @@
 	</div>
 <!-- /.box-header -->
 <!-- form start -->
-    <form id="form-usuario" method="post" role="form">
+    <form id="form-solicitud" method="post" role="form">
 		<div class="box-body">
 			
 			<input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -17,7 +17,7 @@
 				<input type="text" class="form-control" id="asunto" name="asunto" placeholder="Enter email">
 			</div>
 			<div class="form-group">
-				<label for="area">Area (esta viene cargada del area del solicitante...)</label>
+				<label for="area">Area (zona de movilización)</label>
 				<input type="text" class="form-control" id="area" name="area" placeholder="Enter email">
 			</div>
 			<div class="form-group">
@@ -46,7 +46,7 @@
 			</div>
 			<div class="form-group">
 				<label>Cuenta</label>
-				<select class="form-control" id="cuenta" name="cuenta" >
+				<select class="form-control" id="id_cuenta" name="id_cuenta" >
 				@foreach($cuentas as $cuenta)
 					<option value="{{$cuenta->id}}">{{$cuenta->nombre}}</option>
 				@endforeach
@@ -54,7 +54,7 @@
 			</div>
 			<div class="form-group">
 				<label>Area</label>
-				<select class="form-control" id="cuenta" name="cuenta" >
+				<select class="form-control" id="id_area" name="id_area" >
 				@foreach($areas as $area)
 					<option value="{{$area->id}}">{{$area->nombre}}</option>
 				@endforeach
@@ -70,3 +70,84 @@
 	</form>
 </div>
 <!-- /.box -->
+@section('scripts')
+<script type="text/javascript">
+    $('#form-solicitud').bootstrapValidator({
+      fields: {
+        asunto: {
+            validators: {
+                notEmpty: {
+                    message: 'Por favor, introduzca un nombre'
+                }
+            }
+      	},
+      	area: {
+            validators: {
+                notEmpty: {
+                    message: 'Por favor, introduzca un apellido'
+                }
+            }
+      	},
+      	beneficiario: {
+            validators: {
+                notEmpty: {
+                    message: 'Por favor, introduzca un apellido'
+                }
+            }
+      	},
+      	cedula: {
+            validators: {
+                regexp: {
+                	regexp: /^([VvEe][-]\d{7,8})$/ ,
+                    message: 'Por favor, introduzca una cédula en formáto válido. E.g. V19204856'
+                }
+            }
+      	},
+      	rif: {
+            validators: {
+                regexp: {
+                	regexp: /^([VvEeJjGg][-]\d{8}[-][0-9])$/ ,
+                    message: 'Por favor, introduzca un rif en formato válido. E.g. J-12345678-9'
+                }
+            }
+      	},
+      	fecha: {
+            validators: {
+                notEmpty: {
+                    message: 'Por favor, introduzca un apellido'
+                }
+            }
+      	},
+      	descripcion: {
+            validators: {
+                notEmpty: {
+                    message: 'Por favor, introduzca un apellido'
+                }
+            }
+      	},
+      	monto: {
+            validators: {
+                notEmpty: {
+                    message: 'Por favor, introduzca un apellido'
+                }
+            }
+      	},
+      	id_cuenta: {
+            validators: {
+                notEmpty: {
+                    message: 'Por favor, introduzca un apellido'
+                }
+            }
+      	},
+      	id_area: {
+            validators: {
+                notEmpty: {
+                    message: 'Por favor, introduzca un apellido'
+                }
+            }
+      	},
+      },
+
+    });
+</script>
+@endsection

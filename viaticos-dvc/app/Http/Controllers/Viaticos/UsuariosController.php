@@ -99,8 +99,6 @@ class UsuariosController extends Controller
         
         $usuario = User::create($data);
 
-        dd($usuario);
-
         if( $usuario ) {
             return redirect( 'viaticos/usuarios' )
                 ->with('success', 'Usuario creado.');
