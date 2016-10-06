@@ -22,7 +22,7 @@
       <!--<p class="help-block">Example block-level help text here.</p>-->
     </div>
       
-    </div>
+    
     <!-- /.box-body -->
 
     <div class="box-footer">
