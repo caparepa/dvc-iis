@@ -31,7 +31,7 @@ class AreasController extends Controller
     public function getCreate()
     {
         //
-        $cuenta = new Area();
+        $area = new Area();
 
         return view('viaticos.areas.create', ['area' => $area]);
     }
@@ -44,7 +44,20 @@ class AreasController extends Controller
      */
     public function postCreate(Request $request)
     {
-        //
+        $data = [
+            'nombre' => $request->input('nombre'),
+            'descripcion' => $request->input('descripcion')
+        ];
+
+        $area = Area::create($data);
+
+        if($area){
+            return redirect( 'viaticos/areas' )
+                ->with('success', 'Area creada.');
+        }else{
+            return redirect( 'viaticos/areas' )
+                ->with('error', 'Error al crear area.');
+        }
         
     }
 
@@ -83,6 +96,18 @@ class AreasController extends Controller
     public function postEdit(Request $request)
     {
         //
+        $area = Area::find($request->id);
+
+        $area->nombre = $request->nombre;
+        $area->descripcion = $request->descripcion;
+
+        if($area->update()){
+            return redirect( 'viaticos/areas' )
+                ->with('success', 'Area creada.');
+        }else{
+            return redirect( 'viaticos/areas' )
+                ->with('error', 'Error al crear area.');
+        }
     }
 
     /**
@@ -94,5 +119,14 @@ class AreasController extends Controller
     public function getDelete($id)
     {
         //
+        $area = Area::find($id);
+
+        if($area->delete($id)){
+            return redirect( 'viaticos/areas' )
+                ->with('success', 'Area eliminada.');
+        }else{
+            return redirect( 'viaticos/areas' )
+                ->with('error', 'Error al eliminar area.');
+        }
     }
 }

@@ -10,6 +10,8 @@
 			
 			<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
+  			<input type="hidden" name="id" value="{{$mock->id}}">
+			
 			<div class="form-group">
 				<label for="nombre">Asunto</label>
 				<input type="text" class="form-control" id="asunto" name="asunto" placeholder="Enter email">

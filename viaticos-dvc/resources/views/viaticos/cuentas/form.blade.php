@@ -10,6 +10,8 @@
       
       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
+      <input type="hidden" name="id" value="{{$mock->id}}">
+
       <div class="form-group">
         <label for="nombre">Nombre</label>
         <input type="text" class="form-control" id="nombre" name="nombre" value="{{$mock->nombre}}" placeholder="Nombre">
@@ -48,7 +50,12 @@
                     message: 'Por favor, introduzca un código.'
                 },
                 remote: {
-                  url: '/viaticos/cuentas/validate-codigo/'
+                  url: '/viaticos/cuentas/validate-codigo/',
+                  data: function(validator) {
+                        return {
+                            id: validator.getFieldElements('id').val()
+                        };
+                    },
                 }
             }
         }

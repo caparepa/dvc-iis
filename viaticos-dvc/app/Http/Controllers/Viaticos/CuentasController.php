@@ -98,10 +98,10 @@ class CuentasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function postEdit(Request $request, $id)
+    public function postEdit(Request $request)
     {
         //
-        $cuenta = Cuenta::find($id);
+        $cuenta = Cuenta::find($request->id);
 
         $cuenta->nombre = $request->nombre;
         $cuenta->codigo = $request->codigo;
@@ -137,27 +137,38 @@ class CuentasController extends Controller
         }
     }
 
+    /**
+     * [getValidateCodigo description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function getValidateCodigo(Request $request)
     {
-
         $available = true;
         $message = 'valido!';
+        $id = $request->id;
         $codigo = $request->codigo;
 
-        $cuenta = Cuenta::where('codigo', $codigo)->first();
-
-        if($cuenta){
+        $cuenta = Cuenta::where('codigo', $request->codigo)->first();
+        
+        if($cuenta && $cuenta->id != $id){
             $available = false;
-            $message = 'Este código está actualmente en uso.';
-        }else{
-            $available = true;
-            $message = 'Código disponible.';
+            $message = 'Codigo de cuenta ya esta en uso.';
+        }
+
+        if(isset($id) && !empty($id)){
+
+            $cuenta_edit = Cuenta::find($id);
+
+            if($codigo == $cuenta_edit->codigo){
+                $available = true;
+                $message = 'Codigo de cuenta a editar.';
+            }
         }
 
         return response()->json([
             'valid' => $available,
             'message' => $message
-        ]);
-        
+        ]); 
     }
 }

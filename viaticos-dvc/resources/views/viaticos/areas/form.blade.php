@@ -9,7 +9,9 @@
     <div class="box-body">
       
       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-      
+
+      <input type="hidden" name="id" value="{{$mock->id}}">
+            
       <div class="form-group">
         <label for="nombre">Nombre</label>
         <input type="text" class="form-control" id="nombre" name="nombre" value="{{$mock->nombre}}" placeholder="Nombre">
