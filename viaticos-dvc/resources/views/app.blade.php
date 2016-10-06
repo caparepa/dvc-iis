@@ -60,7 +60,13 @@
 	@yield('content')
 
 	<!-- Scripts -->
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<!-- jQuery 2.2.3 -->
+	<script src="/bower_components/AdminLTE/plugins/jQuery/jquery-2.2.3.min.js"></script>
+	<!-- Bootstrap 3.3.6 -->
+	<script src="/bower_components/AdminLTE/bootstrap/js/bootstrap.min.js"></script>
+  	<!-- Bootstrap Validator -->
+  	<script src="/bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
+
+  	@yield('scripts')
 </body>
 </html>

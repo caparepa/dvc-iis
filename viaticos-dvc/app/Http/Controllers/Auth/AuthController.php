@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
 use Validator;
+
+use App\Models\User;
 use App\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -66,7 +69,7 @@ class AuthController extends Controller
 
     public function getRegister()
     {
-        # code...
+        return view('auth.register');
     }
 
     public function postRegister(Request $request)
@@ -100,6 +103,24 @@ class AuthController extends Controller
 
     public function validateEmail(Request $request)
     {
-        # code...
+        $available = true;
+        $message = 'valido!';
+        $id = $request->id;
+        $email = $request->email;
+
+        $usuario = User::where('email', $request->email)->first();
+
+        if($usuario){
+            $available = false;
+            $message = 'Correo electrónico ya en uso.';
+        }else{
+            $available = true;
+            $message = 'Correo electrónico disponible.';
+        }
+
+        return response()->json([
+            'valid' => $available,
+            'message' => $message
+        ]); 
     }
 }

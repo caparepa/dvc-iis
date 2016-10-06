@@ -23,7 +23,7 @@ Route::get('/home', function(){
  * Auth
  */
 
-/*Route::controller('password', 'Auth\PasswordController');
+Route::controller('password', 'Auth\PasswordController');
 
 Route::get('/login', ['as' => 'auth/login', 'uses' => 'Auth\AuthController@getLogin']);
 
@@ -33,6 +33,7 @@ Route::get('/logout', ['as' => 'auth/logout', 'uses' => 'Auth\AuthController@get
 
 Route::get('/register', ['as' => 'auth/register', 'uses' => 'Auth\AuthController@getRegister']);
 
+
 Route::post('/register', 'Auth\AuthController@postRegister');
 
 Route::get('/forgot', ['as' => 'auth/forgot', 'uses' => 'Auth\PasswordController@getForgot']);
@@ -41,7 +42,9 @@ Route::post('/forgot', ['as' => 'auth/forgot', 'uses' => 'Auth\PasswordControlle
 
 Route::get('/reset', ['as' => 'auth/reset/{token}', 'uses' => 'Auth\PasswordController@getReset']);
 
-Route::post('/reset', ['as' => 'auth/reset', 'uses' => 'Auth\PasswordController@postReset']);*/
+Route::post('/reset', ['as' => 'auth/reset', 'uses' => 'Auth\PasswordController@postReset']);
+
+Route::any('/validate-email', ['as' => 'auth/validate-email', 'uses' => 'Auth\AuthController@validateEmail']);
 
 /**
  * Rutas de aplicacion
