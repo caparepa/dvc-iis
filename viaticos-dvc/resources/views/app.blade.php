@@ -28,12 +28,12 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Laravel</a>
+				<a class="navbar-brand" href="#">DVC</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="nav navbar-nav">
-					<li><a href="{{ url('/') }}">Welcome</a></li>
+					<li><a href="{{ url('/') }}">Bienvenido</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
@@ -42,7 +42,7 @@
 							<li><a href="{{ url('/auth/login') }}">Login</a></li>
 						@endif
 						@if(!Request::is('auth/register'))
-							<li><a href="{{ url('/auth/register') }}">Register</a></li>
+							<li><a href="{{ url('/auth/register') }}">Registro</a></li>
 						@endif
 					@else
 						<li class="dropdown">

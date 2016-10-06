@@ -152,11 +152,37 @@
                 notEmpty: {
                     message: 'Por favor, introduzca un email.'
                 },
+                emailAddress: {
+                  	message: 'Introduzca un formato válido de email.'
+                },
                 remote: {
                   url: '/validate-email'
                 }
             }
-        }
+        },
+        password: {
+            validators: {
+                notEmpty: {
+                    message: 'Por favor, introduzca una contraseña.'
+                }
+            },
+            identical: {
+                	field: 'password_confirmation',
+                	message: 'La clave introducida y su confirmación no son idénticas.'
+                }
+        },
+        password_confirmation: {
+            validators: {
+                notEmpty: {
+                    message: 'Por favor, introduzca confirmación de contraseña.'
+                },
+                identical: {
+                	field: 'password',
+                	message: 'La clave introducida y su confirmación no son idénticas.'
+                }
+
+            }
+        },
       },
 
     });
