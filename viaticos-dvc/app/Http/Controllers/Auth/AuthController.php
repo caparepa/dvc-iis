@@ -93,12 +93,63 @@ class AuthController extends Controller
 
     public function postRegister(Request $request)
     {
-        dd($request);
-
         try {
-            
-        } catch (Exception $e) {
-            
+
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'required|max:64',
+                'apellido' => 'required|max:64',
+                'email' => 'required|email|max:64|unique:users',
+                'password' => 'required|confirmed|min:6',
+            ]);
+
+            if($validator->fails()){
+                $messages = $validator->messages();
+                throw new ValidationException($messages);
+            }
+
+            $data = [
+                'nombre' => $request->input('nombre'),
+                'apellido' => $request->input('apellido'),
+                'cedula' => $request->input('cedula'),
+                'rif' => $request->input('rif'),
+                'telefono_hab' => $request->input('telefono_hab'),
+                'telefono_cell' => $request->input('telefono_cell'),
+                'email' => $request->input('email'),
+                'password' => \Hash::make($request->input('password')),
+                'rol' => User::ROL_USUARIO,
+                'avatar' => User::DEFAULT_AVATAR
+            ]; 
+
+            $user = new User();
+
+            dd($data);
+
+            dd($user->create($data));
+
+            if($usuario->save()){
+                return redirect( route('auth/login') )
+                    ->with('message', 'Su cuenta ha sido creada.<br>
+                        Pronto recibirá un mensaje en su correo con instrucciones para su acceso.');
+
+            } else {
+                throw new QueryException('Error al guardar usuario.');
+            }
+
+
+        } catch (ValidationException $e){
+            $errors = $e->errors();
+            \Log::info('ValidationException:');
+            \Log::error($errors->getMessages());
+            return back()
+                ->withInput()
+                ->with('message', 'Ha ocurrido un error de validación de datos.');
+        } catch (QueryException $e) {
+            $exMessage = $e->getMessage();
+            \Log::info('QueryException:');
+            \Log::error($exMessage);
+            return back()
+                ->withInput()
+                ->with('message', 'Ha ocurrido un error. Por favor intente de nuevo.');
         }
 
     }
