@@ -16,9 +16,11 @@ class AreasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getIndex()
     {
         //
+        $areas = Area::get();
+        return view('viaticos.areas.index', ['areas' => $areas]);
     }
 
     /**
@@ -26,9 +28,12 @@ class AreasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getCreate()
     {
         //
+        $cuenta = new Area();
+
+        return view('viaticos.areas.create', ['area' => $area]);
     }
 
     /**
@@ -37,9 +42,10 @@ class AreasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function postCreate(Request $request)
     {
         //
+        
     }
 
     /**
@@ -48,7 +54,7 @@ class AreasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function getView($id)
     {
         //
     }
@@ -59,9 +65,12 @@ class AreasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function getEdit($id)
     {
         //
+        $area = Area::find($id);
+
+        return view('viaticos.areas.create', ['area' => $area]);
     }
 
     /**
@@ -71,7 +80,7 @@ class AreasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function postEdit(Request $request)
     {
         //
     }
@@ -82,7 +91,7 @@ class AreasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function getDelete($id)
     {
         //
     }

@@ -70,6 +70,18 @@
 		</li>
 		<li class="treeview">
 		  <a href="#">
+		    <i class="fa fa-cubes"></i> <span>&Aacute;reas</span>
+		    <span class="pull-right-container">
+		      <i class="fa fa-angle-left pull-right"></i>
+		    </span>
+		  </a>
+		  <ul class="treeview-menu">
+		    <li><a href="/viaticos/areas"><i class="fa fa-circle-o"></i>Listado de &aacute;reas</a></li>
+		    <li><a href="/viaticos/areas/create"><i class="fa fa-circle-o"></i>Crear &aacute;rea</a></li>
+		  </ul>
+		</li>
+		<li class="treeview">
+		  <a href="#">
 		    <i class="fa fa-users"></i> <span>Usuarios</span>
 		    <span class="pull-right-container">
 		      <i class="fa fa-angle-left pull-right"></i>
