@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\Auth;
 
 use Validator;
+use Exception;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Database\QueryException;
+use Illuminate\Contracts\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -67,6 +72,20 @@ class AuthController extends Controller
         ]);
     }
 
+    private function redirectAfterLogin( $message = null )
+    {
+
+        $user = Auth::user();
+
+        if($user->rol != 'guesy'){
+            return redirect()
+                ->intended( route('viaticos/dashboard') );
+        }else{
+            return redirect('/error');
+        }
+
+    }
+
     public function getRegister()
     {
         return view('auth.register');
@@ -74,6 +93,13 @@ class AuthController extends Controller
 
     public function postRegister(Request $request)
     {
+        dd($request);
+
+        try {
+            
+        } catch (Exception $e) {
+            
+        }
 
     }
 
@@ -83,12 +109,13 @@ class AuthController extends Controller
 
     public function postLogin(Request $request)
     {
-        # code...
+        dd($request);
     }
 
     public function getLogout()
     {
-        # code...
+        Auth::logout();
+        return redirect( route('auth/login') );
     }
 
     public function getActivate()
