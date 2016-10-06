@@ -47,11 +47,17 @@
 			<div class="form-group">
 				<label>Cuenta</label>
 				<select class="form-control" id="cuenta" name="cuenta" >
-					<option value="1">option 1</option>
-					<option value="2">option 2</option>
-					<option value="3">option 3</option>
-					<option value="4">option 4</option>
-					<option value="5">option 5</option>
+				@foreach($cuentas as $cuenta)
+					<option value="{{$cuenta->id}}">{{$cuenta->nombre}}</option>
+				@endforeach
+				</select>
+			</div>
+			<div class="form-group">
+				<label>Area</label>
+				<select class="form-control" id="cuenta" name="cuenta" >
+				@foreach($areas as $area)
+					<option value="{{$area->id}}">{{$area->nombre}}</option>
+				@endforeach
 				</select>
 			</div>
 			

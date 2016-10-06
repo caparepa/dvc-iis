@@ -48,4 +48,9 @@ class Area extends Model
     {
         return $this->hasMany('App\Models\User', 'id_area');
     }
+
+    public function solicitudes()
+    {
+        return $this->hasMany('App\Models\Solicitud', 'id_cuenta');
+    }
 }

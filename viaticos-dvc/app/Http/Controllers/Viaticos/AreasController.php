@@ -11,6 +11,16 @@ use App\Http\Controllers\Controller;
 
 class AreasController extends Controller
 {
+
+    /**
+     * [__construct description]
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        view()->share('section', 'areas');
+    }
+
     /**
      * Display a listing of the resource.
      *

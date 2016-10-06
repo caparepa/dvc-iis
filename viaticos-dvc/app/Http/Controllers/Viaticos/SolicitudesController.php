@@ -4,11 +4,25 @@ namespace App\Http\Controllers\Viaticos;
 
 use Illuminate\Http\Request;
 
+use App\Models\Solicitud;
+use App\Models\Cuenta;
+use App\Models\Area;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class SolicitudesController extends Controller
 {
+
+    /**
+     * [__construct description]
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        view()->share('section', 'solicitudes');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +31,9 @@ class SolicitudesController extends Controller
     public function getIndex()
     {
         //
-        return view('viaticos.solicitudes.index');
+        $solicitudes = Solicitud::get();
+
+        return view('viaticos.solicitudes.index', ['solicitudes' => $solicitudes]);
 
     }
 
@@ -29,7 +45,12 @@ class SolicitudesController extends Controller
     public function getCreate()
     {
         //
-        return view('viaticos.solicitudes.create');
+        $solicitud = new Solicitud();
+        $cuentas = Cuenta::get();
+        $areas = Area::get();
+
+        return view('viaticos.solicitudes.create', 
+            ['solicitud' => $solicitud, 'cuentas' => $cuentas, 'areas' => $areas]);
 
     }
 
