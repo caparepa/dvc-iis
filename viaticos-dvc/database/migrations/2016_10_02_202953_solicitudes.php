@@ -33,7 +33,7 @@ class Solicitudes extends Migration
                     ->unsigned();
             $table->integer('id_cuenta')
                     ->unsigned();
-            
+                        
             $table->timestamps();
             $table->softDeletes();
 
@@ -46,6 +46,7 @@ class Solicitudes extends Migration
                     ->references('id')
                     ->on('cuentas')
                     ->onDelete('cascade');
+
         });
 
 

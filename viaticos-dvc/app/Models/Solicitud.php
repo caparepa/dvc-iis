@@ -28,7 +28,6 @@ class Solicitud extends Model
     	'descripcion',
     	'monto',
     	'id_usuario',
-    	'id_area',
     	'id_cuenta'
     ];
 
@@ -44,10 +43,10 @@ class Solicitud extends Model
     				->withPivot('fecha', 'status');
     }
 
-    public function area()
+    /*public function area()
     {
     	return $this->belongsTo('App\Models\Area', 'id_area');
-    }
+    }*/
 
     public function cuenta()
     {

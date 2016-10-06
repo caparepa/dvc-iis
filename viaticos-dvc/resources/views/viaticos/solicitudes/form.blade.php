@@ -52,15 +52,7 @@
 				@endforeach
 				</select>
 			</div>
-			<div class="form-group">
-				<label>Area</label>
-				<select class="form-control" id="id_area" name="id_area" >
-				@foreach($areas as $area)
-					<option value="{{$area->id}}">{{$area->nombre}}</option>
-				@endforeach
-				</select>
-			</div>
-			
+						
 		</div>
 		<!-- /.box-body -->
 

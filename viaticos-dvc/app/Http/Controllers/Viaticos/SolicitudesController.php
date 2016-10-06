@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Models\Solicitud;
 use App\Models\Cuenta;
-use App\Models\Area;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -47,10 +46,9 @@ class SolicitudesController extends Controller
         //
         $solicitud = new Solicitud();
         $cuentas = Cuenta::get();
-        $areas = Area::get();
-
+        
         return view('viaticos.solicitudes.create', 
-            ['solicitud' => $solicitud, 'cuentas' => $cuentas, 'areas' => $areas]);
+            ['solicitud' => $solicitud, 'cuentas' => $cuentas]);
 
     }
 
