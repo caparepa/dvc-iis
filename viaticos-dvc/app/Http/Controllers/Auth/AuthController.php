@@ -125,7 +125,51 @@ class AuthController extends Controller
 
     public function postLogin(Request $request)
     {
-        dd($request);
+        $credentials = [
+            'email' =>  $request->email,
+            'password'  =>  $request->password,
+            'status' => User::STATUS_ACTIVE
+        ];
+
+        $remember = $request->input('remember', false);
+
+        if( Auth::attempt($credentials, $remember) ) {
+            if(in_array(Auth::user()->rol, [User::ROL_ADMIN, User::ROL_USUARIO])){
+                // login success
+                return $this->redirectAfterLogin();
+            }else{
+                $message = 'Este usuario no tiene permisos para acceder al sistema.';
+                Auth::logout();
+                return redirect( route('auth/login'))
+                    ->withInput()
+                    ->with('error', $message);
+            }
+        }
+        else {
+            // login fail
+
+            $message = 'Usuario o contraseña incorrectos.';
+
+            $usuario = User::where('email', $request->input('email'))
+                    ->first();
+
+            if( $usuario ) {
+                switch($usuario->status) {
+                    case User::STATUS_PENDING:
+                    case User::STATUS_BLOCKED:
+                        $message = '¡Su cuenta no se encuentra activa!<br>
+                            Por favor, póngase en contacto con un administrador del sistema.';
+                        break;
+                    case User::STATUS_INACTIVE:
+                        $message = '¡Su cuenta ha sido desactivada!<br>
+                            Por favor, póngase en contacto con un administrador del sistema.';
+                }
+            }
+
+            return redirect( route('auth/login') )
+                ->withInput()
+                ->with('error', $message);
+        }
     }
 
     public function getLogout()
