@@ -9,7 +9,7 @@ use App\Models\Cuenta;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class CuentasController extends Controller
+class CuentasController extends ViaticosController
 {
 
     /**

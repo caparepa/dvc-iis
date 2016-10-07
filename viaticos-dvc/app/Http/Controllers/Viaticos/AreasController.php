@@ -9,7 +9,7 @@ use App\Models\Area;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class AreasController extends Controller
+class AreasController extends ViaticosController
 {
 
     /**

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class PlanCuentasController extends Controller
+class PlanCuentasController extends ViaticosController
 {
     /**
      * Display a listing of the resource.

@@ -10,7 +10,7 @@ use App\Models\Cuenta;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class SolicitudesController extends Controller
+class SolicitudesController extends ViaticosController
 {
 
     /**
