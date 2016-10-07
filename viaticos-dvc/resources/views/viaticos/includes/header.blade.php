@@ -2,9 +2,9 @@
   <!-- Logo -->
   <a href="bower_components/AdminLTE/index2.html" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><b>A</b>LT</span>
+    <span class="logo-mini"><b>DVC</b></span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><b>Admin</b>LTE</span>
+    <span class="logo-lg"><b>Viaticos</b>DVC</span>
   </a>
   <!-- Header Navbar: style can be found in header.less -->
   <nav class="navbar navbar-static-top">
@@ -119,6 +119,7 @@
             <!-- Menu Body -->
             <li class="user-body">
               <div class="row">
+                <!--
                 <div class="col-xs-4 text-center">
                   <a href="#">Followers</a>
                 </div>
@@ -128,6 +129,7 @@
                 <div class="col-xs-4 text-center">
                   <a href="#">Friends</a>
                 </div>
+                -->
               </div>
               <!-- /.row -->
             </li>

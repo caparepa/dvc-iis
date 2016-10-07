@@ -5,13 +5,13 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Editar area (usar esta pagina de ejemplo!!!)
-    <small>Layout with collapsed sidebar on load</small>
+    Editar area
+    <small></small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="#">Layout</a></li>
-    <li class="active">Collapsed Sidebar</li>
+    <li><a href="#">Areas</a></li>
+    <li class="active">Editar area</li>
   </ol>
 </section>
 

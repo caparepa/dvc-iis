@@ -10,8 +10,8 @@
   </h1>
   <ol class="breadcrumb">
     <li><a href="/viaticos/home"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-    <li><a href="/viaticos/areas">areas</a></li>
-    <li class="active">Collapsed Sidebar</li>
+    <li><a href="/viaticos/areas">Areas</a></li>
+    <li class="active">Listado de areas</li>
   </ol>
 </section>
 
@@ -37,8 +37,8 @@
       <table id="example2" class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th>Area</th>
-            <th>desc</th>
+            <th>&Aacute;rea</th>
+            <th>Descripci&oacute;n</th>
             <th>Acciones</th>
             
           </tr>
@@ -65,8 +65,8 @@
         </tbody>
         <tfoot>
           <tr>
-            <th>C&oacute;digo</th>
-            <th>Nombre</th>
+            <th>&Aacute;rea</th>
+            <th>Descripci&oacute;n</th>
             <th>Acciones</th>
             
           </tr>
@@ -76,7 +76,7 @@
     </div>
     <!-- /.box-body -->
     <div class="box-footer">
-      Footer
+    
     </div>
     <!-- /.box-footer-->
   </div>

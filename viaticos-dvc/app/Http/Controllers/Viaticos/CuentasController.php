@@ -95,6 +95,7 @@ class CuentasController extends ViaticosController
     public function getEdit($id)
     {
         //
+        \Log::info($id);
         $cuenta = Cuenta::find($id);
 
         return view('viaticos.cuentas.edit', ['cuenta' => $cuenta]);

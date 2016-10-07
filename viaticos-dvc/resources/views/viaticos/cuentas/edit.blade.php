@@ -5,13 +5,13 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Editar cuenta (usar esta pagina de ejemplo!!!)
-    <small>Layout with collapsed sidebar on load</small>
+    Editar cuenta
+    <small></small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="#">Layout</a></li>
-    <li class="active">Collapsed Sidebar</li>
+    <li><a href="viaticos/home"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="viaticos/cuentas">Cuentas</a></li>
+    <li class="active">Editar cuenta</li>
   </ol>
 </section>
 

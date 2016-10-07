@@ -13,6 +13,5 @@ class ViaticosController extends Controller
         $user = Auth::user();
         view()->share('section', 'dashboard');
         view()->share('sessionUser', $user);
-        \Log::info($user);
     }
 }

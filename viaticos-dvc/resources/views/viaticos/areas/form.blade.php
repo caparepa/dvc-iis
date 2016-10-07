@@ -1,7 +1,11 @@
 <!-- general form elements -->
 <div class="box box-primary">
   <div class="box-header with-border">
+    @if($action == 'create')
     <h3 class="box-title">Crear area</h3>
+    @else
+    <h3 class="box-title">Editar area</h3>
+    @endif
   </div>
 <!-- /.box-header -->
 <!-- form start -->
