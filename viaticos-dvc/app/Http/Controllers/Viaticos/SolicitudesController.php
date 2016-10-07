@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Solicitud;
 use App\Models\Cuenta;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -61,18 +62,19 @@ class SolicitudesController extends ViaticosController
     public function postCreate(Request $request)
     {
         //
+        $usuario = Auth::user();
 
         $data = [
             "asunto" => $request->asunto,
             "area" => $request->area,
             "beneficiario" => $request->beneficiario,
             "cedula" => $request->cedula,
-            "rif" => $request->rif,
+            "rif" => $request->rif == '' ? null : $request->rif,
             "fecha_solicitud" => $request->fecha_solicitud,
             "descripcion" => $request->descripcion,
             "monto" => $request->monto,
             "id_cuenta" => $request->id_cuenta,
-            "id_area" => $request->id_area
+            "id_usuario" => $usuario->id
         ];
 
         $solicitud = Solicitud::create($data);
@@ -97,7 +99,8 @@ class SolicitudesController extends ViaticosController
     public function getView($id)
     {
         //
-        return view('viaticos.solicitudes.view');
+        $solicitud = Solicitud::find($id);
+        return view('viaticos.solicitudes.view', ['solicitud' => $solicitud]);
 
     }
 

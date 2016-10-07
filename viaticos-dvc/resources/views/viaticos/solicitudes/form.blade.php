@@ -33,9 +33,17 @@
 				<input type="text" class="form-control" id="rif" name="rif" placeholder="Enter email">
 			</div>
 			<div class="form-group">
-				<label for="fecha_solicitud">Fecha solicitud para cuando es el viatico (DATEPICKER)</label>
-				<input type="text" class="form-control" id="fecha_solicitud" name="fecha_solicitud" placeholder="Enter email">
-			</div>
+        <label>Fecha</label>
+
+        <div class="input-group date">
+          <div class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+          </div>
+          <input type="text" class="form-control pull-right" id="datepicker" name="fecha_solicitud">
+        </div>
+        <!-- /.input group -->
+      </div>
+      <!-- /.form group -->
 			<div class="form-group">
 				<label for="descripcion">Descripci&oacute;n</label>
 				<input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Enter email">
@@ -140,6 +148,11 @@
       	},
       },
 
+    });
+
+    //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true
     });
 </script>
 @endsection

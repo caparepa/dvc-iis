@@ -46,16 +46,20 @@
         <tbody>
           @foreach($solicitudes as $solicitud)
           <tr>
-            <td>{{$solicitud->id}}</td>
+            <td><a href="{{url('viaticos/solicitudes/view/'.$solicitud->id)}}">{{$solicitud->id}}</a></td>
             <td>{{$solicitud->asunto}}</td>
             <td>
+                    <a href="{{ url('viaticos/solicitudes/view/'.$solicitud->id) }}" class="btn btn-flat btn-sm"
+                      title="Ver solicitud {{$solicitud->id}}">
+                      <i class="fa fa-eye"></i>
+                    </a>
                     <a href="{{ url('viaticos/solicitudes/edit/'.$solicitud->id) }}" class="btn btn-flat btn-sm"
-                      title="Editar {{$solicitud->nombre}}">
+                      title="Editar solicitud {{$solicitud->id}}">
                       <i class="fa fa-edit"></i>
                     </a>
                     <a href="{{ url('viaticos/solicitudes/delete/'.$solicitud->id) }}"
                       class="btn btn-flat btn-sm"
-                      title="Eliminar {{$solicitud->nombre}}"
+                      title="Eliminar solicitud {{$solicitud->id}}"
                       data-confirm="¿Est&aacute; seguro que desea eliminar esta solicitud?">
                       <i class="fa fa-trash-o"></i>
                     </a>
