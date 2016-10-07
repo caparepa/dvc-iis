@@ -81,6 +81,12 @@ class User extends Model implements AuthenticatableContract,
     protected $hidden = ['password', 'remember_token'];
 
     /**
+     * [$appends description]
+     * @var [type]
+     */
+    protected $appends = ['fullName', 'avatarUrl', 'rolName'];
+
+    /**
      * [$dates description]
      * @var [type]
      */
@@ -209,4 +215,41 @@ class User extends Model implements AuthenticatableContract,
 
         return $roles;
     }
+
+    /**
+     * [getFullNameAttribute description]
+     * @return [type] [description]
+     */
+    public function getFullNameAttribute()
+    {
+        return trim($this->nombre . ' ' . $this->apellido);
+    }
+
+    /**
+     * Atributo nombre de rol.
+     * @return string
+     */
+    public function getRolNameAttribute()
+    {
+        switch($this->rol) {
+            case User::ROL_ADMIN:
+                return 'Administrador';
+            case User::ROL_USUARIO:
+                return 'Usuario regular';
+            case User::ROL_DIRECCION:
+                return 'Director';
+        }
+
+        return 'Invitado';
+    }
+
+    /**
+     * avatar full url.
+     * @return string
+     */
+    public function getAvatarUrlAttribute()
+    {
+        return url($this->avatar);
+    }
+
 }
