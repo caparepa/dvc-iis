@@ -6,10 +6,10 @@
 	  <!-- Sidebar user panel -->
 	  <div class="user-panel">
 	    <div class="pull-left image">
-	      <img src="{{ url('images/avatar.png') }}" class="img-circle" alt="User Image">
+	      <img src="{{ $sessionUser->avatarUrl }}" class="img-circle" alt="User Image">
 	    </div>
 	    <div class="pull-left info">
-	      <p>Alexander Pierce</p>
+	      <p>{{$sessionUser->fullName}}</p>
 	      <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 	    </div>
 	  </div>

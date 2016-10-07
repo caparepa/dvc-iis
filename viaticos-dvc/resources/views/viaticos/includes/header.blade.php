@@ -103,17 +103,17 @@
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="{{ url('images/avatar.png') }}" class="user-image" alt="User Image">
-            <span class="hidden-xs">Alexander Pierce</span>
+            <img src="{{ $sessionUser->avatarUrl }}" class="user-image" alt="User Image">
+            <span class="hidden-xs">{{$sessionUser->fullName}}</span>
           </a>
           <ul class="dropdown-menu">
             <!-- User image -->
             <li class="user-header">
-              <img src="{{ url('images/avatar.png') }}" class="img-circle" alt="User Image">
+              <img src="{{ $sessionUser->avatarUrl }}" class="img-circle" alt="User Image">
 
               <p>
-                Alexander Pierce - Web Developer
-                <small>Member since Nov. 2012</small>
+                {{ $sessionUser->fullName }}
+                <small>Member since.</small>
               </p>
             </li>
             <!-- Menu Body -->
@@ -137,7 +137,7 @@
                 <a href="#" class="btn btn-default btn-flat">Profile</a>
               </div>
               <div class="pull-right">
-                <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
               </div>
             </li>
           </ul>
