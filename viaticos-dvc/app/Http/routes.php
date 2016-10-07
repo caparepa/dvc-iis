@@ -33,7 +33,6 @@ Route::get('/logout', ['as' => 'auth/logout', 'uses' => 'Auth\AuthController@get
 
 Route::get('/register', ['as' => 'auth/register', 'uses' => 'Auth\AuthController@getRegister']);
 
-
 Route::post('/register', 'Auth\AuthController@postRegister');
 
 Route::get('/forgot', ['as' => 'auth/forgot', 'uses' => 'Auth\PasswordController@getForgot']);
@@ -52,7 +51,7 @@ Route::any('/validate-email', ['as' => 'auth/validate-email', 'uses' => 'Auth\Au
  * NOTA: se debe manejar roles de usuarios para el ACL en el enrutador
  */
 
-Route::group(['namespace' => 'Viaticos', 'prefix' => 'viaticos'], function(){
+Route::group(['namespace' => 'Viaticos', 'prefix' => 'viaticos', 'middleware' => ['auth']], function(){
 
   /**
    * Rutas generales

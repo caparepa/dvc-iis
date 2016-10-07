@@ -39,37 +39,7 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'getLogout']);
-        //$this->redirectPath = route('viaticos/dashboard');
-    }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:usuarios',
-            'password' => 'required|confirmed|min:6',
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        $this->redirectPath = route('viaticos/dashboard');
     }
 
     private function redirectAfterLogin( $message = null )
@@ -77,7 +47,7 @@ class AuthController extends Controller
 
         $user = Auth::user();
 
-        if($user->rol != 'guesy'){
+        if($user->rol != 'guest'){
             return redirect()
                 ->intended( route('viaticos/dashboard') );
         }else{
@@ -95,7 +65,7 @@ class AuthController extends Controller
     {
         try {
 
-            $validator = Validator::make($request->all(), [
+            /*$validator = Validator::make($request->all(), [
                 'nombre' => 'required|max:64',
                 'apellido' => 'required|max:64',
                 'email' => 'required|email|max:64|unique:users',
@@ -105,26 +75,20 @@ class AuthController extends Controller
             if($validator->fails()){
                 $messages = $validator->messages();
                 throw new ValidationException($messages);
-            }
+            }*/
 
-            $data = [
-                'nombre' => $request->input('nombre'),
-                'apellido' => $request->input('apellido'),
-                'cedula' => $request->input('cedula'),
-                'rif' => $request->input('rif'),
-                'telefono_hab' => $request->input('telefono_hab'),
-                'telefono_cell' => $request->input('telefono_cell'),
-                'email' => $request->input('email'),
-                'password' => \Hash::make($request->input('password')),
-                'rol' => User::ROL_USUARIO,
-                'avatar' => User::DEFAULT_AVATAR
-            ]; 
-
-            $user = new User();
-
-            dd($data);
-
-            dd($user->create($data));
+            $usuario = new User;
+            $usuario->nombre = $request->nombre;
+            $usuario->apellido = $request->apellido;
+            $usuario->cedula = $request->cedula;
+            $usuario->rif = $request->rif;
+            $usuario->telefono_hab = $request->telefono_hab;
+            $usuario->telefono_cell = $request->telefono_cell;
+            $usuario->email = $request->email;
+            $usuario->password = \Hash::make($request->password);
+            $usuario->rol = User::ROL_USUARIO;
+            $usuario->avatar = User::DEFAULT_AVATAR;
+            $usuario->status = User::STATUS_PENDING;
 
             if($usuario->save()){
                 return redirect( route('auth/login') )
@@ -132,6 +96,7 @@ class AuthController extends Controller
                         Pronto recibirá un mensaje en su correo con instrucciones para su acceso.');
 
             } else {
+                dd('0a');
                 throw new QueryException('Error al guardar usuario.');
             }
 

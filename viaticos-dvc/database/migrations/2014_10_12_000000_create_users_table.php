@@ -46,7 +46,8 @@ class CreateUsersTable extends Migration
             $table->string('rol');
             $table->string('status');
             $table->integer('id_area')
-                    ->unsigned();
+                    ->unsigned()
+                    ->nullable();
             $table->rememberToken();
             
             $table->timestamps();
