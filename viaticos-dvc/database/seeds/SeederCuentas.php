@@ -53,7 +53,7 @@ class SeederCuentas extends Seeder
     public function run()
     {
         foreach($this->records as $record) {
-			$cita = Cuenta::create($record);
+			$cuenta = Cuenta::create($record);
 		}
     }
 }

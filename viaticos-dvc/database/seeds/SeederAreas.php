@@ -28,7 +28,7 @@ class SeederAreas extends Seeder
     {
 
 		foreach($this->records as $record) {
-			$cita = Area::create($record);
+			$area = Area::create($record);
 		}
 
     }
