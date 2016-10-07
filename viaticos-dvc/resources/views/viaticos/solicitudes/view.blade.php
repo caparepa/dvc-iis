@@ -9,8 +9,8 @@
     <small></small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="viaticos/home"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="viaticos/solicitudes">Solicitudes</a></li>
+    <li><a href="{{url('viaticos/home')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{url('viaticos/solicitudes')}}">Solicitudes</a></li>
     <li class="active">Ver solicitud</li>
   </ol>
 </section>
