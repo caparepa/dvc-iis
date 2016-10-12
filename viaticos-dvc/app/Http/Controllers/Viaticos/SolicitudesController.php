@@ -141,8 +141,19 @@ class SolicitudesController extends ViaticosController
     }
 
 
-    public function getListadoRazonSocial(){
-        $listado = RazonSocial::getListadoRazonSocial();
-        return $listado;
+    public function getListadoRazonSocial(Request $request){
+        
+        $query = $request->term;
+        $listado = RazonSocial::getListadoRazonSocialByString($query);
+
+        $result = [];
+        
+        foreach ($listado as $razon) {
+            $result[] = $razon->nombre; 
+        }
+        
+        return response()->json([
+            'listado' => $listado
+        ]);
     }
 }

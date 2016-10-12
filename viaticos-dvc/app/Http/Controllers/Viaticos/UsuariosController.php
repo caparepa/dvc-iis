@@ -47,7 +47,7 @@ class UsuariosController extends ViaticosController
     public function getCreate()
     {
         //
-        $usuario = new User();
+        $usuario = new Usuario();
         $roles = Usuario::getRolesArray();
         $areas = Area::get();
 
@@ -65,7 +65,7 @@ class UsuariosController extends ViaticosController
     {
 
         $this->validate($request, [
-            'email' => 'required|email|max:64|unique:users'
+            'email' => 'required|email|max:64|unique:usuarios'
         ]);
 
 
@@ -128,7 +128,7 @@ class UsuariosController extends ViaticosController
 
     public function getProfile()
     {
-        $usuario = Auth::user();
+        $usuario = Auth::Usuario();
         $id = $usuario->id;
 
         return redirect(url('viaticos/usuarios/edit/'.$id));

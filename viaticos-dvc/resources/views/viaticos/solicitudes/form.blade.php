@@ -21,8 +21,8 @@
 				<input type="text" class="form-control" id="area" name="area" placeholder="Enter email">
 			</div>
 			<div class="form-group">
-				<label for="beneficiario">Beneficiario (apra quien o para donde va el viatico)</label>
-				<input type="text" class="form-control" id="beneficiario" name="beneficiario" placeholder="Enter email">
+				<label for="beneficiario">Beneficiario / Raz&oacute;n social</label>
+				<input type="text" class="form-control autocomplete" id="beneficiario" name="beneficiario" placeholder="Enter email">
 			</div>
 			<div class="form-group">
 				<label for="cedula">C&eacute;dula</label>
@@ -153,6 +153,66 @@
     //Date picker
     $('#datepicker').datepicker({
       autoclose: true
+    });
+
+    $(function() {
+
+      var availableTags = [
+        "ActionScript", "AppleScript", "Asp", "BASIC", "C", "C++",
+        "Clojure", "COBOL", "ColdFusion", "Erlang", "Fortran",
+        "Groovy", "Haskell", "Java", "JavaScript", "Lisp", "Perl",
+        "PHP", "Python", "Ruby", "Scala", "Scheme"
+      ];
+
+      /*$(".autocomplete").autocomplete({
+        source: '/viaticos/solicitudes/listado-razon-social',
+        dataType: 'json',
+        success: function(data){
+          console.log(data.listado);
+        }
+      });*/
+
+      $(".autocomplete").autocomplete({
+        source: function(request, response){
+          $.ajax({
+            url: '/viaticos/solicitudes/listado-razon-social',
+            data: {term: request.term},
+            dataType: 'JSON',
+            success: function(data){
+              var listado = data.listado;
+              var transformed = $.map(listado, function(el){
+                return {beneficiario:el.nombre}
+              });
+              console.log(transformed);
+              response(transformed);
+            },
+            error: function(error){
+              console.log(error)
+            }
+          });
+        },
+        minLenght: 2
+      });
+      
+      /*$(".autocomplete").autocomplete({
+        source: function(request, response){
+            $.ajax({
+              url: '/viaticos/solicitudes/listado-razon-social',
+              data: { query: request.term },
+              dataType: 'JSON',
+              success: function (data) {
+                var listado = data.listado;
+                var transformed = $.map(listado, function(el){
+                  return { nombre : el.nombre }
+                });
+                return transformed;
+              },
+              error: function (error) {
+                  console.error(error);
+              }
+          });
+        }
+      });*/
     });
 </script>
 @endsection
