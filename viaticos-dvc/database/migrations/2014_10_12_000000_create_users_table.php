@@ -44,7 +44,8 @@ class CreateUsersTable extends Migration
                 ->nullable();
 
             $table->string('rol');
-            $table->string('status');
+            $table->string('status')
+                ->nullable();
             $table->integer('id_area')
                     ->unsigned()
                     ->nullable();

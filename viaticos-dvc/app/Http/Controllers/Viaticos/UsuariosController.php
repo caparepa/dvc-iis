@@ -79,7 +79,8 @@ class UsuariosController extends ViaticosController
             'password' => $request->input('password'),
             'rol' => $request->input('rol'),
             'id_area' => $request->input('area'),
-            'avatar' => $request->input('avatar')
+            'avatar' => $request->input('avatar'),
+            'status' => User::STATUS_PENDING
         ];        
 
         if($request->input('password')){
