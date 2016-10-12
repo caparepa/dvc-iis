@@ -1,13 +1,14 @@
 <!-- general form elements -->
 <div class="box box-primary">
 	<div class="box-header with-border">
-		<h3 class="box-title">Quick Exampleaaa</h3>
+		<h3 class="box-title">Formulario usuario</h3>
 	</div>
 <!-- /.box-header -->
 <!-- form start -->
 	<form id="form-usuario" method="post" role="form">
 		<div class="box-body">
-			
+
+      
 			<input type="hidden" name="_token" value="{{ csrf_token() }}" />
   
       <input type="hidden" name="id" value="{{$mock->id}}">

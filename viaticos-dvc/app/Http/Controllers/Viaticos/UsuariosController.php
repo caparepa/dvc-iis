@@ -80,7 +80,7 @@ class UsuariosController extends ViaticosController
             'rol' => $request->input('rol'),
             'id_area' => $request->input('area'),
             'avatar' => $request->input('avatar'),
-            'status' => User::STATUS_PENDING
+            'status' => User::STATUS_ACTIVE
         ];        
 
         if($request->input('password')){
@@ -97,7 +97,7 @@ class UsuariosController extends ViaticosController
             $request->file('photo')->move($path, $filename);
             $avatar = '/photos/usuarios/' . $filename;
         }
-        
+        $data['avatar'] = $avatar;
         $usuario = User::create($data);
 
         if( $usuario ) {
@@ -120,6 +120,7 @@ class UsuariosController extends ViaticosController
     public function getView($id)
     {
         //
+        $usuario = User::find($id);
         return view('viaticos.usuarios.view', ['usuario' => $usuario]);
 
     }
@@ -134,7 +135,10 @@ class UsuariosController extends ViaticosController
     {
         //
         $usuario = User::find($id);
-        return view('viaticos.usuarios.edit', ['usuario' => $usuario]);
+        $roles = User::getRolesArray();
+        $areas = Area::get();
+
+        return view('viaticos.usuarios.edit', ['usuario' => $usuario, 'roles' => $roles, 'areas' => $areas]);
 
     }
 
