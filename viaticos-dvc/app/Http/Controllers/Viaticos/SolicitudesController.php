@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Solicitud;
 use App\Models\Cuenta;
+use App\Models\RazonSocial;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
@@ -44,7 +45,6 @@ class SolicitudesController extends ViaticosController
      */
     public function getCreate()
     {
-        //
         $solicitud = new Solicitud();
         $cuentas = Cuenta::get();
         
@@ -138,5 +138,11 @@ class SolicitudesController extends ViaticosController
     public function getDelete($id)
     {
         //
+    }
+
+
+    public function getListadoRazonSocial(){
+        $listado = RazonSocial::getListadoRazonSocial();
+        return $listado;
     }
 }
