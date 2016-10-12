@@ -86,9 +86,9 @@ class AuthController extends Controller
             $usuario->telefono_cell = $request->telefono_cell;
             $usuario->email = $request->email;
             $usuario->password = \Hash::make($request->password);
-            $usuario->rol = User::ROL_USUARIO;
-            $usuario->avatar = User::DEFAULT_AVATAR;
-            $usuario->status = User::STATUS_PENDING;
+            $usuario->rol = Usuario::ROL_USUARIO;
+            $usuario->avatar = Usuario::DEFAULT_AVATAR;
+            $usuario->status = Usuario::STATUS_PENDING;
 
             if($usuario->save()){
                 return redirect( route('auth/login') )
@@ -128,13 +128,13 @@ class AuthController extends Controller
         $credentials = [
             'email' =>  $request->email,
             'password'  =>  $request->password,
-            'status' => User::STATUS_ACTIVE
+            'status' => Usuario::STATUS_ACTIVE
         ];
 
         $remember = $request->input('remember', false);
 
         if( Auth::attempt($credentials, $remember) ) {
-            if(in_array(Auth::user()->rol, [User::ROL_ADMIN, User::ROL_USUARIO])){
+            if(in_array(Auth::user()->rol, [Usuario::ROL_ADMIN, Usuario::ROL_USUARIO])){
                 // login success
                 return $this->redirectAfterLogin();
             }else{
@@ -150,17 +150,17 @@ class AuthController extends Controller
 
             $message = 'Usuario o contraseña incorrectos.';
 
-            $usuario = User::where('email', $request->input('email'))
+            $usuario = Usuario::where('email', $request->input('email'))
                     ->first();
 
             if( $usuario ) {
                 switch($usuario->status) {
-                    case User::STATUS_PENDING:
-                    case User::STATUS_BLOCKED:
+                    case Usuario::STATUS_PENDING:
+                    case Usuario::STATUS_BLOCKED:
                         $message = '¡Su cuenta no se encuentra activa!<br>
                             Por favor, póngase en contacto con un administrador del sistema.';
                         break;
-                    case User::STATUS_INACTIVE:
+                    case Usuario::STATUS_INACTIVE:
                         $message = '¡Su cuenta ha sido desactivada!<br>
                             Por favor, póngase en contacto con un administrador del sistema.';
                 }
@@ -195,7 +195,7 @@ class AuthController extends Controller
         $id = $request->id;
         $email = $request->email;
 
-        $usuario = User::where('email', $request->email)->first();
+        $usuario = Usuario::where('email', $request->email)->first();
 
         if($usuario){
             $available = false;

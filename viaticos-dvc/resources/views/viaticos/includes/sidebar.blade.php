@@ -79,7 +79,7 @@
 		  <ul class="treeview-menu">
 		    <li><a href="/viaticos/usuarios"><i class="fa fa-circle-o"></i>Listado de usuarios</a></li>
 		    <li><a href="/viaticos/usuarios/create"><i class="fa fa-circle-o"></i>Crear Usuario</a></li>
-		    <li><a href="/viativos/usuarios/profile"><i class="fa fa-circle-o"></i>Perfil de usuario</a></li>
+		    <li><a href="/viaticos/usuarios/profile"><i class="fa fa-circle-o"></i>Perfil de usuario</a></li>
 		  </ul>
 		</li>
     	<!-- -->

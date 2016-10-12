@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('usuarios', function (Blueprint $table) {
             $table->increments('id')
                 ->unsigned();
             $table->string('nombre');
@@ -74,7 +74,7 @@ class CreateUsersTable extends Migration
     public function down()
     {
         
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('usuarios');
         Schema::dropIfExists('areas');
         
 

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Viaticos;
 
-use Illuminate\Http\Request;
-
-use App\Models\User;
+use App\Models\Usuario;
 use App\Models\Area;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsuariosController extends ViaticosController
 {
@@ -30,7 +31,7 @@ class UsuariosController extends ViaticosController
     public function getIndex()
     {
         //
-        $usuarios = User::whereIn('status', [User::STATUS_ACTIVE, User::STATUS_INACTIVE])
+        $usuarios = Usuario::whereIn('status', [Usuario::STATUS_ACTIVE, Usuario::STATUS_INACTIVE])
                         ->orderBy('rol', 'ASC')
                         ->get();
 
@@ -47,7 +48,7 @@ class UsuariosController extends ViaticosController
     {
         //
         $usuario = new User();
-        $roles = User::getRolesArray();
+        $roles = Usuario::getRolesArray();
         $areas = Area::get();
 
         return view('viaticos.usuarios.create', ['roles' => $roles, 'usuario' => $usuario, 'areas' => $areas]);
@@ -80,7 +81,7 @@ class UsuariosController extends ViaticosController
             'rol' => $request->input('rol'),
             'id_area' => $request->input('area'),
             'avatar' => $request->input('avatar'),
-            'status' => User::STATUS_ACTIVE
+            'status' => Usuario::STATUS_ACTIVE
         ];        
 
         if($request->input('password')){
@@ -89,7 +90,7 @@ class UsuariosController extends ViaticosController
         }
 
         // avatar
-        $avatar = User::DEFAULT_AVATAR;
+        $avatar = Usuario::DEFAULT_AVATAR;
         if( $request->hasFile('photo') && $request->file('photo')->isValid() ) {
             $file = $request->file('photo');
             $path = public_path('photos/usuarios');
@@ -98,7 +99,7 @@ class UsuariosController extends ViaticosController
             $avatar = '/photos/usuarios/' . $filename;
         }
         $data['avatar'] = $avatar;
-        $usuario = User::create($data);
+        $usuario = Usuario::create($data);
 
         if( $usuario ) {
             return redirect( 'viaticos/usuarios' )
@@ -120,9 +121,17 @@ class UsuariosController extends ViaticosController
     public function getView($id)
     {
         //
-        $usuario = User::find($id);
+        $usuario = Usuario::find($id);
         return view('viaticos.usuarios.view', ['usuario' => $usuario]);
 
+    }
+
+    public function getProfile()
+    {
+        $usuario = Auth::user();
+        $id = $usuario->id;
+
+        return redirect(url('viaticos/usuarios/edit/'.$id));
     }
 
     /**
@@ -134,8 +143,8 @@ class UsuariosController extends ViaticosController
     public function getEdit($id)
     {
         //
-        $usuario = User::find($id);
-        $roles = User::getRolesArray();
+        $usuario = Usuario::find($id);
+        $roles = Usuario::getRolesArray();
         $areas = Area::get();
 
         return view('viaticos.usuarios.edit', ['usuario' => $usuario, 'roles' => $roles, 'areas' => $areas]);
@@ -152,7 +161,7 @@ class UsuariosController extends ViaticosController
     public function postEdit(Request $request, $id)
     {
         //
-        $usuario = User::find($id);
+        $usuario = Usuario::find($id);
         dd($request);
     }
 
@@ -165,8 +174,8 @@ class UsuariosController extends ViaticosController
     public function getDelete($id)
     {
         //
-        $usuario = User::find($id);
-        $usuario->status = User::STATUS_DELETED;
+        $usuario = Usuario::find($id);
+        $usuario->status = Usuario::STATUS_DELETED;
         $usuario->update();
         $usuario->delete();
 
@@ -182,7 +191,7 @@ class UsuariosController extends ViaticosController
         $id = $request->id;
         $email = $request->email;
 
-        $usuario = User::withTrashed()->where('email', $request->email)->first();
+        $usuario = Usuario::withTrashed()->where('email', $request->email)->first();
 
         if($usuario && $usuario->deleted_at == null){
             $available = false;
@@ -196,7 +205,7 @@ class UsuariosController extends ViaticosController
         if(isset($id) && !empty($id)){
 
             //Usuario que se está editando actualmente
-            $usuario_edit = User::find($id);
+            $usuario_edit = Usuario::find($id);
 
             //Si el correo introducido es igual al actual, se sobreescribe el valor de $available
             //Se puede utilizar el correo actual en el usuario que se esta editando

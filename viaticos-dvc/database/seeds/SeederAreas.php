@@ -8,14 +8,15 @@ class SeederAreas extends Seeder
 
 	protected $records = [
 
-		[ 'nombre' => 'Dirección', 'descripcion' => 'Area'],
-		[ 'nombre' => 'Gerencia', 'descripcion' => 'Area'],
-		[ 'nombre' => 'Administración', 'descripcion' => 'Area'],
-		[ 'nombre' => 'IT', 'descripcion' => 'Area'],
-		[ 'nombre' => 'Captación', 'descripcion' => 'Area'],
+		[ 'nombre' => 'Dirección Ejecutiva', 'descripcion' => 'Dirección ejecutiva'],
+		[ 'nombre' => 'Gerencia', 'descripcion' => 'Gerencia'],
+		[ 'nombre' => 'Administración', 'descripcion' => 'Área de Administración'],
+		[ 'nombre' => 'IT', 'descripcion' => 'Área de Tecnologías de Información'],
+		[ 'nombre' => 'Captación', 'descripcion' => 'Área de Captación'],
 		[ 'nombre' => 'RRHH', 'descripcion' => 'Area'],
-		[ 'nombre' => 'Comunicaciones', 'descripcion' => 'Area'],
-		[ 'nombre' => 'Todas', 'descripcion' => 'Area'],
+		[ 'nombre' => 'Comunicaciones', 'descripcion' => 'Área de Comunicaciones'],
+		[ 'nombre' => 'Voluntariado', 'descripcion' => 'Área de Voluntariado'],
+		[ 'nombre' => 'Todas', 'descripcion' => 'Todas las áreas'],
 		
 	];
 

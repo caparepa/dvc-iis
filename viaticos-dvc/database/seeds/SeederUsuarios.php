@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\User;
+use App\Models\Usuario;
 
 class SeederUsuarios extends Seeder
 {
@@ -19,9 +19,9 @@ class SeederUsuarios extends Seeder
 				'rif' => null,
 				'email' => 'admin@dvc.com',
 				'password' => bcrypt('qwerty'),
-				'avatar' => User::DEFAULT_AVATAR,
-				'rol' => User::ROL_ADMIN,
-				'status' => User::STATUS_ACTIVE
+				'avatar' => Usuario::DEFAULT_AVATAR,
+				'rol' => Usuario::ROL_ADMIN,
+				'status' => Usuario::STATUS_ACTIVE
 			],
 			[
 				'nombre' => 'Christopher',
@@ -32,9 +32,9 @@ class SeederUsuarios extends Seeder
 				'rif' => null,
 				'email' => 'serrano.cjm@gmail.com',
 				'password' => bcrypt('qwerty'),
-				'avatar' => User::DEFAULT_AVATAR,
-				'rol' => User::ROL_USUARIO,
-				'status' => User::STATUS_ACTIVE
+				'avatar' => Usuario::DEFAULT_AVATAR,
+				'rol' => Usuario::ROL_USUARIO,
+				'status' => Usuario::STATUS_ACTIVE
 			],
 			[
 				'nombre' => 'Gerencia',
@@ -45,9 +45,9 @@ class SeederUsuarios extends Seeder
 				'rif' => null,
 				'email' => 'gerencia@dvc.com',
 				'password' => bcrypt('qwerty'),
-				'avatar' => User::DEFAULT_AVATAR,
-				'rol' => User::ROL_GERENCIA,
-				'status' => User::STATUS_ACTIVE
+				'avatar' => Usuario::DEFAULT_AVATAR,
+				'rol' => Usuario::ROL_GERENCIA,
+				'status' => Usuario::STATUS_ACTIVE
 			],
 		];
 	}
@@ -61,7 +61,7 @@ class SeederUsuarios extends Seeder
     public function run()
     {
     	foreach($this->records as $record) {
-			$usuario = User::create($record);
+			$usuario = Usuario::create($record);
 		}
 
     }

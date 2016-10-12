@@ -13,8 +13,6 @@ class Solicitudes extends Migration
     public function up()
     {
         
-        
-
         Schema::create('solicitudes', function (Blueprint $table) {
             $table->increments('id')
                     ->unsigned();
@@ -39,7 +37,7 @@ class Solicitudes extends Migration
 
             $table->foreign('id_usuario')
                     ->references('id')
-                    ->on('users')
+                    ->on('usuarios')
                     ->onDelete('cascade');
 
             $table->foreign('id_cuenta')
@@ -48,7 +46,6 @@ class Solicitudes extends Migration
                     ->onDelete('cascade');
 
         });
-
 
         Schema::create('historico_solicitudes', function (Blueprint $table) {
             $table->integer('id_solicitud')
@@ -65,11 +62,8 @@ class Solicitudes extends Migration
 
             $table->foreign('id_revisor')
                     ->references('id')
-                    ->on('users');
+                    ->on('usuarios');
         });
-
-        
-
 
     }
 
@@ -80,13 +74,9 @@ class Solicitudes extends Migration
      */
     public function down()
     {
-
         
-
         Schema::dropIfExists('historico_solicitudes');
         Schema::dropIfExists('solicitudes');
-
-        
 
     }
 }

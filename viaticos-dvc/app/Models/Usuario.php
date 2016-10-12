@@ -14,7 +14,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Model implements AuthenticatableContract,
+class Usuario extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
                                     CanResetPasswordContract
 {
@@ -52,7 +52,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var string
      */
-    protected $table = 'users';
+    protected $table = 'usuarios';
 
     /**
      * The attributes that are mass assignable.
@@ -232,11 +232,11 @@ class User extends Model implements AuthenticatableContract,
     public function getRolNameAttribute()
     {
         switch($this->rol) {
-            case User::ROL_ADMIN:
+            case self::ROL_ADMIN:
                 return 'Administrador';
-            case User::ROL_USUARIO:
+            case self::ROL_USUARIO:
                 return 'Usuario regular';
-            case User::ROL_DIRECCION:
+            case self::ROL_DIRECCION:
                 return 'Director';
         }
 
