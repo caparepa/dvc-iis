@@ -34,7 +34,7 @@ class SolicitudesController extends ViaticosController
         //
         $solicitudes = Solicitud::get();
 
-        return view('viaticos.solicitudes.index', ['solicitudes' => $solicitudes]);
+        return view('viaticos.solicitudes.index', ['solicitudes' => $solicitudes, 'type' => 'index_all']);
 
     }
 
@@ -47,7 +47,7 @@ class SolicitudesController extends ViaticosController
         $user = Auth::user();
         $solicitudes = Solicitud::where('id_usuario', $user->id)->get();
         
-        return view('viaticos.solicitudes.index', ['solicitudes' => $solicitudes]);
+        return view('viaticos.solicitudes.index', ['solicitudes' => $solicitudes, 'type' => 'index_user']);
     }
 
     /**
@@ -75,7 +75,7 @@ class SolicitudesController extends ViaticosController
     {
         //
         $usuario = Auth::user();
-        $fecha = new \DateTime($request->fecha_solicitud);
+        $fecha = new \DateTime($request->fecha_solicitud); //creo un objeto de tipo fecha
         
         $data = [
             "asunto" => $request->asunto,
@@ -84,11 +84,10 @@ class SolicitudesController extends ViaticosController
             "cedula_rif" => $request->cedula_rif == '' ? null : $request->cedula_rif,
             "fecha_solicitud" => $fecha->format('Y-m-d H:i:s'),
             "descripcion" => $request->descripcion,
-            "monto" => (float)$request->monto,
+            "monto" => (float)$request->monto, //parseo el monto a float porque a sqlserver no le gustan los strings
             "id_cuenta" => $request->id_cuenta,
             "id_usuario" => $usuario->id
         ];
-
 
         $solicitud = Solicitud::create($data);
         
