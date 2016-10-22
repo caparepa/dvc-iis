@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Solicitud extends Model
 {
     //
+    use SoftDeletes;
 
 	const STATUS_PENDING = 'pendiente';
 	const STATUS_APPROVED = 'aprobada';

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Viaticos;
 
+use App\Models\RendicionCuenta;
+use App\Models\Gasto;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -14,7 +17,7 @@ class RendicionCuentasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getIndex()
     {
         //
     }
@@ -24,7 +27,7 @@ class RendicionCuentasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getCreate()
     {
         //
     }
@@ -35,7 +38,7 @@ class RendicionCuentasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function postCreate(Request $request)
     {
         //
     }
@@ -46,7 +49,7 @@ class RendicionCuentasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function getView($id)
     {
         //
     }
@@ -57,7 +60,7 @@ class RendicionCuentasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function getEdit($id)
     {
         //
     }
@@ -69,7 +72,7 @@ class RendicionCuentasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function postEdit(Request $request)
     {
         //
     }
@@ -80,7 +83,7 @@ class RendicionCuentasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function getDelete($id)
     {
         //
     }
