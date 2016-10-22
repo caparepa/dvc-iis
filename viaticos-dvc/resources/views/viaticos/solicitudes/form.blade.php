@@ -14,49 +14,53 @@
 			
 			<div class="form-group">
 				<label for="nombre">Asunto</label>
-				<input type="text" class="form-control" id="asunto" name="asunto" placeholder="Enter email">
+				<input type="text" class="form-control" id="asunto" name="asunto" placeholder="Asunto">
 			</div>
 			<div class="form-group">
-				<label for="area">Area (zona de movilización)</label>
-				<input type="text" class="form-control" id="area" name="area" placeholder="Enter email">
+				<label for="area">Area</label>
+				<input type="text" class="form-control" id="area" name="area" placeholder="Área (zona a movilizarse)">
 			</div>
 			<div class="form-group">
 				<label for="beneficiario">Beneficiario / Raz&oacute;n social</label>
-				<input type="text" class="form-control autocomplete" id="beneficiario" name="beneficiario" placeholder="Enter email">
+				<input type="text" class="form-control autocomplete" id="beneficiario" name="beneficiario" placeholder="Beneficiario / Raz&oacute;n social">
 			</div>
 			<div class="form-group">
 				<label for="cedula">C&eacute;dula</label>
-				<input type="text" class="form-control" id="cedula" name="cedula" placeholder="Enter email">
+				<input type="text" class="form-control" id="cedula" name="cedula" placeholder="C&eacute;dula del solicitante">
 			</div>
 			<div class="form-group">
 				<label for="rif">RIF</label>
-				<input type="text" class="form-control" id="rif" name="rif" placeholder="Enter email">
+				<input type="text" class="form-control" id="rif" name="rif" placeholder="RIF del solicitante">
 			</div>
-			<div class="form-group">
-        <label>Fecha</label>
-
+			
+      <div class="form-group">
+        <label for="fechaCita">
+          Fecha
+        </label>
         <div class="input-group date">
-          <div class="input-group-addon">
-            <i class="fa fa-calendar"></i>
-          </div>
-          <input type="text" class="form-control pull-right" id="datepicker" name="fecha_solicitud">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+            <input id="fecha_solicitud" name="fecha_solicitud" type='text' class="form-control" placeholder="dd/mm/aaaa"/>
         </div>
-        <!-- /.input group -->
       </div>
+
       <!-- /.form group -->
 			<div class="form-group">
 				<label for="descripcion">Descripci&oacute;n</label>
-				<input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Enter email">
+				<textarea type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripci&oacute;n de la actividad"></textarea>
 			</div>
+
 			<div class="form-group">
 				<label for="monto">Monto</label>
-				<input type="text" class="form-control" id="monto" name="monto" placeholder="Enter email">
+				<input type="text" class="form-control" id="monto" name="monto" placeholder="Monto a solicitar">
 			</div>
 			<div class="form-group">
 				<label>Cuenta</label>
 				<select class="form-control" id="id_cuenta" name="id_cuenta" >
+        <option value="">Seleccione un tipo de cuenta</option>
 				@foreach($cuentas as $cuenta)
-					<option value="{{$cuenta->id}}">{{$cuenta->nombre}}</option>
+				<option value="{{$cuenta->id}}">{{$cuenta->nombre}}</option>
 				@endforeach
 				</select>
 			</div>
@@ -77,28 +81,28 @@
         asunto: {
             validators: {
                 notEmpty: {
-                    message: 'Por favor, introduzca un nombre'
+                    message: 'Por favor, introduzca el motivo de la solicitud.'
                 }
             }
       	},
       	area: {
             validators: {
                 notEmpty: {
-                    message: 'Por favor, introduzca un apellido'
+                    message: 'Por favor, introduzca la ubicación de la solicitd.'
                 }
             }
       	},
       	beneficiario: {
             validators: {
                 notEmpty: {
-                    message: 'Por favor, introduzca un apellido'
+                    message: 'Por favor, introduzca el beneficiario.'
                 }
             }
       	},
       	cedula: {
             validators: {
                 regexp: {
-                	regexp: /^([VvEe][-]\d{7,8})$/ ,
+                	regexp: /^([VvEe][-]\d{3,8})$/gi ,
                     message: 'Por favor, introduzca una cédula en formáto válido. E.g. V19204856'
                 }
             }
@@ -106,43 +110,47 @@
       	rif: {
             validators: {
                 regexp: {
-                	regexp: /^([VvEeJjGg][-]\d{8}[-][0-9])$/ ,
+                	regexp: /^([VvEeJjGg][-]\d{8}[-][0-9])$/gi ,
                     message: 'Por favor, introduzca un rif en formato válido. E.g. J-12345678-9'
                 }
             }
       	},
-      	fecha: {
+      	fecha_solicitud: {
             validators: {
                 notEmpty: {
-                    message: 'Por favor, introduzca un apellido'
+                    message: 'Por favor, introduzca una fecha.'
                 }
             }
       	},
       	descripcion: {
             validators: {
                 notEmpty: {
-                    message: 'Por favor, introduzca un apellido'
+                    message: 'Por favor, describa la actividad para la cual se realiza la solicitud.'
                 }
             }
       	},
       	monto: {
             validators: {
                 notEmpty: {
-                    message: 'Por favor, introduzca un apellido'
-                }
+                    message: 'Por favor, introduzca un monto.'
+                },
+                regexp: {
+                        regexp: /^[0-9]*\,[0-9]{2}$/g,
+                        message: 'Introduzca un monto válido. Ej.: 1299,00'
+                    }
             }
       	},
       	id_cuenta: {
             validators: {
                 notEmpty: {
-                    message: 'Por favor, introduzca un apellido'
+                    message: 'Por favor, seleccione un tipo de cuenta.'
                 }
             }
       	},
       	id_area: {
             validators: {
                 notEmpty: {
-                    message: 'Por favor, introduzca un apellido'
+                    message: 'Por favor, seleccione el área de solicitud.'
                 }
             }
       	},
@@ -150,27 +158,24 @@
 
     });
 
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
+    //Init Calendar
+    $(function () {
+      $('#fecha_solicitud').datetimepicker({
+        minDate: new Date(),
+        sideBySide: false,
+        useCurrent: true,
+        allowInputToggle: true,
+        showClear: true,
+        format: 'DD/MM/YYYY',
+        tooltips: {
+          today: 'Hoy',
+          clear: 'Reiniciar'
+        }
+      });
+
     });
 
     $(function() {
-
-      var availableTags = [
-        "ActionScript", "AppleScript", "Asp", "BASIC", "C", "C++",
-        "Clojure", "COBOL", "ColdFusion", "Erlang", "Fortran",
-        "Groovy", "Haskell", "Java", "JavaScript", "Lisp", "Perl",
-        "PHP", "Python", "Ruby", "Scala", "Scheme"
-      ];
-
-      /*$(".autocomplete").autocomplete({
-        source: '/viaticos/solicitudes/listado-razon-social',
-        dataType: 'json',
-        success: function(data){
-          console.log(data.listado);
-        }
-      });*/
 
       $(".autocomplete").autocomplete({
         source: function(request, response){
@@ -184,35 +189,15 @@
                 return {beneficiario:el.nombre}
               });
               console.log(transformed);
-              response(transformed);
+              response(listado);
             },
             error: function(error){
               console.log(error)
             }
           });
-        },
-        minLenght: 2
+        }
       });
       
-      /*$(".autocomplete").autocomplete({
-        source: function(request, response){
-            $.ajax({
-              url: '/viaticos/solicitudes/listado-razon-social',
-              data: { query: request.term },
-              dataType: 'JSON',
-              success: function (data) {
-                var listado = data.listado;
-                var transformed = $.map(listado, function(el){
-                  return { nombre : el.nombre }
-                });
-                return transformed;
-              },
-              error: function (error) {
-                  console.error(error);
-              }
-          });
-        }
-      });*/
     });
 </script>
 @endsection

@@ -25,7 +25,7 @@ class SolicitudesController extends ViaticosController
     }
 
     /**
-     * Display a listing of the resource.
+     * Listado de solicitudes (meh... indice regular)
      *
      * @return \Illuminate\Http\Response
      */
@@ -36,6 +36,18 @@ class SolicitudesController extends ViaticosController
 
         return view('viaticos.solicitudes.index', ['solicitudes' => $solicitudes]);
 
+    }
+
+    /**
+     * Listado de solicitudes dado un usuario
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function getListadoSolicitudesUsuario(){
+        $user = Auth::user();
+        $solicitudes = Solicitud::where('id_usuario', $user->id)->get();
+        
+        return view('viaticos.solicitudes.index', ['solicitudes' => $solicitudes]);
     }
 
     /**
@@ -153,7 +165,7 @@ class SolicitudesController extends ViaticosController
         }
         
         return response()->json([
-            'listado' => $listado
+            'listado' => $result
         ]);
     }
 }

@@ -24,7 +24,7 @@ class Solicitudes extends Migration
             $table->string('rif')
                     ->nullable();
             $table->timestamp('fecha_solicitud');
-            $table->string('descripcion');
+            $table->text('descripcion');
             $table->float('monto')
                     ->nullable();
             $table->integer('id_usuario')

@@ -31,6 +31,7 @@
 		  </a>
 		  <ul class="treeview-menu">
 			<li><a href="/viaticos/solicitudes"><i class="fa fa-circle-o"></i>Lista de Solicitudes</a></li>
+			<li><a href="/viaticos/solicitudes/mis-solicitudes"><i class="fa fa-circle-o"></i>Mis solicitudes</a></li>
 			<li><a href="/viaticos/solicitudes/create"><i class="fa fa-circle-o"></i>Crear solicitud</a></li>
 		  </ul>
 		</li>

@@ -21,8 +21,9 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="/bower_components/AdminLTE/dist/css/skins/_all-skins.min.css">
-  <!-- bootstrap datepicker -->
-  <link rel="stylesheet" href="/bower_components/AdminLTE/plugins/datepicker/datepicker3.css">
+  <!-- eonasdan datetime picker -->
+  <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+
 
   <!-- -->
 
@@ -72,10 +73,13 @@
   <!-- Data tables -->
   <script src="/bower_components/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
   <script src="/bower_components/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>
+  <!-- moment.js -->
+  <script src="/bower_components/moment/moment.js"></script>
   <!-- Bootstrap Validator -->
   <script src="/bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
-  <!-- bootstrap datepicker -->
-  <script src="/bower_components/AdminLTE/plugins/datepicker/bootstrap-datepicker.js"></script>
+  <!-- eonasdan datetime picker-->
+  <script src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
 
 
   @yield('scripts')

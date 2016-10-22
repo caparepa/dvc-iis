@@ -75,6 +75,8 @@ Route::group(['namespace' => 'Viaticos', 'prefix' => 'viaticos', 'middleware' =>
   /**
    * Solicitudes
    */
+  Route::get('solicitudes/mis-solicitudes', ['uses' => 'SolicitudesController@getListadoSolicitudesUsuario']);
+
   Route::controller('solicitudes', 'SolicitudesController');
 
   /**
