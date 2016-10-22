@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
         
 
         Schema::create('areas', function (Blueprint $table) {
+            $table->engine = "InnoDB";
             $table->increments('id')
                 ->unsigned();
             $table->string('nombre');
@@ -25,6 +26,7 @@ class CreateUsersTable extends Migration
         });
 
         Schema::create('usuarios', function (Blueprint $table) {
+            $table->engine = "InnoDB";
             $table->increments('id')
                 ->unsigned();
             $table->string('nombre');

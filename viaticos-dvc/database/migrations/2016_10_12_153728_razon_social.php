@@ -13,6 +13,7 @@ class RazonSocial extends Migration
     public function up()
     {
         Schema::create('razon_social', function (Blueprint $table) {
+            $table->engine = "InnoDB";
             $table->increments('id')
                     ->unsigned();
             $table->string('nombre');

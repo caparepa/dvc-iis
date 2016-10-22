@@ -16,6 +16,7 @@ class Cuentas extends Migration
 
         //
         Schema::create('cuentas', function (Blueprint $table) {
+            $table->engine = "InnoDB";
             $table->increments('id');
             $table->string('nombre');
             $table->integer('codigo')

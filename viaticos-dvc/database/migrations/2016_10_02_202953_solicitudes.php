@@ -14,6 +14,7 @@ class Solicitudes extends Migration
     {
         
         Schema::create('solicitudes', function (Blueprint $table) {
+            $table->engine = "InnoDB";
             $table->increments('id')
                     ->unsigned();
             $table->string('asunto');
@@ -46,6 +47,7 @@ class Solicitudes extends Migration
         });
 
         Schema::create('historico_solicitudes', function (Blueprint $table) {
+            $table->engine = "InnoDB";
             $table->integer('id_solicitud')
                     ->unsigned();
             $table->integer('id_revisor')
