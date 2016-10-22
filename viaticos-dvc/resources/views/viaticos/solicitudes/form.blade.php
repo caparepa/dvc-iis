@@ -25,23 +25,19 @@
 				<input type="text" class="form-control autocomplete" id="beneficiario" name="beneficiario" placeholder="Beneficiario / Raz&oacute;n social">
 			</div>
 			<div class="form-group">
-				<label for="cedula">C&eacute;dula</label>
-				<input type="text" class="form-control" id="cedula" name="cedula" placeholder="C&eacute;dula del solicitante">
-			</div>
-			<div class="form-group">
-				<label for="rif">RIF</label>
-				<input type="text" class="form-control" id="rif" name="rif" placeholder="RIF del solicitante">
+				<label for="cedula">C&eacute;dula / RIF</label>
+				<input type="text" class="form-control" id="cedula" name="cedula_rif" placeholder="C&eacute;dula o RIF del solicitante">
 			</div>
 			
       <div class="form-group">
         <label for="fechaCita">
-          Fecha
+          Fecha de traslado/movilización
         </label>
         <div class="input-group date">
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-calendar"></span>
             </span>
-            <input id="fecha_solicitud" name="fecha_solicitud" type='text' class="form-control" placeholder="dd/mm/aaaa"/>
+            <input id="fecha_solicitud" name="fecha_solicitud" type='text' class="form-control" placeholder="aaaa-mm-dd"/>
         </div>
       </div>
 
@@ -99,19 +95,11 @@
                 }
             }
       	},
-      	cedula: {
+      	cedula_rif: {
             validators: {
                 regexp: {
-                	regexp: /^([VvEe][-]\d{3,8})$/gi ,
-                    message: 'Por favor, introduzca una cédula en formáto válido. E.g. V19204856'
-                }
-            }
-      	},
-      	rif: {
-            validators: {
-                regexp: {
-                	regexp: /^([VvEeJjGg][-]\d{8}[-][0-9])$/gi ,
-                    message: 'Por favor, introduzca un rif en formato válido. E.g. J-12345678-9'
+                	regexp: /(^([VvEe][-]\d{3,10})$|^([VvEeJjGg][-]\d{8}[-][0-9])$)/i ,
+                    message: 'Por favor, introduzca un rif o cédula en formato válido. E.g. J-12345678-9 o V-12345678'
                 }
             }
       	},
@@ -166,7 +154,7 @@
         useCurrent: true,
         allowInputToggle: true,
         showClear: true,
-        format: 'DD/MM/YYYY',
+        format: 'YYYY-MM-DD',
         tooltips: {
           today: 'Hoy',
           clear: 'Reiniciar'

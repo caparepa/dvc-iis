@@ -22,8 +22,7 @@ class Solicitud extends Model
     	'asunto',
     	'area',
     	'beneficiario',
-    	'cedula',
-    	'rif',
+    	'cedula_rif',
     	'fecha_solicitud',
     	'descripcion',
     	'monto',
@@ -51,6 +50,19 @@ class Solicitud extends Model
     public function cuenta()
     {
     	return $this->belongsTo('App\Models\Cuenta', 'id_cuenta');
+    }
+
+    /**
+     * Funciones de validacion, etc
+     */
+    
+    /**
+     * Valida si el usuario tiene o no rendiciones de cuentas pendientes
+     * @param  [type] $id_usuario [description]
+     * @return [type]             [description]
+     */
+    public static function validarRendicionCuentaPendiente($id_usuario){
+
     }
 
 }

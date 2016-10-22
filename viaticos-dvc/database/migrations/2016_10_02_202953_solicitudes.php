@@ -19,9 +19,7 @@ class Solicitudes extends Migration
             $table->string('asunto');
             $table->string('area');
             $table->string('beneficiario');
-            $table->string('cedula')
-                    ->nullable();
-            $table->string('rif')
+            $table->string('cedula_rif')
                     ->nullable();
             $table->timestamp('fecha_solicitud');
             $table->text('descripcion');

@@ -75,22 +75,23 @@ class SolicitudesController extends ViaticosController
     {
         //
         $usuario = Auth::user();
-
+        $fecha = new \DateTime($request->fecha_solicitud);
+        
         $data = [
             "asunto" => $request->asunto,
             "area" => $request->area,
             "beneficiario" => $request->beneficiario,
-            "cedula" => $request->cedula,
-            "rif" => $request->rif == '' ? null : $request->rif,
-            "fecha_solicitud" => $request->fecha_solicitud,
+            "cedula_rif" => $request->cedula_rif == '' ? null : $request->cedula_rif,
+            "fecha_solicitud" => $fecha->format('Y-m-d H:i:s'),
             "descripcion" => $request->descripcion,
-            "monto" => $request->monto,
+            "monto" => (float)$request->monto,
             "id_cuenta" => $request->id_cuenta,
             "id_usuario" => $usuario->id
         ];
 
-        $solicitud = Solicitud::create($data);
 
+        $solicitud = Solicitud::create($data);
+        
         if( $solicitud ) {
             return redirect( 'viaticos/solicitudes' )
                 ->with('success', 'Solicitud creada.');
