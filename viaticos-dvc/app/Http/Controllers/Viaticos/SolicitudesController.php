@@ -80,7 +80,7 @@ class SolicitudesController extends ViaticosController
         $data = [
             "asunto" => $request->asunto,
             "area" => $request->area,
-            "beneficiario" => $request->beneficiario,
+            "beneficiario" => $request->beneficiario, //razon social
             "cedula_rif" => $request->cedula_rif == '' ? null : $request->cedula_rif,
             "fecha_solicitud" => $fecha->format('Y-m-d H:i:s'),
             "descripcion" => $request->descripcion,
@@ -88,6 +88,12 @@ class SolicitudesController extends ViaticosController
             "id_cuenta" => $request->id_cuenta,
             "id_usuario" => $usuario->id
         ];
+
+        $listab_ = RazonSocial::where('nombre', $request->beneficiario)->get();
+        if(count($listab_) == 0){
+            $datar_ = ['nombre' => $request->beneficiario];
+            $razon_social = RazonSocial::create($datar_);
+        }
 
         $solicitud = Solicitud::create($data);
         

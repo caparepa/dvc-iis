@@ -36,11 +36,11 @@ class Solicitud extends Model
 
     public function usuario()
     {
-    	return $this->belongsTo('App\Models\User', 'id_usuario');
+    	return $this->belongsTo('App\Models\Usuario', 'id_usuario');
     }
 
     public function historicoSolicitudes(){
-    	return $this->belongsToMany('App\Model\User', 'historico_solicitudes', 'id_solicitud', 'id_revisor')
+    	return $this->belongsToMany('App\Model\Usuario', 'historico_solicitudes', 'id_solicitud', 'id_revisor')
     				->withPivot('fecha', 'status');
     }
 
@@ -73,7 +73,7 @@ class Solicitud extends Model
         foreach ($solicitudes as $solicitud) {
             $count += $solicitud->status == Solicitud::STATUS_ACCOUNT ? 1 : 0;
         }
-
+        
         return $count > 0 ? true : false; //true -> rendiciones de cuentas pendientes
 
     }
