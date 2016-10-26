@@ -14,6 +14,7 @@ class Solicitud extends Model
 	const STATUS_PENDING = 'pendiente';
 	const STATUS_APPROVED = 'aprobada';
 	const STATUS_DENIED = 'rechazada';
+    const STATUS_ACCOUNT = 'rendicion'; //este estado correspondo a una solicitud aprobada con fecha limite pasada
 	
     protected $table = 'solicitudes';
 
@@ -59,11 +60,24 @@ class Solicitud extends Model
     
     /**
      * Valida si el usuario tiene o no rendiciones de cuentas pendientes
+     * El id de usuario que se pasa es la del solicitante
      * @param  [type] $id_usuario [description]
      * @return [type]             [description]
      */
-    public static function validarRendicionCuentaPendiente($id_usuario){
+    public static function validarRendicionCuentaPendiente($id_usuario)
+    {
+
+        $solicitudes = Solicitud::with('usuario')->where('id_usuario', $id_usuario)->get();
+        $count = 0;
+
+        foreach ($solicitudes as $solicitud) {
+            $count += $solicitud->status == Solicitud::STATUS_ACCOUNT ? 1 : 0;
+        }
+
+        return $count > 0 ? true : false; //true -> rendiciones de cuentas pendientes
 
     }
+
+
 
 }

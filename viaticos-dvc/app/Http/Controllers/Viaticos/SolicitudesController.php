@@ -59,7 +59,7 @@ class SolicitudesController extends ViaticosController
     {
         $solicitud = new Solicitud();
         $cuentas = Cuenta::get();
-        
+
         return view('viaticos.solicitudes.create', 
             ['solicitud' => $solicitud, 'cuentas' => $cuentas]);
 
@@ -94,8 +94,7 @@ class SolicitudesController extends ViaticosController
         if( $solicitud ) {
             return redirect( 'viaticos/solicitudes' )
                 ->with('success', 'Solicitud creada.');
-        }
-        else {
+        } else {
             return redirect( 'viaticos/solicitudes' )
                 ->with('Error', 'Ha ocurrido un error.');
         }
@@ -167,5 +166,16 @@ class SolicitudesController extends ViaticosController
         return response()->json([
             'listado' => $result
         ]);
+    }
+
+    public function getValidarRendicionPendiente(){
+
+        $usuario = Auth::user();
+        $result = Solicitud::validarRendicionCuentaPendiente($usuario->id);
+
+        return response()->json([
+            'result' => $result
+        ]);
+
     }
 }

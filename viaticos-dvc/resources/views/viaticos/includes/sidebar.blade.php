@@ -32,7 +32,7 @@
 		  <ul class="treeview-menu">
 			<li><a href="/viaticos/solicitudes"><i class="fa fa-circle-o"></i>Lista de Solicitudes</a></li>
 			<li><a href="/viaticos/solicitudes/mis-solicitudes"><i class="fa fa-circle-o"></i>Mis solicitudes</a></li>
-			<li><a href="/viaticos/solicitudes/create"><i class="fa fa-circle-o"></i>Crear solicitud</a></li>
+			<li><a href="/viaticos/solicitudes/create" id="crearSolicitud"><i class="fa fa-circle-o"></i>Crear solicitud</a></li>
 		  </ul>
 		</li>
 		<li class="treeview">
@@ -88,3 +88,32 @@
 	</section>
 	<!-- /.sidebar -->
 </aside>
+
+<!-- modal rendicion de cuentas pendientes -->
+<div class="example-modal">
+	<div id="modalRendicion" tabindex="-1" role="dialog" class="modal modal-warning" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Aviso</h4>
+					</div>
+					<div class="modal-body">
+						<p>
+							Tiene rendiciones de cuentas pendientes abiertas o por cargar. Por favor,
+							cierra o cargue las rendiciones antes de realizar una nueva solicitud.
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cerrar</button>
+						<a href="/viaticos/dashboard" type="button" class="btn btn-outline">Rendici&oacute;n de Cuentas</a>
+					</div>
+				</div>
+			<!-- /.modal-content -->
+			</div>
+		<!-- /.modal-dialog -->
+		</div>
+	<!-- /.modal -->
+</div>
+<!-- /.modal rendicion de cuentas pendientes -->

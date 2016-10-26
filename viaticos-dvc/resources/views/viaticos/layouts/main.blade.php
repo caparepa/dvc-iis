@@ -79,8 +79,28 @@
   <script src="/bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
   <!-- eonasdan datetime picker-->
   <script src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-
-
+  
+  <!-- custom scripts-->
+  <script type="text/javascript">
+    $("#crearSolicitud").on('click', function(e){
+      e.preventDefault();
+      $.ajax({
+        url: '/viaticos/solicitudes/validar-rendicion-pendiente',
+        dataType: 'JSON',
+        success: function(data){
+          var url = $("#crearSolicitud").attr("href");
+          if(!data.result){
+            window.location.href = url;
+          }else{
+            $("#modalRendicion").modal('show');
+          }
+        },
+        error: function(error){
+          console.log(error)
+        }
+      });
+    });
+  </script>
 
   @yield('scripts')
   @yield('templates')
