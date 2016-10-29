@@ -36,6 +36,7 @@ class Usuario extends Model implements AuthenticatableContract,
     const ROL_CAPTACION = 'captacion';
     const ROL_COMUNICACIONES = 'comunicaciones';
     const ROL_USUARIO = 'regular';
+    const ROL_IT = 'it';
 
     /**
      * Posibles status de usuario
@@ -163,6 +164,11 @@ class Usuario extends Model implements AuthenticatableContract,
     public function isUsuario()
     {
         return $this->rol === self::ROL_USUARIO;
+    }
+
+    public function isTech()
+    {
+        return $this->rol === self::ROL_IT;
     }
 
     /**

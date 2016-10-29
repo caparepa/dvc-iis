@@ -41,18 +41,27 @@
 				<label for="email">Email address</label>
 				<input type="email" class="form-control" id="email" name="email" value="{{$mock->email}}" placeholder="Email">
 			</div>
+
+      @if($mock->id == Auth::user()->id)
 			<div class="form-group">
 				<label for="password">Password</label>
 				<input type="password" class="form-control" id="password" name="password" value="{{$mock->password}}" placeholder="Password">
 			</div>
-			<div class="form-group">
-				<label>Rol</label>
-				<select class="form-control" id="rol" name="rol">
-					@foreach($roles as $key => $value)
-					<option value="{{$key}}">{{$value}}</option>
-					@endforeach
-				</select>
-			</div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" value="{{$mock->password}}" placeholder="Password">
+      </div>
+      @endif
+      
+      @if($mock->isAdmin() || $mock->isTech())
+      <div class="form-group">
+        <label>Rol</label>
+        <select class="form-control" id="rol" name="rol">
+          @foreach($roles as $key => $value)
+          <option value="{{$key}}">{{$value}}</option>
+          @endforeach
+        </select>
+      </div>
       <div class="form-group">
         <label>&Aacute;rea</label>
         <select class="form-control" id="area" name="area">
@@ -61,6 +70,7 @@
           @endforeach
         </select>
       </div>
+      @endif
 			<div class="form-group ">
 				<label for="avatar">File input</label>
 				<input type="file" id="avatar" name="avatar">
