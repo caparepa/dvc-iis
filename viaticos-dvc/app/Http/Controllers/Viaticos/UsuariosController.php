@@ -128,7 +128,7 @@ class UsuariosController extends ViaticosController
 
     public function getProfile()
     {
-        $usuario = Auth::Usuario();
+        $usuario = Auth::user();
         $id = $usuario->id;
 
         return redirect(url('viaticos/usuarios/edit/'.$id));
@@ -158,11 +158,43 @@ class UsuariosController extends ViaticosController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function postEdit(Request $request, $id)
+    public function postEdit(Request $request)
     {
         //
-        $usuario = Usuario::find($id);
-        dd($request);
+        $usuario = Usuario::find($request->id);
+
+        $usuario->nombre = $request->input('nombre');
+        $usuario->apellido = $request->input('apellido');
+        $usuario->cedula = $request->input('cedula');
+        $usuario->rif = $request->input('rif');
+        $usuario->telefono_hab = $request->input('telefono_hab');
+        $usuario->telefono_cell = $request->input('telefono_cell');
+        $usuario->email = $request->input('email');
+        $usuario->rol = $request->input('rol');
+        $usuario->id_area = $request->input('area');
+        
+        $usuario->password = $request->input('password') ? \Hash::make($request->input('password')) : $usuario->password;
+        // avatar
+        $avatar = Usuario::DEFAULT_AVATAR;
+        if( $request->hasFile('photo') && $request->file('photo')->isValid() ) {
+            $file = $request->file('photo');
+            $path = public_path('photos/usuarios');
+            $filename = sha1($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
+            $request->file('photo')->move($path, $filename);
+            $avatar = '/photos/usuarios/' . $filename;
+        }
+        $usuario->avatar = $avatar;
+        
+        if( $usuario->update() ) {
+            return redirect( 'viaticos/usuarios' )
+                ->with('success', 'Usuario modificado.');
+        }
+        else {
+            return back()
+                ->withInput()
+                ->with( 'viaticos/usuarios' );
+        }
+
     }
 
     /**
