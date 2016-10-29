@@ -79,7 +79,7 @@
                 data-confirm="¿Est&aacute; seguro que desea eliminar esta solicitud?">
                 <i class="fa fa-trash-o"></i>
               </a>
-              @if(Auth::user()->isAdministracion())
+              @if(Auth::user()->isAdministracion() || Auth::user()->isDireccion())
               <a href="{{ url('viaticos/solicitudes/cambiar-status-solicitud/'.$solicitud->id.'/'.App\Models\Solicitud::STATUS_APPROVED) }}"
                 class="btn btn-flat btn-sm"
                 title="Aceptar solicitud {{$solicitud->id}}"
