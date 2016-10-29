@@ -33,8 +33,12 @@ class SolicitudesController extends ViaticosController
     {
         //
         $solicitudes = Solicitud::get();
+        
+        $user = Auth::user();
+        $revisor = in_array($user->rol, [Usuario::ROL_DIRECCION, Usuario::ROL_ADMINISTRACION]) ? true : false;
 
-        return view('viaticos.solicitudes.index', ['solicitudes' => $solicitudes, 'type' => 'index_all']);
+        return view('viaticos.solicitudes.index', ['solicitudes' => $solicitudes, 'type' => 'index_all', 'revisor' => $revisor]);
+
 
     }
 
@@ -44,8 +48,10 @@ class SolicitudesController extends ViaticosController
      * @return [type]     [description]
      */
     public function getListadoSolicitudesUsuario(){
+        
         $user = Auth::user();
         $solicitudes = Solicitud::where('id_usuario', $user->id)->get();
+        $revisor = in_array($user->rol, [Usuario::ROL_DIRECCION, Usuario::ROL_ADMINISTRACION]) ? true : false;
         
         return view('viaticos.solicitudes.index', ['solicitudes' => $solicitudes, 'type' => 'index_user']);
     }
@@ -183,5 +189,20 @@ class SolicitudesController extends ViaticosController
             'result' => $result
         ]);
 
+    }
+
+    public function getCambiarStatusSolicitud($id_solicitud, $status){
+
+        $solicitud = Solicitud::find($id);
+        $solicitud->status = $status;
+        $solicitud->update();
+
+        if($status == Solicitd::STATUS_APPROVED){
+            return redirect( 'viaticos/solicitudes' )
+                ->with('success', 'Solicitud aprobada.');
+        }else if($status == Solicitd::STATUS_DENIED){
+            return redirect( 'viaticos/solicitudes' )
+                ->with('error', 'Solicitud denegada.');
+        }
     }
 }

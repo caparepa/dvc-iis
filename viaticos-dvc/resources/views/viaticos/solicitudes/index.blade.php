@@ -65,21 +65,35 @@
             <td><a href="{{url('viaticos/solicitudes/view/'.$solicitud->id)}}">{{$solicitud->id}}</a></td>
             <td>{{$solicitud->asunto}}</td>
             <td>
-                    <a href="{{ url('viaticos/solicitudes/view/'.$solicitud->id) }}" class="btn btn-flat btn-sm"
-                      title="Ver solicitud {{$solicitud->id}}">
-                      <i class="fa fa-eye"></i>
-                    </a>
-                    <a href="{{ url('viaticos/solicitudes/edit/'.$solicitud->id) }}" class="btn btn-flat btn-sm"
-                      title="Editar solicitud {{$solicitud->id}}">
-                      <i class="fa fa-edit"></i>
-                    </a>
-                    <a href="{{ url('viaticos/solicitudes/delete/'.$solicitud->id) }}"
-                      class="btn btn-flat btn-sm"
-                      title="Eliminar solicitud {{$solicitud->id}}"
-                      data-confirm="¿Est&aacute; seguro que desea eliminar esta solicitud?">
-                      <i class="fa fa-trash-o"></i>
-                    </a>
-                  </td>
+              <a href="{{ url('viaticos/solicitudes/view/'.$solicitud->id) }}" class="btn btn-flat btn-sm"
+                title="Ver solicitud {{$solicitud->id}}">
+                <i class="fa fa-eye"></i>
+              </a>
+              <a href="{{ url('viaticos/solicitudes/edit/'.$solicitud->id) }}" class="btn btn-flat btn-sm"
+                title="Editar solicitud {{$solicitud->id}}">
+                <i class="fa fa-edit"></i>
+              </a>
+              <a href="{{ url('viaticos/solicitudes/delete/'.$solicitud->id) }}"
+                class="btn btn-flat btn-sm"
+                title="Eliminar solicitud {{$solicitud->id}}"
+                data-confirm="¿Est&aacute; seguro que desea eliminar esta solicitud?">
+                <i class="fa fa-trash-o"></i>
+              </a>
+              @if(Auth::user()->isAdministracion())
+              <a href="{{ url('viaticos/solicitudes/cambiar-status-solicitud/'.$solicitud->id.'/'.App\Models\Solicitud::STATUS_APPROVED) }}"
+                class="btn btn-flat btn-sm"
+                title="Aceptar solicitud {{$solicitud->id}}"
+                data-confirm="¿Est&aacute; seguro que desea aceptar esta solicitud?">
+                <i class="fa fa-check"></i>
+              </a>
+                <a href="{{ url('viaticos/solicitudes/cambiar-status-solicitud/'.$solicitud->id.'/'.App\Models\Solicitud::STATUS_DENIED) }}"
+                class="btn btn-flat btn-sm"
+                title="Denegar solicitud {{$solicitud->id}}"
+                data-confirm="¿Est&aacute; seguro que desea denegar esta solicitud?">
+                <i class="fa fa-ban"></i>
+              </a>
+              @endif
+            </td>
           </tr>
           @endforeach
         

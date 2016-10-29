@@ -78,6 +78,4 @@ class Solicitud extends Model
 
     }
 
-
-
 }
