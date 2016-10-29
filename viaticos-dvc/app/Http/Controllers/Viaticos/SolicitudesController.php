@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Viaticos;
 
 use Illuminate\Http\Request;
 
+use App\Models\Usuario;
 use App\Models\Solicitud;
 use App\Models\Cuenta;
 use App\Models\RazonSocial;
