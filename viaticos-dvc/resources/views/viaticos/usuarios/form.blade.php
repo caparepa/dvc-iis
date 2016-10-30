@@ -44,12 +44,12 @@
 
       @if($mock->id == Auth::user()->id)
 			<div class="form-group">
-				<label for="password">Password</label>
-				<input type="password" class="form-control" id="password" name="password" value="{{$mock->password}}" placeholder="Password">
+				<label for="password">Contrase&ntilde;a</label>
+				<input type="password" class="form-control" id="password" name="password" value="" placeholder="Password">
 			</div>
       <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" value="{{$mock->password}}" placeholder="Password">
+        <label for="password">Confirmaci&oacute;n de contrase&ntilde;a</label>
+        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" value="" placeholder="Password">
       </div>
       @endif
       
@@ -70,6 +70,9 @@
           @endforeach
         </select>
       </div>
+      @else
+      <input type="hidden" value="{{$mock->rol}}" name="rol" />
+      <input type="hidden" value="{{$mock->id_area}}" name="id_area" />
       @endif
 			<div class="form-group ">
 				<label for="avatar">File input</label>
@@ -149,7 +152,23 @@
                     },
                 }
             }
-        }
+        },
+        password: {
+            validators: {
+                identical: {
+                  field: 'password_confirmation',
+                  message: 'La clave introducida y su confirmación no son idénticas.'
+                }
+            },
+        },
+        password_confirmation: {
+            validators: {
+                identical: {
+                  field: 'password',
+                  message: 'La clave introducida y su confirmación no son idénticas.'
+                }
+            }
+        },
       },
 
     });
