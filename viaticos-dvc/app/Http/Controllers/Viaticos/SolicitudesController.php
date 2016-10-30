@@ -137,7 +137,11 @@ class SolicitudesController extends ViaticosController
     public function getEdit($id)
     {
         //
-        return view('viaticos.solicitudes.edit');
+        $solicitud = Solicitud::find($id);
+        $cuentas = Cuenta::get();
+        
+        return view('viaticos.solicitudes.edit', 
+            ['solicitud' => $solicitud, 'cuentas' => $cuentas]);
 
     }
 

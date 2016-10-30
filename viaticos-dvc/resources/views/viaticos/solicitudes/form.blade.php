@@ -14,19 +14,19 @@
 			
 			<div class="form-group">
 				<label for="nombre">Asunto</label>
-				<input type="text" class="form-control" id="asunto" name="asunto" placeholder="Asunto">
+				<input type="text" class="form-control" id="asunto" name="asunto" value="{{$mock->asunto}}" placeholder="Asunto">
 			</div>
 			<div class="form-group">
 				<label for="area">Area</label>
-				<input type="text" class="form-control" id="area" name="area" placeholder="Área (zona a movilizarse)">
+				<input type="text" class="form-control" id="area" name="area" value="{{$mock->area}}" placeholder="Área (zona a movilizarse)">
 			</div>
 			<div class="form-group">
 				<label for="beneficiario">Beneficiario / Raz&oacute;n social</label>
-				<input type="text" class="form-control autocomplete" id="beneficiario" name="beneficiario" placeholder="Beneficiario / Raz&oacute;n social">
+				<input type="text" class="form-control autocomplete" id="beneficiario" name="beneficiario" value="{{$mock->beneficiario}}" placeholder="Beneficiario / Raz&oacute;n social">
 			</div>
 			<div class="form-group">
 				<label for="cedula">C&eacute;dula / RIF</label>
-				<input type="text" class="form-control" id="cedula" name="cedula_rif" placeholder="C&eacute;dula o RIF del solicitante">
+				<input type="text" class="form-control" id="cedula" name="cedula_rif" value="{{$mock->cedula_rif}}" placeholder="C&eacute;dula o RIF del solicitante">
 			</div>
 			
       <div class="form-group">
@@ -37,19 +37,19 @@
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-calendar"></span>
             </span>
-            <input id="fecha_solicitud" name="fecha_solicitud" type='text' class="form-control" placeholder="aaaa-mm-dd"/>
+            <input id="fecha_solicitud" name="fecha_solicitud" type='text' class="form-control" value="{{$mock->fecha_solicitud}}" placeholder="aaaa-mm-dd"/>
         </div>
       </div>
 
       <!-- /.form group -->
 			<div class="form-group">
 				<label for="descripcion">Descripci&oacute;n</label>
-				<textarea type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripci&oacute;n de la actividad"></textarea>
+				<textarea type="text" class="form-control" id="descripcion" name="descripcion" value="{{$mock->descripcion}}" placeholder="Descripci&oacute;n de la actividad"></textarea>
 			</div>
 
 			<div class="form-group">
 				<label for="monto">Monto</label>
-				<input type="text" class="form-control" id="monto" name="monto" placeholder="Monto a solicitar">
+				<input type="text" class="form-control" id="monto" name="monto" value="{{$mock->monto}}" placeholder="Monto a solicitar">
 			</div>
 			<div class="form-group">
 				<label>Cuenta</label>
