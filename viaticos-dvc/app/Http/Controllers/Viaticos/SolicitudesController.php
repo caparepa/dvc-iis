@@ -148,9 +148,37 @@ class SolicitudesController extends ViaticosController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function postEdit(Request $request, $id)
+    public function postEdit(Request $request)
     {
-        //
+
+        $solicitud = Solicitud::find($request->id);
+        $fecha = new \DateTime($request->fecha_solicitud); //creo un objeto de tipo fecha
+        
+        $solicitud->asunto = $request->asunto;
+        $solicitud->area = $request->area;
+        $solicitud->beneficiario = $request->beneficiario;
+        $solicitud->cedula_rif = $request->cedula_rif == '' ? null : $request->cedula_rif;
+        $solicitud->fecha_solicitud = $fecha->format('Y-m-d H:i:s');
+        $solicitud->descripcion = $request->descripcion;
+        $solicitud->monto = (float)$request->monto;
+        $solicitud->id_cuenta = $request->id_cuenta;
+        
+        $listab_ = RazonSocial::where('nombre', $request->beneficiario)->get();
+        
+        if(count($listab_) == 0){
+            $datar_ = ['nombre' => $request->beneficiario];
+            $razon_social = RazonSocial::create($datar_);
+        }
+
+        $solicitud = Solicitud::create($data);
+        
+        if( $solicitud ) {
+            return redirect( 'viaticos/solicitudes' )
+                ->with('success', 'Solicitud editada.');
+        } else {
+            return redirect( 'viaticos/solicitudes' )
+                ->with('Error', 'Ha ocurrido un error.');
+        }
     }
 
     /**
