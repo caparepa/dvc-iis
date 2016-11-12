@@ -26,6 +26,7 @@ class Solicitudes extends Migration
             $table->text('descripcion');
             $table->float('monto')
                     ->nullable();
+            $table->string('status');
             $table->integer('id_usuario')
                     ->unsigned();
             $table->integer('id_cuenta')
