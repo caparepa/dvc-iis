@@ -24,29 +24,29 @@ class SeederUsuarios extends Seeder
 				'status' => Usuario::STATUS_ACTIVE
 			],
 			[
-				'nombre' => 'Christopher',
-				'apellido' => 'Serrano',
+				'nombre' => 'Usuario',
+				'apellido' => 'DVC',
 				'telefono_hab' => '02127537697',
 				'telefono_cell' => '04127377790',
 				'cedula' => 'V-19204856',
 				'rif' => null,
-				'email' => 'serrano.cjm@gmail.com',
+				'email' => 'usuario@dvc.com',
 				'password' => bcrypt('qwerty'),
 				'avatar' => Usuario::DEFAULT_AVATAR,
 				'rol' => Usuario::ROL_USUARIO,
 				'status' => Usuario::STATUS_ACTIVE
 			],
 			[
-				'nombre' => 'Gerencia',
+				'nombre' => 'Administracion',
 				'apellido' => 'DVC',
 				'telefono_hab' => null,
 				'telefono_cell' => null,
 				'cedula' => null,
 				'rif' => null,
-				'email' => 'gerencia@dvc.com',
+				'email' => 'gadmin@dvc.com',
 				'password' => bcrypt('qwerty'),
 				'avatar' => Usuario::DEFAULT_AVATAR,
-				'rol' => Usuario::ROL_GERENCIA,
+				'rol' => Usuario::ROL_ADMINISTRACION,
 				'status' => Usuario::STATUS_ACTIVE
 			],
 		];
