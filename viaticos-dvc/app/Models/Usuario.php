@@ -113,7 +113,7 @@ class Usuario extends Model implements AuthenticatableContract,
      * Historico de solicitudes y sus acciones por parte de los revisores
      * @return [type] [description]
      */
-    public function historicoSolicitudes()
+    public function historico_solicitudes()
     {
         return $this->belongsToMany('App\Models\Solicitud', 'historico_solicitudes', 'id_usuario', 'id_solicitud')
                     ->withPivot('fecha', 'status');

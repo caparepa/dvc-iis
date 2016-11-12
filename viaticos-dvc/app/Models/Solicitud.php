@@ -49,14 +49,14 @@ class Solicitud extends Model
     }
 
     /**
-     * [historicoSolicitudes description]
+     * [historico_solicitudes description]
      * @author Christopher Serrano (serrano.cjm@gmail.com)
      * @date   2016-11-12
      * @return [type]     [description]
      */
-    public function historicoSolicitudes()
+    public function historico_solicitudes()
     {
-    	return $this->belongsToMany('App\Model\Usuario', 'historico_solicitudes', 'id_solicitud', 'id_revisor')
+    	return $this->belongsToMany('App\Models\Usuario', 'historico_solicitudes', 'id_solicitud', 'id_revisor')
     				->withPivot('fecha', 'status');
     }
 
@@ -134,6 +134,26 @@ class Solicitud extends Model
         
         return $count > 0 ? true : false; //true -> rendiciones de cuentas pendientes
 
+    }
+
+    /**
+     * [updateHistoricoSolicitudes description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2016-11-12
+     * @param  [type]     $id_solicitud     [description]
+     * @param  [type]     $id_revisor       [description]
+     * @param  [type]     $status_solicitud [description]
+     * @return [type]                       [description]
+     */
+    public static function updateHistoricoSolicitudes($id_solicitud, $id_revisor, $status_solicitud)
+    {
+        $solicitud = self::find($id_solicitud);
+        $now = new \DateTime();
+        $fecha = $now->format('Y-m-d H:i:s');
+
+        $result = $solicitud->historico_solicitudes()->attach($id_revisor, ['fecha' => $fecha, 'status' => $status_solicitud]);   
+
+        return $result;
     }
 
 }
