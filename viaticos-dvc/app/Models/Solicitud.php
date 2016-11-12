@@ -18,7 +18,7 @@ class Solicitud extends Model
 	
     protected $table = 'solicitudes';
 
-    protected $appends = ['fechaViatico', 'fechaCreacion'];
+    protected $appends = ['fechaViatico', 'fechaCreacion', 'statusSolicitud'];
 
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
@@ -29,7 +29,8 @@ class Solicitud extends Model
     	'cedula_rif',
     	'fecha_solicitud',
     	'descripcion',
-    	'monto',
+        'monto',
+    	'status',
     	'id_usuario',
     	'id_cuenta'
     ];
@@ -53,7 +54,8 @@ class Solicitud extends Model
      * @date   2016-11-12
      * @return [type]     [description]
      */
-    public function historicoSolicitudes(){
+    public function historicoSolicitudes()
+    {
     	return $this->belongsToMany('App\Model\Usuario', 'historico_solicitudes', 'id_solicitud', 'id_revisor')
     				->withPivot('fecha', 'status');
     }
@@ -75,10 +77,27 @@ class Solicitud extends Model
      * @date   2016-11-12
      * @return [type]     [description]
      */
-    public function getFechaViaticoAttribute(){
+    public function getFechaViaticoAttribute()
+    {
         $fecha = new \DateTime($this->fecha_solicitud);
         $result = $fecha->format('d-m-Y');
         return $result;
+    }
+
+    public function getStatusSolicitudAttribute()
+    {
+        switch ($this->status) {
+            case self::STATUS_PENDING:
+                return 'Pendiente';
+            case self::STATUS_APPROVED:
+                return 'Aprobada';
+            case self::STATUS_DENIED:
+                return 'Negada';
+            case self::STATUS_ACCOUNT:
+                return 'Rendición pendiente';
+            default:
+                return 'N/A';
+        }
     }
 
     /**

@@ -25,6 +25,19 @@
   </ol>
 </section>
 
+<section>
+  <div class="row">
+  <div class="col-md-12">
+    <?php
+      //echo "<pre>";
+      //echo print_r($solicitudes);
+      //echo "</pre>"; 
+    ?>
+    
+  </div>
+  </div>
+</section>
+
 <!-- Main content -->
 <section class="content">
   <!-- Default box -->
@@ -57,6 +70,7 @@
             <th>Solicitante</th>
             <th>Fecha de Vi&aacute;tico</th>
             <th>Fecha de Creaci&oacute;n</th>
+            <th>Status de solicitud</th>
             <th>Acciones</th>
             
           </tr>
@@ -64,18 +78,11 @@
         <tbody>
           @foreach($solicitudes as $solicitud)
           <tr>
-            <td>
-              <a href="{{url('viaticos/solicitudes/view/'.$solicitud->id)}}">{{$solicitud->asunto}}</a>
-            </td>
-            <td>
-              {{$solicitud->usuario->fullName}}
-            </td>
-            <td>
-              {{$solicitud->fechaViatico}}
-            </td>
-            <td>
-              {{$solicitud->fechaCreacion}}
-            </td>
+            <td><a href="{{url('viaticos/solicitudes/view/'.$solicitud->id)}}">{{$solicitud->asunto}}</a></td>
+            <td><a href="{{url('viaticos/usuarios/view/'.$solicitud->usuario->id)}}">{{$solicitud->usuario->fullName}}</a></td>
+            <td>{{$solicitud->fechaViatico}}</td>
+            <td>{{$solicitud->fechaCreacion}}</td>
+            <td>{{$solicitud->statusSolicitud}}</td>
             <td>
               <a href="{{ url('viaticos/solicitudes/view/'.$solicitud->id) }}" class="btn btn-flat btn-sm"
                 title="Ver solicitud {{$solicitud->id}}">
@@ -118,6 +125,7 @@
             <th>Solicitante</th>
             <th>Fecha de Vi&aacute;tico</th>
             <th>Fecha de Creaci&oacute;n</th>
+            <th>Status de solicitud</th>
             <th>Acciones</th>
             
           </tr>
@@ -139,7 +147,6 @@
 @section('scripts')
 <script>
   $(function () {
-    $("#example1").DataTable();
     $('#tabla-solicitudes').DataTable({
       "paging": true,
       "lengthChange": false,

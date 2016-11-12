@@ -92,6 +92,7 @@ class SolicitudesController extends ViaticosController
             "fecha_solicitud" => $fecha->format('Y-m-d H:i:s'),
             "descripcion" => $request->descripcion,
             "monto" => (float)$request->monto, //parseo el monto a float porque a sqlserver no le gustan los strings
+            "status" => Solicitud::STATUS_PENDING,
             "id_cuenta" => $request->id_cuenta,
             "id_usuario" => $usuario->id
         ];
