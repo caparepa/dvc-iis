@@ -134,7 +134,7 @@ class AuthController extends Controller
         $remember = $request->input('remember', false);
 
         if( Auth::attempt($credentials, $remember) ) {
-            if(in_array(Auth::user()->rol, [Usuario::ROL_ADMIN, Usuario::ROL_USUARIO])){
+            if(Auth::user()->rol != Usuario::ROL_GUEST){
                 // login success
                 return $this->redirectAfterLogin();
             }else{
