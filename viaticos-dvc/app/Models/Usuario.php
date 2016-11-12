@@ -37,6 +37,7 @@ class Usuario extends Model implements AuthenticatableContract,
     const ROL_COMUNICACIONES = 'comunicaciones';
     const ROL_USUARIO = 'regular';
     const ROL_IT = 'it';
+    const ROL_GUEST = 'guest';
 
     /**
      * Posibles status de usuario
