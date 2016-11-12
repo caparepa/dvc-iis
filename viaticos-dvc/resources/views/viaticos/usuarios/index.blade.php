@@ -40,6 +40,7 @@
             <th>ID</th>
             <th>Nombre</th>
             <th>E-mail</th>
+            <th>Rol</th>
             <th>Acciones</th>
             
           </tr>
@@ -50,6 +51,7 @@
             <td>{{$usuario->id}}</td>
             <td>{{$usuario->fullName}}</td>
             <td>{{$usuario->email}}</td>
+            <td>{{$usuario->rolName}}</td>
             <td>
                     <a href="{{ url('viaticos/usuarios/edit/'.$usuario->id) }}" class="btn btn-flat btn-sm"
                       title="Editar {{$usuario->fullName}}">
@@ -71,6 +73,7 @@
             <th>ID</th>
             <th>Nombre</th>
             <th>E-mail</th>
+            <th>Rol</th>
             <th>Acciones</th>
             
           </tr>

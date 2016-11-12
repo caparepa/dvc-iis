@@ -18,6 +18,8 @@ class Solicitud extends Model
 	
     protected $table = 'solicitudes';
 
+    protected $appends = ['fechaViatico', 'fechaCreacion'];
+
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     protected $fillable = [
@@ -34,24 +36,61 @@ class Solicitud extends Model
 
     public $timestamps = true;
 
+    /**
+     * [usuario description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2016-11-12
+     * @return [type]     [description]
+     */
     public function usuario()
     {
     	return $this->belongsTo('App\Models\Usuario', 'id_usuario');
     }
 
+    /**
+     * [historicoSolicitudes description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2016-11-12
+     * @return [type]     [description]
+     */
     public function historicoSolicitudes(){
     	return $this->belongsToMany('App\Model\Usuario', 'historico_solicitudes', 'id_solicitud', 'id_revisor')
     				->withPivot('fecha', 'status');
     }
 
-    /*public function area()
-    {
-    	return $this->belongsTo('App\Models\Area', 'id_area');
-    }*/
-
+    /**
+     * [cuenta description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2016-11-12
+     * @return [type]     [description]
+     */
     public function cuenta()
     {
     	return $this->belongsTo('App\Models\Cuenta', 'id_cuenta');
+    }
+
+    /**
+     * [getFechaViaticoAttribute description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2016-11-12
+     * @return [type]     [description]
+     */
+    public function getFechaViaticoAttribute(){
+        $fecha = new \DateTime($this->fecha_solicitud);
+        $result = $fecha->format('d-m-Y');
+        return $result;
+    }
+
+    /**
+     * [getAttributeFechaCreacion description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2016-11-12
+     * @return [type]     [description]
+     */
+    public function getFechaCreacionAttribute(){
+        $fecha = new \DateTime($this->created_at);
+        $result = $fecha->format('d-m-Y');
+        return $result;
     }
 
     /**

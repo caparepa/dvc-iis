@@ -50,11 +50,13 @@
     </div>
     <div class="box-body">
       <!-- tabla -->
-      <table id="example2" class="table table-bordered table-hover">
+      <table id="tabla-solicitudes" class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th>Id</th>
             <th>Asunto</th>
+            <th>Solicitante</th>
+            <th>Fecha de Vi&aacute;tico</th>
+            <th>Fecha de Creaci&oacute;n</th>
             <th>Acciones</th>
             
           </tr>
@@ -62,8 +64,18 @@
         <tbody>
           @foreach($solicitudes as $solicitud)
           <tr>
-            <td><a href="{{url('viaticos/solicitudes/view/'.$solicitud->id)}}">{{$solicitud->id}}</a></td>
-            <td>{{$solicitud->asunto}}</td>
+            <td>
+              <a href="{{url('viaticos/solicitudes/view/'.$solicitud->id)}}">{{$solicitud->asunto}}</a>
+            </td>
+            <td>
+              {{$solicitud->usuario->fullName}}
+            </td>
+            <td>
+              {{$solicitud->fechaViatico}}
+            </td>
+            <td>
+              {{$solicitud->fechaCreacion}}
+            </td>
             <td>
               <a href="{{ url('viaticos/solicitudes/view/'.$solicitud->id) }}" class="btn btn-flat btn-sm"
                 title="Ver solicitud {{$solicitud->id}}">
@@ -102,8 +114,10 @@
         </tbody>
         <tfoot>
           <tr>
-            <th>Id</th>
             <th>Asunto</th>
+            <th>Solicitante</th>
+            <th>Fecha de Vi&aacute;tico</th>
+            <th>Fecha de Creaci&oacute;n</th>
             <th>Acciones</th>
             
           </tr>
@@ -126,7 +140,7 @@
 <script>
   $(function () {
     $("#example1").DataTable();
-    $('#example2').DataTable({
+    $('#tabla-solicitudes').DataTable({
       "paging": true,
       "lengthChange": false,
       "searching": false,
