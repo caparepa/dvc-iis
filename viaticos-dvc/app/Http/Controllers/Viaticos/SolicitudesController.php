@@ -18,6 +18,8 @@ class SolicitudesController extends ViaticosController
 
     /**
      * [__construct description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2016-11-12
      */
     public function __construct()
     {
@@ -26,9 +28,10 @@ class SolicitudesController extends ViaticosController
     }
 
     /**
-     * Listado de solicitudes (meh... indice regular)
-     *
-     * @return \Illuminate\Http\Response
+     * [getIndex description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2016-11-12
+     * @return [type]     [description]
      */
     public function getIndex()
     {
@@ -44,8 +47,9 @@ class SolicitudesController extends ViaticosController
     }
 
     /**
-     * Listado de solicitudes dado un usuario
-     * @param  [type] $id [description]
+     * [getListadoSolicitudesUsuario description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2016-11-12
      * @return [type]     [description]
      */
     public function getListadoSolicitudesUsuario(){
@@ -58,9 +62,10 @@ class SolicitudesController extends ViaticosController
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * [getCreate description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2016-11-12
+     * @return [type]     [description]
      */
     public function getCreate()
     {
@@ -73,10 +78,11 @@ class SolicitudesController extends ViaticosController
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * [postCreate description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2016-11-12
+     * @param  Request    $request [description]
+     * @return [type]              [description]
      */
     public function postCreate(Request $request)
     {
@@ -116,10 +122,11 @@ class SolicitudesController extends ViaticosController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * [getView description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2016-11-12
+     * @param  [type]     $id [description]
+     * @return [type]         [description]
      */
     public function getView($id)
     {
@@ -147,11 +154,11 @@ class SolicitudesController extends ViaticosController
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * [postEdit description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2016-11-12
+     * @param  Request    $request [description]
+     * @return [type]              [description]
      */
     public function postEdit(Request $request)
     {
@@ -187,17 +194,24 @@ class SolicitudesController extends ViaticosController
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * [getDelete description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2016-11-12
+     * @param  [type]     $id [description]
+     * @return [type]         [description]
      */
     public function getDelete($id)
     {
         //
     }
 
-
+    /**
+     * [getListadoRazonSocial description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2016-11-12
+     * @param  Request    $request [description]
+     * @return [type]              [description]
+     */
     public function getListadoRazonSocial(Request $request){
         
         $query = $request->term;
@@ -214,6 +228,12 @@ class SolicitudesController extends ViaticosController
         ]);
     }
 
+    /**
+     * [getValidarRendicionPendiente description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2016-11-12
+     * @return [type]     [description]
+     */
     public function getValidarRendicionPendiente(){
 
         $usuario = Auth::user();
@@ -225,11 +245,22 @@ class SolicitudesController extends ViaticosController
 
     }
 
+    /**
+     * [getCambiarStatusSolicitud description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2016-11-12
+     * @param  [type]     $id_solicitud [description]
+     * @param  [type]     $status       [description]
+     * @return [type]                   [description]
+     */
     public function getCambiarStatusSolicitud($id_solicitud, $status){
 
         $solicitud = Solicitud::find($id_solicitud);
         $solicitud->status = $status;
-        $solicitud->update();
+        
+        if($solicitud->update()){
+            $result = Solicitud::updateHistoricoSolicitudes($id_solicitud, Auth::user()->id, $status);
+        }
 
         if($status == Solicitud::STATUS_APPROVED){
             return redirect( 'viaticos/solicitudes' )
