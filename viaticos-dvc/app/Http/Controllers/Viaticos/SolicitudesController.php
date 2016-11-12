@@ -227,14 +227,14 @@ class SolicitudesController extends ViaticosController
 
     public function getCambiarStatusSolicitud($id_solicitud, $status){
 
-        $solicitud = Solicitud::find($id);
+        $solicitud = Solicitud::find($id_solicitud);
         $solicitud->status = $status;
         $solicitud->update();
 
-        if($status == Solicitd::STATUS_APPROVED){
+        if($status == Solicitud::STATUS_APPROVED){
             return redirect( 'viaticos/solicitudes' )
                 ->with('success', 'Solicitud aprobada.');
-        }else if($status == Solicitd::STATUS_DENIED){
+        }else if($status == Solicitud::STATUS_DENIED){
             return redirect( 'viaticos/solicitudes' )
                 ->with('error', 'Solicitud denegada.');
         }
