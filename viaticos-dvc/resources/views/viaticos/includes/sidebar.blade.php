@@ -1,3 +1,12 @@
+<?php 
+	
+	$array_roles = [
+		\App\Models\Usuario::ROL_ADMIN,
+		\App\Models\Usuario::ROL_ADMINISTRACION,
+		\App\Models\Usuario::ROL_DIRECCION,
+	];
+
+?>
 <!-- =============================================== -->
 <!-- Left side column. contains the sidebar -->
 <aside class="main-sidebar">
@@ -30,7 +39,9 @@
 		    </span>
 		  </a>
 		  <ul class="treeview-menu">
+			@if(in_array($sessionUser->rol, $array_roles))
 			<li><a href="/viaticos/solicitudes"><i class="fa fa-circle-o"></i>Lista de Solicitudes</a></li>
+			@endif
 			<li><a href="/viaticos/solicitudes/mis-solicitudes"><i class="fa fa-circle-o"></i>Mis solicitudes</a></li>
 			<li><a href="/viaticos/solicitudes/create" id="crearSolicitud"><i class="fa fa-circle-o"></i>Crear solicitud</a></li>
 		  </ul>
