@@ -259,4 +259,22 @@ class Usuario extends Model implements AuthenticatableContract,
         return url($this->avatar);
     }
 
+    /**
+     * Obtiene usuarios con solicitudes pendientes por cerrar
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-01-11
+     * @return [type]     [description]
+     */
+    public static function getUsuariosSolicitudesPendientes() {
+
+        //obtener los usuarios con solicitudes que tengan status de
+        //rendicion de cuentas por cerrar
+        $usuarios_pendientes = self::with('solicitudes', function($query){
+            $query->where('status', Solicitud::STATUS_ACCOUNT);
+        })->get();
+
+        return $usuarios_pendientes;
+
+    }
+
 }

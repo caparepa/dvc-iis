@@ -11,9 +11,9 @@ class Solicitud extends Model
     //
     use SoftDeletes;
 
-	const STATUS_PENDING = 'pendiente';
-	const STATUS_APPROVED = 'aprobada';
-	const STATUS_DENIED = 'rechazada';
+	const STATUS_PENDING = 'pendiente'; //solicitud de viatico pendiente por revision
+	const STATUS_APPROVED = 'aprobada'; //solicitud de viatico aprobara
+	const STATUS_DENIED = 'rechazada'; //solicitud de viatico rechazada
     const STATUS_ACCOUNT = 'rendicion'; //este estado correspondo a una solicitud aprobada con fecha limite pasada
 	
     protected $table = 'solicitudes';
