@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Carbon\Carbon;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -13,9 +14,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
-        ],
+        'App\Events\EventUsuarioRegistrado' => ['App\Listeners\ListenerUsuarioRegistrado'],
+        'App\Events\EventSolicitudCreada' => ['App\Listeners\ListenerSolicitudCreada'],
     ];
 
     /**
@@ -28,6 +28,11 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot($events);
 
-        //
+        // Fired on successful logins...
+        $events->listen('auth.login', function($user, $remember) {
+            $user->last_login = Carbon::now();
+            $user->save();
+        });
+        
     }
 }
