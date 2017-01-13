@@ -5,14 +5,14 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-use App\Models\Solicitud;
-use App\Models\Usuario;
-use App\Models\Cliente;
-use App\Models\Concesionario;
-use App\Models\Sala;
-use App\Models\VehiculoModelo;
-use App\Models\VehiculoVersion;
-use App\Models\Vehiculo;
+// use App\Models\Solicitud;
+// use App\Models\Usuario;
+// use App\Models\Cliente;
+// use App\Models\Concesionario;
+// use App\Models\Sala;
+// use App\Models\VehiculoModelo;
+// use App\Models\VehiculoVersion;
+// use App\Models\Vehiculo;
 
 use DateTime;
 use DateTimeZone;
