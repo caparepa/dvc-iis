@@ -25,14 +25,14 @@ class SendReminderSolicitudesPendientes extends Command
      *
      * @var string
      */
-    protected $signature = 'reminders:send-reminder-citas';
+    protected $signature = 'reminders:send-reminder-solicitudes-pendientes';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Envía recordatorio por mail de citas próximas.';
+    protected $description = 'Envía por mail recordatorios de solicitudes pendientes por cerrar (rendicion de cuentas).';
 
     /**
      * Create a new command instance.
