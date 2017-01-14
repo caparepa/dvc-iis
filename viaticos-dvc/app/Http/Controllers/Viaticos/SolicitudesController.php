@@ -8,7 +8,7 @@ use App\Models\Usuario;
 use App\Models\Solicitud;
 use App\Models\Cuenta;
 use App\Models\RazonSocial;
-use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
