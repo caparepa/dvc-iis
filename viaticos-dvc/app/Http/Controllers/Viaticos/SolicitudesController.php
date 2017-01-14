@@ -238,9 +238,12 @@ class SolicitudesController extends ViaticosController
 
         $usuario = Auth::user();
         $result = Solicitud::validarRendicionCuentaPendiente($usuario->id);
+        $shit = Usuario::getUsuariosSolicitudesPendientes();
+        \Log::info($shit);
 
         return response()->json([
-            'result' => $result
+            'result' => $result,
+            'someothershit' => $shit 
         ]);
 
     }

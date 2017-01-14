@@ -51,6 +51,8 @@ class CreateUsersTable extends Migration
             $table->integer('id_area')
                     ->unsigned()
                     ->nullable();
+            $table->timestamp('last_login')
+                    ->nullable();
             $table->rememberToken();
             
             $table->timestamps();

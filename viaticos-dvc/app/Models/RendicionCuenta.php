@@ -3,11 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class RendicionCuenta extends Model
 {
     //
 	use SoftDeletes;
+
+    const STATUS_OPEN = 'abierta';
+    const STATUS_CLOSED = 'cerrada';
 
     protected $table = 'rendicion_cuentas';
 
@@ -53,6 +58,6 @@ class RendicionCuenta extends Model
      */
     public function solicitante()
     {
-    	return $this->belongsTo('App\Models\Usuario', 'id_solicitante')
+    	return $this->belongsTo('App\Models\Usuario', 'id_solicitante');
     }
 }

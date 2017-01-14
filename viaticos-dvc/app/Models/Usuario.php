@@ -92,7 +92,7 @@ class Usuario extends Model implements AuthenticatableContract,
      * [$dates description]
      * @var [type]
      */
-    protected $dates = ['created_at', 'updated_at', 'deteled_at'];
+    protected $dates = ['created_at', 'updated_at', 'deteled_at', 'last_login'];
 
     public $timestamps = true;
 
@@ -261,6 +261,8 @@ class Usuario extends Model implements AuthenticatableContract,
 
     /**
      * Obtiene usuarios con solicitudes pendientes por cerrar
+     * NOTA: esta funcion devuelve una lista de usuarios con las rendiciones pendientes.
+     * Si no tiene solicitudes con rendicion pendiente, el array es vacio, duh!
      * @author Christopher Serrano (serrano.cjm@gmail.com)
      * @date   2017-01-11
      * @return [type]     [description]
@@ -269,9 +271,9 @@ class Usuario extends Model implements AuthenticatableContract,
 
         //obtener los usuarios con solicitudes que tengan status de
         //rendicion de cuentas por cerrar
-        $usuarios_pendientes = self::with('solicitudes', function($query){
-            $query->where('status', Solicitud::STATUS_ACCOUNT);
-        })->get();
+        $usuarios_pendientes = Usuario::with(['solicitudes' => function($query){
+                    $query->where('status', Solicitud::STATUS_ACCOUNT);
+                }])->get();
 
         return $usuarios_pendientes;
 
