@@ -6,7 +6,9 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 use App\Events\EventSolicitudCreada;
-use App\Models\Cita;
+use App\Models\Usuario;
+use App\Models\Solicitud;
+use App\Models\RendicionCuenta;
 
 class ListenerSolicitudCreada
 {
@@ -29,85 +31,80 @@ class ListenerSolicitudCreada
     public function handle(EventSolicitudCreada $event)
     {
 
-		$asesor = $event->getUsuario();
-		$cliente = $event->getCliente();
-		$vehiculo = $event->getVehiculo();
-		$cita = $event->getCita();
-		$tipoCita = $event->getTipoCita();
+		$usuario = $event->getUsuario();
+		$solicitud = $event->getSolicitud();
+		$rendicion = $event->getRendicion();
 
 		\Log::info('ListenerSolicitudCreada - Envio de emails');
 
-		switch($tipoCita){
-			case Cita::STATUS_GUIDE:
-					Mail::send('emails.ce.guia_orientacion',[
-						'cita' => $cita,
-						'cliente' => $cliente,
-						'vehiculo' => $vehiculo,
-						'asesor' => $asesor],
-						function($message) use ($cliente) {
-							$message->to($cliente->email, $cliente->nombre);
-							$message->subject('¡Felicitaciones por tu nuevo vehículo! Comienza a sentir la Experiencia Ford...');
-						}
-					);
-					\Log::info('Guia de Orientacion: envio de email.');
-					\Log::info('Email asesor: '.$asesor->email.' - Email cliente (destinatario): '.$cliente->email);
-					//Validacion de errores de envio
-					if( count(Mail::failures()) > 0 ) {
-						$lista_errores = '';
-						foreach(Mail::failures as $email) {
-							$lista_errores = ' - ' . $email . PHP_EOL;
-						}						
-						\Log::error('Guia de orientacion: error de envio a los siguientes destinatarios - ' . PHP_EOL . $lista_errores);
-					} else {
-					    \Log::info('Guia de orientacion: no hubo errores de envio.');
+		//se envia un mail a las personas de administración, y otro mail al solicitante
+		switch ($solicitud->status) {
+			case Solicitud::STATUS_PENDING:
+				//se envia un mail al usuario al solicitante, y un mail al encargado
+				Mail::send('emails.viaticos.solicitud_creada',['solicitud' => $solicitud, 'usuario' => $usuario],
+					function($message) use ($usuario) {
+						$message->to($usuario->email, $usuario->fullName);
+						$message->subject('Se ha creado una nueva solicitud de viatico.');
 					}
+				);
+				\Log::info('Crear solicitud: envio de email.');
+				//Validacion de errores de envio
+				if( count(Mail::failures()) > 0 ) {
+					$lista_errores = '';
+					foreach(Mail::failures as $email) {
+						$lista_errores = ' - ' . $email . PHP_EOL;
+					}						
+					\Log::error('Solicitud creada: error de envio a los siguientes destinatarios - ' . PHP_EOL . $lista_errores);
+				} else {
+				    \Log::info('Solicitud creada: no hubo errores de envio.');
+				}
 				break;
-			case Cita::STATUS_PENDING:
-					Mail::send('emails.ce.cita_pendiente',[
-						'cliente' => $cliente,
-						'vehiculo' => $vehiculo,
-						'asesor' => $asesor,
-            'cita' => $cita],
-						function($message) use ($asesor) {
-							$message->to($asesor->email, $asesor->fullName);
-							$message->subject('Guía de Orientación - Tecnologías Seleccionadas');
-						}
-					);
+			case Solicitud::STATUS_APPROVED:
+				//mail para el solicitante
+				Mail::send('emails.viaticos.solicitud_aprobada',['solicitud' => $solicitud, 'usuario' => $usuario],
+					function($message) use ($usuario) {
+						$message->to($usuario->email, $usuario->fullName);
+						$message->subject('Su solicitud de viáticos ha sido aprobada.');
+					}
+				);
+				\Log::info('Solicitud aprobada: envio de email.');
+				//Validacion de errores de envio
+				if( count(Mail::failures()) > 0 ) {
+					$lista_errores = '';
+					foreach(Mail::failures as $email) {
+						$lista_errores = ' - ' . $email . PHP_EOL;
+					}						
+					\Log::error('Solicitud aprobada: error de envio a los siguientes destinatarios - ' . PHP_EOL . $lista_errores);
+				} else {
+				    \Log::info('Solicitud aprobada: no hubo errores de envio.');
+				}
 				break;
-			case Cita::STATUS_ACCEPTED:
-					Mail::send('emails.ce.cita_confirmada',[
-						'cliente' => $cliente,
-						'asesor' => $asesor,
-						'vehiculo' => $vehiculo,
-						'asesor' => $asesor,
-						'cita' => $cita],
-						function($message) use ($cliente, $cita) {
-							$message->to($cliente->email, $cliente->nombre);
-							$message->subject('¡Felicitaciones por tu nuevo vehículo! Comienza a sentir la Experiencia Ford...');
-							if($cita->ficha_tecnologias != null && file_exists(public_path().$cita->ficha_tecnologias)){
-								$message->attach(public_path().$cita->ficha_tecnologias);
-							}
-						}
-					);
+			case Solicitud::STATUS_DENIED:
+				//mail para el solicitante
+				Mail::send('emails.viaticos.solicitud_negada',['solicitud' => $solicitud, 'usuario' => $usuario],
+					function($message) use ($usuario) {
+						$message->to($usuario->email, $usuario->fullName);
+						$message->subject('Su solicitud de viáticos ha sido negada.');
+					}
+				);
+				\Log::info('Solicitud negada: envio de email.');
+				//Validacion de errores de envio
+				if( count(Mail::failures()) > 0 ) {
+					$lista_errores = '';
+					foreach(Mail::failures as $email) {
+						$lista_errores = ' - ' . $email . PHP_EOL;
+					}						
+					\Log::error('Solicitud negada: error de envio a los siguientes destinatarios - ' . PHP_EOL . $lista_errores);
+				} else {
+				    \Log::info('Solicitud negada: no hubo errores de envio.');
+				}
 				break;
-			case Cita::STATUS_POST:
-					Mail::send('emails.ce.segunda_cita',[
-						'cliente' => $cliente,
-						'asesor' => $asesor,
-						'vehiculo' => $vehiculo,
-						'asesor' => $asesor,
-						'cita' => $cita],
-						function($message) use ($cliente) {
-							$message->to($cliente->email, $cliente->nombre);
-							$message->subject('¡Felicitaciones por tu nuevo vehículo! Comienza a sentir la Experiencia Ford...');
-						}
-					);
-				break;
-			case Cita::STATUS_CANCELLED:
-					\Log::info('ListenerSolicitudCreada -> STATUS_CANCELLED');
+			case Solicitud::STATUS_ACCOUNT:
+				//nothing here, welp
 				break;
 			default:
-					\Log::info('ListenerSolicitudCreada -> default_action');
+				//nothing else, welp
+				break;
 		}
 
     }
