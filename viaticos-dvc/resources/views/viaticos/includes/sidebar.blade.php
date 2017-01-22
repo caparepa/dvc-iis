@@ -48,6 +48,20 @@
 		</li>
 		<li class="treeview">
 		  <a href="#">
+		    <i class="fa fa-book"></i> <span>Rendición de Cuentas</span>
+		    <span class="pull-right-container">
+		      <i class="fa fa-angle-left pull-right"></i>
+		    </span>
+		  </a>
+		  <ul class="treeview-menu">
+			@if(in_array($sessionUser->rol, $array_roles))
+			<li><a href="/viaticos/rendiciones"><i class="fa fa-circle-o"></i>Listado de rendiciones</a></li>
+			@endif
+			<li><a href="/viaticos/solicitudes/mis-rendiciones"><i class="fa fa-circle-o"></i>Mis rendiciones pendientes</a></li>
+		  </ul>
+		</li>
+		<li class="treeview">
+		  <a href="#">
 		    <i class="fa fa-table"></i> <span>Cuentas</span>
 		    <span class="pull-right-container">
 		      <i class="fa fa-angle-left pull-right"></i>

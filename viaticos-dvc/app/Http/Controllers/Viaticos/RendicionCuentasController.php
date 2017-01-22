@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Viaticos;
 
 use App\Models\RendicionCuenta;
 use App\Models\Gasto;
+use App\Models\Usuario;
+use App\Models\Solicitud;
 
 use Illuminate\Http\Request;
 
@@ -12,10 +14,23 @@ use App\Http\Controllers\Controller;
 
 class RendicionCuentasController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * [__construct description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-01-22
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        view()->share('section', 'rendiciones');
+    }
+
+    /**
+     * [getIndex description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-01-22
+     * @return [type]     [description]
      */
     public function getIndex()
     {
@@ -23,9 +38,25 @@ class RendicionCuentasController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * [getRendicionesPendientesUsuario description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-01-22
+     * @return [type]     [description]
+     */
+    public function getRendicionesPendientesUsuario(){
+        
+        /*$user = Auth::user();
+        $solicitudes = Solicitud::where('id_usuario', $user->id)->get();
+        $revisor = in_array($user->rol, [Usuario::ROL_DIRECCION, Usuario::ROL_ADMINISTRACION]) ? true : false;
+        
+        return view('viaticos.solicitudes.index', ['solicitudes' => $solicitudes, 'type' => 'index_user']);*/
+    }
+
+    /**
+     * [getCreate description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-01-22
+     * @return [type]     [description]
      */
     public function getCreate()
     {
@@ -33,10 +64,11 @@ class RendicionCuentasController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * [postCreate description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-01-22
+     * @param  Request    $request [description]
+     * @return [type]              [description]
      */
     public function postCreate(Request $request)
     {
@@ -44,10 +76,11 @@ class RendicionCuentasController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * [getView description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-01-22
+     * @param  [type]     $id [description]
+     * @return [type]         [description]
      */
     public function getView($id)
     {
@@ -55,10 +88,11 @@ class RendicionCuentasController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * [getEdit description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-01-22
+     * @param  [type]     $id [description]
+     * @return [type]         [description]
      */
     public function getEdit($id)
     {
@@ -66,11 +100,11 @@ class RendicionCuentasController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * [postEdit description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-01-22
+     * @param  Request    $request [description]
+     * @return [type]              [description]
      */
     public function postEdit(Request $request)
     {
@@ -78,13 +112,37 @@ class RendicionCuentasController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * [getDelete description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-01-22
+     * @param  [type]     $id [description]
+     * @return [type]         [description]
      */
     public function getDelete($id)
     {
         //
     }
+
+    /**
+     * [getAprobarRendicion description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-01-22
+     * @param  [type]     $id [description]
+     * @return [type]         [description]
+     */
+    public function getAprobarRendicion($id){
+
+    }
+
+    /**
+     * [postRechazarRendicion description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-01-22
+     * @param  Request    $request [description]
+     * @return [type]              [description]
+     */
+    public function postRechazarRendicion(Request $request){
+
+    }
+
 }

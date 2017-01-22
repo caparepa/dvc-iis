@@ -80,6 +80,13 @@ Route::group(['namespace' => 'Viaticos', 'prefix' => 'viaticos', 'middleware' =>
   Route::controller('solicitudes', 'SolicitudesController');
 
   /**
+   * Rendiciones
+   */
+  Route::get('rendiciones/mis-rendiciones', ['uses' => 'RendicionCuentasController@getRendicionesPendientesUsuario']);
+
+  Route::controller('rendiciones', 'RendicionCuentasController');
+
+  /**
    * Areas
    */
   Route::controller('areas', 'AreasController');
