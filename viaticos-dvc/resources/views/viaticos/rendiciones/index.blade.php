@@ -6,7 +6,7 @@
 <section class="content-header">
   <h1>
     @if($type == 'index_all')
-    Listado de solicitudes
+    Listado de rendiciones
     @else
     Mis Solicitudes
     @endif
@@ -30,7 +30,7 @@
   <div class="col-md-12">
     <?php
       //echo "<pre>";
-      //echo print_r($solicitudes);
+      //echo print_r($rendiciones);
       //echo "</pre>"; 
     ?>
     
@@ -45,7 +45,7 @@
     <div class="box-header with-border">
       <h3 class="box-title">
       @if($type == 'index_all')
-      Listado de solicitudes
+      Listado de rendiciones
       @else
       Mis Solicitudes
       @endif
@@ -63,53 +63,53 @@
     </div>
     <div class="box-body">
       <!-- tabla -->
-      <table id="tabla-solicitudes" class="table table-bordered table-hover">
+      <table id="tabla-rendiciones" class="table table-bordered table-hover">
         <thead>
           <tr>
             <th>Asunto</th>
             <th>Solicitante</th>
             <th>Fecha de Vi&aacute;tico</th>
             <th>Fecha de Creaci&oacute;n</th>
-            <th>Status de solicitud</th>
+            <th>Status de rendicion</th>
             <th>Acciones</th>
             
           </tr>
         </thead>
         <tbody>
-          @foreach($solicitudes as $solicitud)
+          @foreach($rendiciones as $rendicion)
           <tr>
-            <td><a href="{{url('viaticos/solicitudes/view/'.$solicitud->id)}}">{{$solicitud->asunto}}</a></td>
-            <td><a href="{{url('viaticos/usuarios/view/'.$solicitud->usuario->id)}}">{{$solicitud->usuario->fullName}}</a></td>
-            <td>{{$solicitud->fechaViatico}}</td>
-            <td>{{$solicitud->fechaCreacion}}</td>
-            <td>{{$solicitud->statusSolicitud}}</td>
+            <td><a href="{{url('viaticos/rendiciones/view/'.$rendicion->id)}}">{{$rendicion->asunto}}</a></td>
+            <td><a href="{{url('viaticos/usuarios/view/'.$rendicion->usuario->id)}}">{{$rendicion->usuario->fullName}}</a></td>
+            <td>{{$rendicion->fechaViatico}}</td>
+            <td>{{$rendicion->fechaCreacion}}</td>
+            <td>{{$rendicion->statusSolicitud}}</td>
             <td>
-              <a href="{{ url('viaticos/solicitudes/view/'.$solicitud->id) }}" class="btn btn-flat btn-sm"
-                title="Ver solicitud {{$solicitud->id}}">
+              <a href="{{ url('viaticos/rendiciones/view/'.$rendicion->id) }}" class="btn btn-flat btn-sm"
+                title="Ver rendicion {{$rendicion->id}}">
                 <i class="fa fa-eye"></i>
               </a>
-              <a href="{{ url('viaticos/solicitudes/edit/'.$solicitud->id) }}" class="btn btn-flat btn-sm"
-                title="Editar solicitud {{$solicitud->id}}">
+              <a href="{{ url('viaticos/rendiciones/edit/'.$rendicion->id) }}" class="btn btn-flat btn-sm"
+                title="Editar rendicion {{$rendicion->id}}">
                 <i class="fa fa-edit"></i>
               </a>
-              <a href="{{ url('viaticos/solicitudes/delete/'.$solicitud->id) }}"
+              <a href="{{ url('viaticos/rendiciones/delete/'.$rendicion->id) }}"
                 class="btn btn-flat btn-sm"
-                title="Eliminar solicitud {{$solicitud->id}}"
-                data-confirm="¿Est&aacute; seguro que desea eliminar esta solicitud?">
+                title="Eliminar rendicion {{$rendicion->id}}"
+                data-confirm="¿Est&aacute; seguro que desea eliminar esta rendicion?">
                 <i class="fa fa-trash-o"></i>
               </a>
               @if($type == 'index_all')
                 @if(Auth::user()->isAdministracion() || Auth::user()->isDireccion())
-                <a href="{{ url('viaticos/solicitudes/cambiar-status-solicitud/'.$solicitud->id.'/'.App\Models\Solicitud::STATUS_APPROVED) }}"
+                <a href="{{ url('viaticos/rendiciones/cambiar-status-rendicion/'.$rendicion->id.'/'.App\Models\Solicitud::STATUS_APPROVED) }}"
                   class="btn btn-flat btn-sm"
-                  title="Aceptar solicitud {{$solicitud->id}}"
-                  data-confirm="¿Est&aacute; seguro que desea aceptar esta solicitud?">
+                  title="Aceptar rendicion {{$rendicion->id}}"
+                  data-confirm="¿Est&aacute; seguro que desea aceptar esta rendicion?">
                   <i class="fa fa-check"></i>
                 </a>
-                  <a href="{{ url('viaticos/solicitudes/cambiar-status-solicitud/'.$solicitud->id.'/'.App\Models\Solicitud::STATUS_DENIED) }}"
+                  <a href="{{ url('viaticos/rendiciones/cambiar-status-rendicion/'.$rendicion->id.'/'.App\Models\Solicitud::STATUS_DENIED) }}"
                   class="btn btn-flat btn-sm"
-                  title="Denegar solicitud {{$solicitud->id}}"
-                  data-confirm="¿Est&aacute; seguro que desea denegar esta solicitud?">
+                  title="Denegar rendicion {{$rendicion->id}}"
+                  data-confirm="¿Est&aacute; seguro que desea denegar esta rendicion?">
                   <i class="fa fa-ban"></i>
                 </a>
                 @endif
@@ -125,7 +125,7 @@
             <th>Solicitante</th>
             <th>Fecha de Vi&aacute;tico</th>
             <th>Fecha de Creaci&oacute;n</th>
-            <th>Status de solicitud</th>
+            <th>Status de rendicion</th>
             <th>Acciones</th>
             
           </tr>
@@ -147,7 +147,7 @@
 @section('scripts')
 <script>
   $(function () {
-    $('#tabla-solicitudes').DataTable({
+    $('#tabla-rendiciones').DataTable({
       "paging": true,
       "lengthChange": false,
       "searching": false,

@@ -17,7 +17,7 @@
 
 <!-- Main content -->
 <section class="content">
-@include('viaticos.rendiciones.form', ['action' => 'create', 'mock' => $rendicion, 'solicitud' => $solicitud])
+@include('viaticos.rendiciones.form', ['action' => 'create', 'mock' => $rendicion, 'rendicion' => $rendicion])
 </section>
 <!-- /.content -->
 

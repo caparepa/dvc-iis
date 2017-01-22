@@ -32,7 +32,7 @@
                 <dt>Asunto</dt>
                 <dd>{{$rendicion->asunto}}</dd>
                 <dt>Fecha</dt>
-                <dd>{{$rendicion->fecha_solicitud}}</dd>
+                <dd>{{$rendicion->fecha_rendicion}}</dd>
                 <dt>Beneficiario</dt>
                 <dd>{{$rendicion->beneficiario}}</dd>
                 

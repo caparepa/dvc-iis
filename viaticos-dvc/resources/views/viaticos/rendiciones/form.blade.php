@@ -37,7 +37,7 @@
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-calendar"></span>
             </span>
-            <input id="fecha_solicitud" name="fecha_solicitud" type='text' class="form-control" value="{{$mock->fecha_solicitud}}" placeholder="aaaa-mm-dd"/>
+            <input id="fecha_rendicion" name="fecha_rendicion" type='text' class="form-control" value="{{$mock->fecha_rendicion}}" placeholder="aaaa-mm-dd"/>
         </div>
       </div>
 
@@ -77,7 +77,7 @@
         asunto: {
             validators: {
                 notEmpty: {
-                    message: 'Por favor, introduzca el motivo de la solicitud.'
+                    message: 'Por favor, introduzca el motivo de la rendicion.'
                 }
             }
       	},
@@ -103,7 +103,7 @@
                 }
             }
       	},
-      	fecha_solicitud: {
+      	fecha_rendicion: {
             validators: {
                 notEmpty: {
                     message: 'Por favor, introduzca una fecha.'
@@ -113,7 +113,7 @@
       	descripcion: {
             validators: {
                 notEmpty: {
-                    message: 'Por favor, describa la actividad para la cual se realiza la solicitud.'
+                    message: 'Por favor, describa la actividad para la cual se realiza la rendicion.'
                 }
             }
       	},
@@ -138,7 +138,7 @@
       	id_area: {
             validators: {
                 notEmpty: {
-                    message: 'Por favor, seleccione el área de solicitud.'
+                    message: 'Por favor, seleccione el área de rendicion.'
                 }
             }
       	},
@@ -148,7 +148,7 @@
 
     //Init Calendar
     $(function () {
-      $('#fecha_solicitud').datetimepicker({
+      $('#fecha_rendicion').datetimepicker({
         minDate: new Date(),
         sideBySide: false,
         useCurrent: true,
@@ -168,7 +168,7 @@
       $(".autocomplete").autocomplete({
         source: function(request, response){
           $.ajax({
-            url: '/viaticos/solicitudes/listado-razon-social',
+            url: '/viaticos/rendiciones/listado-razon-social',
             data: {term: request.term},
             dataType: 'JSON',
             success: function(data){
