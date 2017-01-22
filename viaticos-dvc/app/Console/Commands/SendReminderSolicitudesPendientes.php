@@ -5,14 +5,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-// use App\Models\Solicitud;
-// use App\Models\Usuario;
-// use App\Models\Cliente;
-// use App\Models\Concesionario;
-// use App\Models\Sala;
-// use App\Models\VehiculoModelo;
-// use App\Models\VehiculoVersion;
-// use App\Models\Vehiculo;
+use App\Models\Solicitud;
+use App\Models\Usuario;
 
 use DateTime;
 use DateTimeZone;
@@ -51,7 +45,7 @@ class SendReminderSolicitudesPendientes extends Command
      */
     public function handle()
     {
-        /**** MAIL CITAS PROXIMAS ****/
+        /**** MAIL RENDICIONES DE CUENTAS PENDIENTES ****/
 
         try{
 
@@ -85,6 +79,7 @@ class SendReminderSolicitudesPendientes extends Command
 
             foreach($usuarios_pendientes as $pendiente){
                 \Mail::send('emails.viaticos.recordatorio_rendiciones', ['usuario_pendiente' => $pendiente], function($message) use ($pendiente) {
+                        $message->from('viaticos@dvc.com', $pendiente->fullName);
                         $message->to($pendiente->email, $pendiente->fullName);
                         $message->subject('¡Tiene rendiciones de cuentas pendientes!');
                     });
