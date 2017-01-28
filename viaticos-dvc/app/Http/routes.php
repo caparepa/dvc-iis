@@ -82,7 +82,7 @@ Route::group(['namespace' => 'Viaticos', 'prefix' => 'viaticos', 'middleware' =>
   /**
    * Rendiciones
    */
-  Route::get('rendiciones/mis-rendiciones', ['uses' => 'RendicionCuentasController@getRendicionesPendientesUsuario']);
+  Route::get('rendiciones/mis-rendiciones', ['uses' => 'RendicionCuentasController@getRendicionesUsuario']);
 
   Route::controller('rendiciones', 'RendicionCuentasController');
 
