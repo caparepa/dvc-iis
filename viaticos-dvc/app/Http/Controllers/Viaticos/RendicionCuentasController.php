@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Viaticos;
 
-use App\Models\RendicionCuenta;
-use App\Models\Gasto;
-use App\Models\Usuario;
-use App\Models\Solicitud;
-
 use Illuminate\Http\Request;
+
+use App\Models\Gasto;
+use App\Models\RendicionCuenta;
+use App\Models\Solicitud;
+use App\Models\Usuario;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class RendicionCuentasController extends Controller
+class RendicionCuentasController extends ViaticosController
 {
 
     /**
@@ -34,7 +35,7 @@ class RendicionCuentasController extends Controller
      */
     public function getIndex()
     {
-        $rendiciones = RendicionCuenta::get();
+        $rendiciones = RendicionCuenta::with(['solicitud', 'solicitante'])->get();
         
         $user = Auth::user();
         $revisor = in_array($user->rol, [Usuario::ROL_DIRECCION, Usuario::ROL_ADMINISTRACION]) ? true : false;
@@ -52,7 +53,7 @@ class RendicionCuentasController extends Controller
     {
         
         $user = Auth::user();
-        $rendiciones = RendicionCuenta::where('id_usuario', $user->id)->get();
+        $rendiciones = RendicionCuenta::with('solicitudes')->where('id_usuario', $user->id)->get();
         $revisor = in_array($user->rol, [Usuario::ROL_DIRECCION, Usuario::ROL_ADMINISTRACION]) ? true : false;
         
         return view('viaticos.rendiciones.index', ['rendiciones' => $rendiciones, 'type' => 'index_user']);

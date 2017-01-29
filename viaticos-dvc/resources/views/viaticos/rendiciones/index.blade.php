@@ -66,23 +66,24 @@
       <table id="tabla-rendiciones" class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th>Asunto</th>
+            <th>Solicitud</th>
             <th>Solicitante</th>
             <th>Fecha de Vi&aacute;tico</th>
-            <th>Fecha de Creaci&oacute;n</th>
-            <th>Status de rendicion</th>
+            <th>Status de Rendición</th>
+            <th>Revisado por</th>
+            <th>Fecha de revisi&oacute;n</th>
             <th>Acciones</th>
-            
           </tr>
         </thead>
         <tbody>
           @foreach($rendiciones as $rendicion)
           <tr>
-            <td><a href="{{url('viaticos/rendiciones/view/'.$rendicion->id)}}">{{$rendicion->asunto}}</a></td>
-            <td><a href="{{url('viaticos/usuarios/view/'.$rendicion->usuario->id)}}">{{$rendicion->usuario->fullName}}</a></td>
-            <td>{{$rendicion->fechaViatico}}</td>
-            <td>{{$rendicion->fechaCreacion}}</td>
-            <td>{{$rendicion->statusSolicitud}}</td>
+            <td><a href="{{url('viaticos/solicitudes/view/').$rendicion->id_solicitud}} ">{{$rendicion->id_solicitud}}</a></td>
+            <td><a href="{{url('viaticos/usuarios/view/'.$rendicion->solicitante->id)}}">{{$rendicion->solicitante->fullName}}</a></td>
+            <td>{{$rendicion->solicitud->fechaViatico}}</td>
+            <td>{{$rendicion->statusRendicion}}</td>
+            <td>{{$rendicion->revisor->fullName}}</td>
+            <td>{{$rendicion->fechaRevision}}</td>
             <td>
               <a href="{{ url('viaticos/rendiciones/view/'.$rendicion->id) }}" class="btn btn-flat btn-sm"
                 title="Ver rendicion {{$rendicion->id}}">
@@ -121,13 +122,14 @@
         </tbody>
         <tfoot>
           <tr>
-            <th>Asunto</th>
+          <tr>
+            <th>Solicitud</th>
             <th>Solicitante</th>
             <th>Fecha de Vi&aacute;tico</th>
-            <th>Fecha de Creaci&oacute;n</th>
-            <th>Status de rendicion</th>
+            <th>Status de Rendición</th>
+            <th>Revisado por</th>
+            <th>Fecha de revisi&oacute;n</th>
             <th>Acciones</th>
-            
           </tr>
         </tfoot>
       </table>

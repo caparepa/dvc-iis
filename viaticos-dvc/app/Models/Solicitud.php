@@ -84,6 +84,12 @@ class Solicitud extends Model
         return $result;
     }
 
+    /**
+     * [getStatusSolicitudAttribute description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-01-29
+     * @return [type]     [description]
+     */
     public function getStatusSolicitudAttribute()
     {
         switch ($this->status) {

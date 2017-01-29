@@ -11,10 +11,13 @@ class RendicionCuenta extends Model
     //
 	use SoftDeletes;
 
-    const STATUS_OPEN = 'abierta';
-    const STATUS_CLOSED = 'cerrada';
+    const STATUS_APPROVED = 'aprobada';
+    const STATUS_DENIED = 'negada';
+    const STATUS_PENDIENTE = 'pendiente';
 
     protected $table = 'rendicion_cuentas';
+
+    protected $appends = ['fechaRevision', 'statusRendicion'];
 
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
@@ -59,5 +62,36 @@ class RendicionCuenta extends Model
     public function solicitante()
     {
     	return $this->belongsTo('App\Models\Usuario', 'id_solicitante');
+    }
+
+    /**
+     * [getFechaRevisionAttribute description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-01-29
+     * @return [type]     [description]
+     */
+    public static function getFechaRevisionAttribute(){
+        $fecha = new \DateTime($this->updated_at);
+        $result = $fecha->format('d-m-Y');
+        return $result;
+    }
+
+    /**
+     * [getStatusRendicionAttribute description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-01-29
+     * @return [type]     [description]
+     */
+    public static function getStatusRendicionAttribute() {
+        switch ($this->status) {
+            case self::STATUS_PENDING:
+                return 'Pendiente de Revisión';
+            case self::STATUS_APPROVED:
+                return 'Aprobada';
+            case self::STATUS_DENIED:
+                return 'Negada';
+            default:
+                return 'N/A';
+        }
     }
 }
