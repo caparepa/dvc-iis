@@ -36,7 +36,7 @@ class SolicitudesController extends ViaticosController
     public function getIndex()
     {
         //
-        $solicitudes = Solicitud::get();
+        $solicitudes = Solicitud::orderBy('updated_at', 'DESC')->get();
         
         $user = Auth::user();
         $revisor = in_array($user->rol, [Usuario::ROL_DIRECCION, Usuario::ROL_ADMINISTRACION]) ? true : false;
@@ -212,7 +212,8 @@ class SolicitudesController extends ViaticosController
      * @param  Request    $request [description]
      * @return [type]              [description]
      */
-    public function getListadoRazonSocial(Request $request){
+    public function getListadoRazonSocial(Request $request)
+    {
         
         $query = $request->term;
         $listado = RazonSocial::getListadoRazonSocialByString($query);
@@ -234,7 +235,8 @@ class SolicitudesController extends ViaticosController
      * @date   2016-11-12
      * @return [type]     [description]
      */
-    public function getValidarRendicionPendiente(){
+    public function getValidarRendicionPendiente()
+    {
 
         $usuario = Auth::user();
         $result = Solicitud::validarRendicionCuentaPendiente($usuario->id);
@@ -256,7 +258,8 @@ class SolicitudesController extends ViaticosController
      * @param  [type]     $status       [description]
      * @return [type]                   [description]
      */
-    public function getCambiarStatusSolicitud($id_solicitud, $status){
+    public function getCambiarStatusSolicitud($id_solicitud, $status)
+    {
 
         $solicitud = Solicitud::find($id_solicitud);
         $solicitud->status = $status;
@@ -272,5 +275,22 @@ class SolicitudesController extends ViaticosController
             return redirect( 'viaticos/solicitudes' )
                 ->with('error', 'Solicitud denegada.');
         }
+    }
+
+    public function getValidarFechaTope(Request $request)
+    {
+
+        $id_usuario = $request->id;
+        $fecha_solicitud = $request->fecha_solicitud;
+        
+        $fecha_tope = Solicitud::validarFechaTopeSolicitudes($id_usuario);
+
+        dd($fecha_tope);
+
+        //WIP! Terminar!!!
+
+        return response()->json([
+            'result' => $result
+        ]);
     }
 }

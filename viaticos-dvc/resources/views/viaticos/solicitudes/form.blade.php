@@ -107,6 +107,14 @@
             validators: {
                 notEmpty: {
                     message: 'Por favor, introduzca una fecha.'
+                },
+                remote: {
+                  url: '/viaticos/solicitudes/validar-fecha-tope/',
+                  data: function(validator) {
+                        return {
+                            id: validator.getFieldElements('id').val()
+                        };
+                    },
                 }
             }
       	},
@@ -162,6 +170,11 @@
       });
 
     });
+
+    $("#fecha_solicitud").on('dp.change', function (e) {
+      e.preventDefault();
+            $("#agendaForm").bootstrapValidator('revalidateField', 'fecha_solicitud');
+        });
 
     $(function() {
 

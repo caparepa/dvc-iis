@@ -162,4 +162,27 @@ class Solicitud extends Model
         return $result;
     }
 
+    /**
+     * Obtiene la fecha de la solicitud más lejana para obntener el tope
+     * Si hoy es lunes y alguien solicita un viatico para el viernes, no se pueden realizar
+     * solicitudes adicionales mas alla de el viernes. Antes si se puede.
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-01-30
+     * @param  [type]     $id_usuario [description]
+     * @return [type]                 [description]
+     */
+    public static function validarFechaTopeSolicitudes($id_usuario)
+    {
+        $now = new \DateTime();
+        $fecha_actual = $now->format('Y-m-d H:i:s');
+        
+        $solicitud = self::where('id_usuario', $id_usuario)
+                            ->where('status', '<>', self::STATUS_DENIED)
+                            ->where('fecha_solicitud', '>', $fecha_actual)
+                            ->orderBy('fecha_solicitud', 'DESC')
+                            ->first();
+        
+        return $solicitud;
+    }
+
 }
