@@ -209,6 +209,8 @@ class Solicitud extends Model
             $yesterday = $clone->format('Y-m-d H:i:s');
 
             //consulto las solicitudes que hayan sido aprobadas, y cuya fecha de solicitud (ejecucion) sea el dia de ayer
+            
+            //opcion 1
             $solicitudes = self::where('status', self::STATUS_APPROVED)
                                     ->whereDate('fecha_solicitud','=', $yesterday)
                                     ->get();
@@ -217,12 +219,19 @@ class Solicitud extends Model
                 $solicitud->status = self::STATUS_ACCOUNT;
             }
 
+            //opcion 2 (probar en dado caso!)
+            //$solicitudes->update(['status', self::STATUS_ACCOUNT]);
+
             if($solicitudes->update()){
                 Log::info("Solicitud::cambiarStatusRendicionesSolicitudes -> Actualizacion de status exitosa.");
-                return true;
             }else{
                 throw new Exception("Solicitud::cambiarStatusRendicionesSolicitudes -> Error al cambiar status",1);
             }
+
+            DB::commit(); //cierro transaccion
+
+            return true; //retorno true de exito
+
             
         } catch (Exception $e) {
             Log::error($e->getMessage());
