@@ -19,14 +19,14 @@ class SendReminderSolicitudesPendientes extends Command
      *
      * @var string
      */
-    protected $signature = 'reminders:send-reminder-solicitudes-pendientes';
+    protected $signature = 'schtask:send-reminder-solicitudes-pendientes';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Envía por mail recordatorios de solicitudes pendientes por cerrar (rendicion de cuentas).';
+    protected $description = 'Envia por mail recordatorios de solicitudes pendientes por cerrar (rendicion de cuentas).';
 
     /**
      * Create a new command instance.

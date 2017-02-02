@@ -163,7 +163,7 @@ class RendicionCuentasController extends ViaticosController
 
         $rendicion = RendicionCuenta::find($id);
 
-
+        
 
     }
 

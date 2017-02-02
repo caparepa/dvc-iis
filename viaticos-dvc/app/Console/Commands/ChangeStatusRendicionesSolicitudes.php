@@ -15,14 +15,14 @@ use App\Models\Usuario;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
-class ChageStatusRendicionesSolicitudes extends Command
+class ChangeStatusRendicionesSolicitudes extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'reminders:change-status-rendiciones-solicitudes';
+    protected $signature = 'schtask:change-status-rendiciones-solicitudes';
 
     /**
      * The console command description.
@@ -50,14 +50,14 @@ class ChageStatusRendicionesSolicitudes extends Command
     {
 
         $now = new DateTime();
-        $now->format('Y-m-d H:i:s');
+        $fecha = $now->format('Y-m-d H:i:s');
 
         //este comando se ejecutará diariamente en la madrugada o pasada la medianoche (definir)
         //al ejecutarse, se cambian status
         if(Solicitud::cambiarStatusRendicionesSolicitudes()){
-            Log::info('Command::ChangeStatusRendicionesSolicitudes -> success. Date: '.$now);
+            Log::info('Command::ChangeStatusRendicionesSolicitudes -> success. Date: '.$fecha);
         }else{
-            Log::error('Command::ChangeStatusRendicionesSolicitudes -> fail. Date: '.$now);
+            Log::error('Command::ChangeStatusRendicionesSolicitudes -> fail. Date: '.$fecha);
         }
         /**
          * NOTA: como el cambio de status se realiza en el modelo, no se utiliza un bloque try-catch en este

@@ -203,26 +203,42 @@ class Solicitud extends Model
 
             DB::beginTransaction();
 
+            $count = 0; //contador de control
+
             $now = new DateTime();
             $clone = clone $now;
             $clone->modify('-1 day');
-            $yesterday = $clone->format('Y-m-d H:i:s');
+            $yesterday = $clone->format('Y-m-d');
+
+            Log::info($yesterday);
+            Log::info(self::STATUS_APPROVED);
 
             //consulto las solicitudes que hayan sido aprobadas, y cuya fecha de solicitud (ejecucion) sea el dia de ayer
             
             //opcion 1
-            $solicitudes = self::where('status', self::STATUS_APPROVED)
-                                    ->whereDate('fecha_solicitud','=', $yesterday)
-                                    ->get();
+            $solicitudes = self::whereRaw('status = \''. self::STATUS_APPROVED.'\'')
+                                ->whereRaw('DATE_FORMAT(fecha_solicitud, %y-%m-%d) = ' - $yesterday)
+                                ->get();
+
+            $q = self::where('status', self::STATUS_APPROVED)
+                                ->whereDate('fecha_solicitud','=', $yesterday)->toSql();
+
+            Log::info($q);
+
+            $total_solicitudes = count($solicitudes);
 
             foreach ($solicitudes as $solicitud) {
                 $solicitud->status = self::STATUS_ACCOUNT;
+                $solicitud->save();
+                $count++;
             }
+
+            Log::info('Total solicitudes: '.$total_solicitudes.' Solicitudes modificadas: '.$count);
 
             //opcion 2 (probar en dado caso!)
             //$solicitudes->update(['status', self::STATUS_ACCOUNT]);
 
-            if($solicitudes->update()){
+            if($total_solicitudes == $count){
                 Log::info("Solicitud::cambiarStatusRendicionesSolicitudes -> Actualizacion de status exitosa.");
             }else{
                 throw new Exception("Solicitud::cambiarStatusRendicionesSolicitudes -> Error al cambiar status",1);
