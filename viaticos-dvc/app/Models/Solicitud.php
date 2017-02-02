@@ -2,6 +2,11 @@
 
 namespace App\Models;
 
+use DB;
+use Log;
+use Exception;
+use DateTime;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -183,6 +188,47 @@ class Solicitud extends Model
                             ->first();
         
         return $solicitud;
+    }
+
+    /**
+     * Cambiar status de solicitudes aprobadas a rendicion de cuentas pendientes
+     * Metodo convocado desde comando ChangeStatusRendicionesSolicitudes
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-02-01
+     * @return [type]     [description]
+     */
+    public static function cambiarStatusRendicionesSolicitudes()
+    {
+        try {
+
+            DB::beginTransaction();
+
+            $now = new DateTime();
+            $clone = clone $now;
+            $clone->modify('-1 day');
+            $yesterday = $clone->format('Y-m-d H:i:s');
+
+            //consulto las solicitudes que hayan sido aprobadas, y cuya fecha de solicitud (ejecucion) sea el dia de ayer
+            $solicitudes = self::where('status', self::STATUS_APPROVED)
+                                    ->whereDate('fecha_solicitud','=', $yesterday)
+                                    ->get();
+
+            foreach ($solicitudes as $solicitud) {
+                $solicitud->status = self::STATUS_ACCOUNT;
+            }
+
+            if($solicitudes->update()){
+                Log::info("Solicitud::cambiarStatusRendicionesSolicitudes -> Actualizacion de status exitosa.");
+                return true;
+            }else{
+                throw new Exception("Solicitud::cambiarStatusRendicionesSolicitudes -> Error al cambiar status",1);
+            }
+            
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            DB::rollback();   
+            return false;
+        }
     }
 
 }
