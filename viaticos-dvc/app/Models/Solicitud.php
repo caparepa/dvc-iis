@@ -6,6 +6,7 @@ use DB;
 use Log;
 use Exception;
 use DateTime;
+use DateTimeZone;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -193,6 +194,7 @@ class Solicitud extends Model
     /**
      * Cambiar status de solicitudes aprobadas a rendicion de cuentas pendientes
      * Metodo convocado desde comando ChangeStatusRendicionesSolicitudes
+     * WIP (ver si se puede optimizar a la hora de guardar la data)
      * @author Christopher Serrano (serrano.cjm@gmail.com)
      * @date   2017-02-01
      * @return [type]     [description]
@@ -205,25 +207,26 @@ class Solicitud extends Model
 
             $count = 0; //contador de control
 
+            //ajusto la fecha
             $now = new DateTime();
+            $now->setTimeZone(new DateTimeZone("America/Caracas"));
             $clone = clone $now;
             $clone->modify('-1 day');
             $yesterday = $clone->format('Y-m-d');
 
-            Log::info($yesterday);
-            Log::info(self::STATUS_APPROVED);
-
-            //consulto las solicitudes que hayan sido aprobadas, y cuya fecha de solicitud (ejecucion) sea el dia de ayer
+            //query de control/debug
+            /*$q = Solicitud::whereRaw('(SELECT CONVERT(VARCHAR(10),[solicitudes].[fecha_solicitud] , 120) AS [YYYY-MM-DD]) = \''.$yesterday.'\'')
+                            ->whereRaw('[solicitudes].[status] = \''.self::STATUS_APPROVED.'\'')
+                            ->toSql();
+            Log::info($q);*/
             
-            //opcion 1
-            $solicitudes = self::whereRaw('status = \''. self::STATUS_APPROVED.'\'')
-                                ->whereRaw('DATE_FORMAT(fecha_solicitud, %y-%m-%d) = ' - $yesterday)
-                                ->get();
-
-            $q = self::where('status', self::STATUS_APPROVED)
-                                ->whereDate('fecha_solicitud','=', $yesterday)->toSql();
-
-            Log::info($q);
+            //consulto las solicitudes que hayan sido aprobadas, y cuya fecha de solicitud (ejecucion) sea el dia de ayer
+            //NOTA: para los RAW del query se utiliza la convencion de sql server [tabla].[atributo]
+            //NOTA: no existe un DATE_FORMAT() en SQLServer, se debe hacer una conversion con un select,
+            //mas info aqui: http://www.sql-server-helper.com/tips/date-formats.aspx
+            $solicitudes = Solicitud::whereRaw('(SELECT CONVERT(VARCHAR(10),[solicitudes].[fecha_solicitud] , 120) AS [YYYY-MM-DD]) = \''.$yesterday.'\'')
+                            ->whereRaw('[solicitudes].[status] = \''.self::STATUS_APPROVED.'\'')
+                            ->get();            
 
             $total_solicitudes = count($solicitudes);
 
@@ -233,7 +236,7 @@ class Solicitud extends Model
                 $count++;
             }
 
-            Log::info('Total solicitudes: '.$total_solicitudes.' Solicitudes modificadas: '.$count);
+            //Log::info('Total solicitudes: '.$total_solicitudes.' Solicitudes modificadas: '.$count);
 
             //opcion 2 (probar en dado caso!)
             //$solicitudes->update(['status', self::STATUS_ACCOUNT]);
