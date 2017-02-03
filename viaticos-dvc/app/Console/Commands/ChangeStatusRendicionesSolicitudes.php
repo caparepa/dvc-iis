@@ -49,20 +49,58 @@ class ChangeStatusRendicionesSolicitudes extends Command
     public function handle()
     {
 
-        $now = new DateTime();
-        $fecha = $now->format('Y-m-d H:i:s');
+        try {
 
-        //este comando se ejecutará diariamente en la madrugada o pasada la medianoche (definir)
-        //al ejecutarse, se cambian status
-        if(Solicitud::cambiarStatusRendicionesSolicitudes()){
-            Log::info('Command::ChangeStatusRendicionesSolicitudes -> success. Date: '.$fecha);
-        }else{
-            Log::error('Command::ChangeStatusRendicionesSolicitudes -> fail. Date: '.$fecha);
+            DB::beginTransaction();
+
+            $count = 0; //contador de control
+
+            //ajusto la fecha
+            $now = new DateTime();
+            $now->setTimeZone(new DateTimeZone("America/Caracas"));
+            $fecha = $now->format('Y-m-d H:i:s');
+
+            $clone = clone $now;
+            $clone->modify('-1 day');
+            $yesterday = $clone->format('Y-m-d');
+
+            //query de control/debug
+            /*$q = Solicitud::whereRaw('(SELECT CONVERT(VARCHAR(10),[solicitudes].[fecha_solicitud] , 120) AS [YYYY-MM-DD]) = \''.$yesterday.'\'')
+                            ->whereRaw('[solicitudes].[status] = \''.self::STATUS_APPROVED.'\'')
+                            ->toSql();
+            Log::info($q);*/
+            
+            //consulto las solicitudes que hayan sido aprobadas, y cuya fecha de solicitud (ejecucion) sea el dia de ayer
+            //NOTA: para los RAW del query se utiliza la convencion de sql server [tabla].[atributo]
+            //NOTA: no existe un DATE_FORMAT() en SQLServer, se debe hacer una conversion con un select,
+            //mas info aqui: http://www.sql-server-helper.com/tips/date-formats.aspx
+            $solicitudes = Solicitud::whereRaw('(SELECT CONVERT(VARCHAR(10),[solicitudes].[fecha_solicitud] , 120) AS [YYYY-MM-DD]) = \''.$yesterday.'\'')
+                            ->whereRaw('[solicitudes].[status] = \''.self::STATUS_APPROVED.'\'')
+                            ->get();            
+
+            $total_solicitudes = count($solicitudes);
+
+            foreach ($solicitudes as $solicitud) {
+                $solicitud->status = self::STATUS_ACCOUNT;
+                $solicitud->save();
+                $count++;
+            }
+
+            if($total_solicitudes == $count){
+                Log::info('Command::ChangeStatusRendicionesSolicitudes -> success. Date: '.$fecha);
+                
+            }else{
+                throw new Exception('Command::ChangeStatusRendicionesSolicitudes -> fail. Date: '.$fecha,1);
+            }
+
+            DB::commit(); //cierro transaccion
+
+            
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            DB::rollback();   
+            
         }
-        /**
-         * NOTA: como el cambio de status se realiza en el modelo, no se utiliza un bloque try-catch en este
-         * comando, para no propagar posibles excepciones
-         */
 
     }
 }
