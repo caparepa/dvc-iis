@@ -16,7 +16,8 @@ class RendicionCuentas extends Migration
             $table->engine = "InnoDB";
             $table->increments('id')
                     ->unsigned();
-            $table->float('monto_total');
+            $table->float('monto_total')
+                    ->nullable();
             $table->string('status');
 
             $table->integer('id_solicitud')

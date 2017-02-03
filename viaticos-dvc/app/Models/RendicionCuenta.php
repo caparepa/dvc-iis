@@ -13,7 +13,8 @@ class RendicionCuenta extends Model
 
     const STATUS_APPROVED = 'aprobada';
     const STATUS_DENIED = 'negada';
-    const STATUS_PENDIENTE = 'pendiente';
+    const STATUS_REVIEW = 'revision'; //pendiente por revisar
+    const STATUS_PENDING = 'pendiente'; //pendiente por crear
 
     protected $table = 'rendicion_cuentas';
 

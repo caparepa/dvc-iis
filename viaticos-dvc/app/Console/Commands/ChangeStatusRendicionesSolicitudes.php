@@ -58,7 +58,7 @@ class ChangeStatusRendicionesSolicitudes extends Command
             //ajusto la fecha
             $now = new DateTime();
             $now->setTimeZone(new DateTimeZone("America/Caracas"));
-            $fecha = $now->format('Y-m-d H:i:s');
+            $fecha = $now->format('Y-m-d H:i:s'); //for logging
 
             $clone = clone $now;
             $clone->modify('-1 day');
@@ -81,8 +81,16 @@ class ChangeStatusRendicionesSolicitudes extends Command
             $total_solicitudes = count($solicitudes);
 
             foreach ($solicitudes as $solicitud) {
+                //cambiar status de solicitud
                 $solicitud->status = self::STATUS_ACCOUNT;
                 $solicitud->save();
+
+                //crear nueva rendicion de cuentas
+                $rendicion = new RendicionCuenta();
+                $rendicion->id_solicitud = $solicitud->id;
+                $rendicion->id_solicitante = $solicitud->id_usuario;
+                $rendicion->save();
+                
                 $count++;
             }
 
