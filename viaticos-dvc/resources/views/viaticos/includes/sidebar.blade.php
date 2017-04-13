@@ -56,9 +56,9 @@
 		  <ul class="treeview-menu">
 			@if(in_array($sessionUser->rol, $array_roles))
 			<li><a href="/viaticos/rendiciones"><i class="fa fa-circle-o"></i>Listado de rendiciones</a></li>
-			<li><a href="/viaticos/rendicioness/mis-rendiciones"><i class="fa fa-circle-o"></i>Mis rendiciones pendientes</a></li>
+			<li><a href="/viaticos/rendiciones/mis-rendiciones"><i class="fa fa-circle-o"></i>Mis rendiciones pendientes</a></li>
 			@else
-			<li><a href="/viaticos/rendicioness/mis-rendiciones"><i class="fa fa-circle-o"></i>Mis rendiciones pendientes</a></li>
+			<li><a href="/viaticos/rendiciones/mis-rendiciones"><i class="fa fa-circle-o"></i>Mis rendiciones pendientes</a></li>
 			@endif
 		  </ul>
 		</li>

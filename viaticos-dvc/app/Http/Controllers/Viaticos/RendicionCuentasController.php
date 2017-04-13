@@ -53,7 +53,7 @@ class RendicionCuentasController extends ViaticosController
     {
         
         $user = Auth::user();
-        $rendiciones = RendicionCuenta::with('solicitudes')->where('id_usuario', $user->id)->get();
+        $rendiciones = RendicionCuenta::with('solicitudes')->where('id_solicitante', $user->id)->get();
         $revisor = in_array($user->rol, [Usuario::ROL_DIRECCION, Usuario::ROL_ADMINISTRACION]) ? true : false;
         
         return view('viaticos.rendiciones.index', ['rendiciones' => $rendiciones, 'type' => 'index_user']);

@@ -79,6 +79,8 @@
   <script src="/bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
   <!-- eonasdan datetime picker-->
   <script src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+  <!-- handlebars -->
+  <script src="/bower_components/handlebars/handlebars.js"></script>
   
   <!-- custom scripts-->
   <script type="text/javascript">

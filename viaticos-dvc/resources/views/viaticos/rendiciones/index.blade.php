@@ -8,7 +8,7 @@
     @if($type == 'index_all')
     Listado de rendiciones
     @else
-    Mis Solicitudes
+    Mis rendiciones
     @endif
     <small></small>
   </h1>
