@@ -5,13 +5,13 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Crear solicitud (usar esta pagina de ejemplo!!!)
-    <small>Layout with collapsed sidebar on load</small>
+    Crear solicitud
+    <small>Crear solicitud</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="#">Layout</a></li>
-    <li class="active">Collapsed Sidebar</li>
+    <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+    <li><a href="#">Solicitudes</a></li>
+    <li class="active">Crear Solicitud</li>
   </ol>
 </section>
 
