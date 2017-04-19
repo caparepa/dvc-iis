@@ -1,7 +1,5 @@
 # dvc-iis
 Proyecto de Sistema de Gestión de Viáticos para DVC (servicio comunitario UCAB) - Desarrollado en Laravel PHP para IIS
-# dvc-iis
-Proyecto de Sistema de Gestión de Viáticos para DVC (servicio comunitario UCAB) - Desarrollado en Laravel PHP para IIS
 
 Configuración SQL Server (no está en orden específico)
 - Al momento de instalar SQL Server, crear una instancia nueva aparte de la existente por defecto
