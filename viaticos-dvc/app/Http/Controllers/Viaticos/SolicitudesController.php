@@ -277,20 +277,67 @@ class SolicitudesController extends ViaticosController
         }
     }
 
+    /**
+     * [getValidarFechaTope description]
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-04-19
+     * @param  Request    $request [description]
+     * @return [type]              [description]
+     */
     public function getValidarFechaTope(Request $request)
     {
 
         $id_usuario = $request->id;
         $fecha_solicitud = $request->fecha_solicitud;
         
-        $fecha_tope = Solicitud::validarFechaTopeSolicitudes($id_usuario);
+        $result = Solicitud::validarFechaTopeSolicitudes($id_usuario);
 
-        dd($fecha_tope);
+        //dd($fecha_tope);
+        //\Log::info($result);
 
         //WIP! Terminar!!!
 
         return response()->json([
-            'result' => $result
+            'valid' => true,
+            'message' => 'message'
         ]);
     }
+
+    
+    /*public function getValidateUniqueEmail(Request $request)
+    {
+        $available = true;
+        $message = 'valido!';
+        $id = $request->id;
+        $email = $request->email;
+
+        $usuario = Usuario::withTrashed()->where('email', $request->email)->first();
+
+        if($usuario && $usuario->deleted_at == null){
+            $available = false;
+            $message = 'Este correo electrónico está actualmente en uso.';
+        }else if($usuario && $usuario->deleted_at != null){
+            $available = false;
+            $message = 'Este correo electrónico no puede ser utilizado.';
+        }
+
+        //Si hay un valor de id, se esta editando el usuario actual
+        if(isset($id) && !empty($id)){
+
+            //Usuario que se está editando actualmente
+            $usuario_edit = Usuario::find($id);
+
+            //Si el correo introducido es igual al actual, se sobreescribe el valor de $available
+            //Se puede utilizar el correo actual en el usuario que se esta editando
+            if($email == $usuario_edit->email){
+                $available = true;
+                $message = 'Correo de usuario a editar.';
+            }
+        }
+
+        return response()->json([
+            'valid' => $available,
+            'message' => $message
+        ]);
+    }*/
 }

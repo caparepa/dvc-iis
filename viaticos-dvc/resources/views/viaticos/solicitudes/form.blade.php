@@ -72,7 +72,10 @@
 <!-- /.box -->
 @section('scripts')
 <script type="text/javascript">
-    $('#form-solicitud').bootstrapValidator({
+
+    $(document).ready(function(){
+
+    var validateOptions = {
       fields: {
         asunto: {
             validators: {
@@ -80,30 +83,30 @@
                     message: 'Por favor, introduzca el motivo de la solicitud.'
                 }
             }
-      	},
-      	area: {
+        },
+        area: {
             validators: {
                 notEmpty: {
                     message: 'Por favor, introduzca la ubicación de la solicitd.'
                 }
             }
-      	},
-      	beneficiario: {
+        },
+        beneficiario: {
             validators: {
                 notEmpty: {
                     message: 'Por favor, introduzca el beneficiario.'
                 }
             }
-      	},
-      	cedula_rif: {
+        },
+        cedula_rif: {
             validators: {
                 regexp: {
-                	regexp: /(^([VvEe][-]\d{3,10})$|^([VvEeJjGg][-]\d{8}[-][0-9])$)/i ,
+                  regexp: /(^([VvEe][-]\d{3,10})$|^([VvEeJjGg][-]\d{8}[-][0-9])$)/i ,
                     message: 'Por favor, introduzca un rif o cédula en formato válido. E.g. J-12345678-9 o V-12345678'
                 }
             }
-      	},
-      	fecha_solicitud: {
+        },
+        fecha_solicitud: {
             validators: {
                 notEmpty: {
                     message: 'Por favor, introduzca una fecha.'
@@ -117,15 +120,15 @@
                     },
                 }
             }
-      	},
-      	descripcion: {
+        },
+        descripcion: {
             validators: {
                 notEmpty: {
                     message: 'Por favor, describa la actividad para la cual se realiza la solicitud.'
                 }
             }
-      	},
-      	monto: {
+        },
+        monto: {
             validators: {
                 notEmpty: {
                     message: 'Por favor, introduzca un monto.'
@@ -135,24 +138,19 @@
                         message: 'Introduzca un monto válido. Ej.: 1299,00'
                     }
             }
-      	},
-      	id_cuenta: {
+        },
+        id_cuenta: {
             validators: {
                 notEmpty: {
                     message: 'Por favor, seleccione un tipo de cuenta.'
                 }
             }
-      	},
-      	id_area: {
-            validators: {
-                notEmpty: {
-                    message: 'Por favor, seleccione el área de solicitud.'
-                }
-            }
-      	},
+        },
       },
 
-    });
+    };
+
+    $('#form-solicitud').bootstrapValidator(validateOptions);
 
     //Init Calendar
     $(function () {
@@ -172,9 +170,13 @@
     });
 
     $("#fecha_solicitud").on('dp.change', function (e) {
-      e.preventDefault();
-            $("#agendaForm").bootstrapValidator('revalidateField', 'fecha_solicitud');
-        });
+        e.preventDefault();
+        $("#form-solicitud").bootstrapValidator('revalidateField', 'fecha_solicitud');
+    });
+
+   
+
+    });
 
     $(function() {
 
