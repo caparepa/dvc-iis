@@ -258,7 +258,7 @@ class SolicitudesController extends ViaticosController
      * @param  [type]     $status       [description]
      * @return [type]                   [description]
      */
-    public function getCambiarStatusSolicitud($id_solicitud, $status)
+    public function getCambiarStatus($id_solicitud, $status)
     {
 
         $solicitud = Solicitud::find($id_solicitud);
@@ -268,10 +268,10 @@ class SolicitudesController extends ViaticosController
             $result = Solicitud::updateHistoricoSolicitudes($id_solicitud, Auth::user()->id, $status);
         }
 
-        if($status == Solicitud::STATUS_APPROVED){
+        if($solicitud->isApproved()){
             return redirect( 'viaticos/solicitudes' )
                 ->with('success', 'Solicitud aprobada.');
-        }else if($status == Solicitud::STATUS_DENIED){
+        }else if($solicitud->isDenied()){
             return redirect( 'viaticos/solicitudes' )
                 ->with('error', 'Solicitud denegada.');
         }

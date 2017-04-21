@@ -100,13 +100,13 @@
               </a>
               @if($type == 'index_all')
                 @if(Auth::user()->isAdministracion() || Auth::user()->isDireccion())
-                <a href="{{ url('viaticos/solicitudes/cambiar-status-solicitud/'.$solicitud->id.'/'.App\Models\Solicitud::STATUS_APPROVED) }}"
+                <a href="{{ url('viaticos/solicitudes/cambiar-status/'.$solicitud->id.'/'.App\Models\Solicitud::STATUS_APPROVED) }}"
                   class="btn btn-flat btn-sm"
                   title="Aceptar solicitud {{$solicitud->id}}"
                   data-confirm="¿Est&aacute; seguro que desea aceptar esta solicitud?">
                   <i class="fa fa-check"></i>
                 </a>
-                  <a href="{{ url('viaticos/solicitudes/cambiar-status-solicitud/'.$solicitud->id.'/'.App\Models\Solicitud::STATUS_DENIED) }}"
+                  <a href="{{ url('viaticos/solicitudes/cambiar-status/'.$solicitud->id.'/'.App\Models\Solicitud::STATUS_DENIED) }}"
                   class="btn btn-flat btn-sm"
                   title="Denegar solicitud {{$solicitud->id}}"
                   data-confirm="¿Est&aacute; seguro que desea denegar esta solicitud?">

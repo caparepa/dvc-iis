@@ -11,6 +11,7 @@ use DateTimeZone;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Models\RendicionCuenta;
 
 class Solicitud extends Model
 {
@@ -118,10 +119,55 @@ class Solicitud extends Model
      * @date   2016-11-12
      * @return [type]     [description]
      */
-    public function getFechaCreacionAttribute(){
+    public function getFechaCreacionAttribute()
+    {
         $fecha = new \DateTime($this->created_at);
         $result = $fecha->format('d-m-Y');
         return $result;
+    }
+
+    /**
+     * Solicitud pendiente
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-04-20
+     * @return boolean    [description]
+     */
+    public function isPending()
+    {
+        return $this->status == self::STATUS_PENDING;
+    }
+
+    /**
+     * solicitud aprobada
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-04-20
+     * @return boolean    [description]
+     */
+    public function isApproved()
+    {
+        return $this->status == self::STATUS_APPROVED;
+    }
+
+    /**
+     * solicitud negada
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-04-20
+     * @return boolean    [description]
+     */
+    public function isDenied()
+    {
+        return $this->status == self::STATUS_DENIED;
+    }
+
+    /**
+     * solicitud en estado "rendicion de cuentas"
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-04-20
+     * @return boolean    [description]
+     */
+    public function isAccount()
+    {
+        return $this->status == self::STATUS_ACCOUNT;
     }
 
     /**
@@ -189,6 +235,24 @@ class Solicitud extends Model
                             ->first();
         
         return $solicitud;
+    }
+
+    /**
+     * Actualiza las solicitudes aprobadas a redicion de cuentas al
+     * @author Christopher Serrano (serrano.cjm@gmail.com)
+     * @date   2017-04-20
+     * @return [type]     [description]
+     */
+    public static function updateStatusSolicitudRendicion()
+    {
+        $now = new \DateTime();
+        $fecha_actual = $now->format('Y-m-d H:i:s');
+
+        $solicitudes = self::where('status', self::STATUS_APPROVED)
+                        ->where('fecha_solicitud', '>', $fecha_actual)
+                        ->get();
+
+        return false;
     }
 
 }
