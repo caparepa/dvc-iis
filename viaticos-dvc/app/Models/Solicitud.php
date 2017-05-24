@@ -11,35 +11,37 @@ use DateTimeZone;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use App\Models\RendicionCuenta;
 
 class Solicitud extends Model
 {
     //
     use SoftDeletes;
 
-	const STATUS_PENDING = 'pendiente'; //solicitud de viatico pendiente por revision
-	const STATUS_APPROVED = 'aprobada'; //solicitud de viatico aprobara
-	const STATUS_DENIED = 'rechazada'; //solicitud de viatico rechazada
+    const STATUS_PENDING = 'pendiente'; //solicitud de viatico pendiente por revision
+    const STATUS_APPROVED = 'aprobada'; //solicitud de viatico aprobara
+    const STATUS_DENIED = 'rechazada'; //solicitud de viatico rechazada
     const STATUS_ACCOUNT = 'rendicion'; //este estado correspondo a una solicitud aprobada con fecha limite pasada
-	
+
+    const REGULAR_REQUEST = 'regular';
+    const ADVANCE_REQUEST = 'anticipo';
+    
     protected $table = 'solicitudes';
 
-    protected $appends = ['fechaViatico', 'fechaCreacion', 'statusSolicitud'];
+    protected $appends = ['fechaViatico', 'fechaCreacion', 'statusSolicitud', 'tipoSolicitud'];
 
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     protected $fillable = [
-    	'asunto',
-    	'area',
-    	'beneficiario',
-    	'cedula_rif',
-    	'fecha_solicitud',
-    	'descripcion',
+        'asunto',
+        'area',
+        'beneficiario',
+        'cedula_rif',
+        'fecha_solicitud',
+        'descripcion',
         'monto',
-    	'status',
-    	'id_usuario',
-    	'id_cuenta'
+        'status',
+        'id_usuario',
+        'id_cuenta'
     ];
 
     public $timestamps = true;
@@ -52,7 +54,7 @@ class Solicitud extends Model
      */
     public function usuario()
     {
-    	return $this->belongsTo('App\Models\Usuario', 'id_usuario');
+        return $this->belongsTo('App\Models\Usuario', 'id_usuario');
     }
 
     /**
@@ -63,8 +65,8 @@ class Solicitud extends Model
      */
     public function historico_solicitudes()
     {
-    	return $this->belongsToMany('App\Models\Usuario', 'historico_solicitudes', 'id_solicitud', 'id_revisor')
-    				->withPivot('fecha', 'status');
+        return $this->belongsToMany('App\Models\Usuario', 'historico_solicitudes', 'id_solicitud', 'id_revisor')
+                    ->withPivot('fecha', 'status');
     }
 
     /**
@@ -75,7 +77,7 @@ class Solicitud extends Model
      */
     public function cuenta()
     {
-    	return $this->belongsTo('App\Models\Cuenta', 'id_cuenta');
+        return $this->belongsTo('App\Models\Cuenta', 'id_cuenta');
     }
 
     /**
@@ -89,6 +91,26 @@ class Solicitud extends Model
         $fecha = new \DateTime($this->fecha_solicitud);
         $result = $fecha->format('d-m-Y');
         return $result;
+    }
+
+    /**
+     * [getTipoSolicitudAttribute description]
+     * @author Christopher Serrano (christopher.serrano@bybeeconcept.com)
+     * @date   2017-05-24
+     * @return [type]     [description]
+     */
+    public function getTipoSolicitudAttribute()
+    {
+        switch ($this->tipo) {
+            case self::REGULAR_REQUEST:
+                return 'Solicitud Regular';
+                break;
+            case self::ADVANCE_REQUEST:
+                return 'Anticipo';
+                break;
+            default:
+                return 'N/A';
+        }
     }
 
     /**
@@ -119,55 +141,10 @@ class Solicitud extends Model
      * @date   2016-11-12
      * @return [type]     [description]
      */
-    public function getFechaCreacionAttribute()
-    {
+    public function getFechaCreacionAttribute(){
         $fecha = new \DateTime($this->created_at);
         $result = $fecha->format('d-m-Y');
         return $result;
-    }
-
-    /**
-     * Solicitud pendiente
-     * @author Christopher Serrano (serrano.cjm@gmail.com)
-     * @date   2017-04-20
-     * @return boolean    [description]
-     */
-    public function isPending()
-    {
-        return $this->status == self::STATUS_PENDING;
-    }
-
-    /**
-     * solicitud aprobada
-     * @author Christopher Serrano (serrano.cjm@gmail.com)
-     * @date   2017-04-20
-     * @return boolean    [description]
-     */
-    public function isApproved()
-    {
-        return $this->status == self::STATUS_APPROVED;
-    }
-
-    /**
-     * solicitud negada
-     * @author Christopher Serrano (serrano.cjm@gmail.com)
-     * @date   2017-04-20
-     * @return boolean    [description]
-     */
-    public function isDenied()
-    {
-        return $this->status == self::STATUS_DENIED;
-    }
-
-    /**
-     * solicitud en estado "rendicion de cuentas"
-     * @author Christopher Serrano (serrano.cjm@gmail.com)
-     * @date   2017-04-20
-     * @return boolean    [description]
-     */
-    public function isAccount()
-    {
-        return $this->status == self::STATUS_ACCOUNT;
     }
 
     /**
@@ -235,24 +212,6 @@ class Solicitud extends Model
                             ->first();
         
         return $solicitud;
-    }
-
-    /**
-     * Actualiza las solicitudes aprobadas a redicion de cuentas al
-     * @author Christopher Serrano (serrano.cjm@gmail.com)
-     * @date   2017-04-20
-     * @return [type]     [description]
-     */
-    public static function updateStatusSolicitudRendicion()
-    {
-        $now = new \DateTime();
-        $fecha_actual = $now->format('Y-m-d H:i:s');
-
-        $solicitudes = self::where('status', self::STATUS_APPROVED)
-                        ->where('fecha_solicitud', '>', $fecha_actual)
-                        ->get();
-
-        return false;
     }
 
 }
